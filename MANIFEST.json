@@ -1,0 +1,21 @@
+{
+  "generated_at": "2026-01-15T11:35:58.619766Z",
+  "profile": "TSPP-TRQP-0.1",
+  "artifacts": {
+    "openapi": "openapi/tspp-trqp-openapi.yaml",
+    "schemas": [
+      "schemas/tspp-trqp-metadata.schema.json",
+      "schemas/tspp-trqp-signed-response.schema.json"
+    ],
+    "harness": "harness/",
+    "docs": [
+      "docs/profile.md",
+      "docs/threat-model.md",
+      "docs/deployment-guidance.md"
+    ],
+    "examples": [
+      "examples/queries.json",
+      "examples/bridge_golden_fixtures.json"
+    ]
+  }
+}
