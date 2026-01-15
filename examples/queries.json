@@ -1,0 +1,34 @@
+{
+  "authorization_valid": {
+    "authority_id": "did:example:authority",
+    "entity_id": "did:example:entity",
+    "action": "https://example.org/vocab/action/issue-vc/v1",
+    "resource": "https://example.org/vocab/resource/driver-license/v1",
+    "context": {
+      "time_requested": "2026-01-15T00:00:00Z"
+    }
+  },
+  "recognition_valid": {
+    "authority_id": "did:example:authority",
+    "entity_id": "did:example:entity",
+    "context": {
+      "time_requested": "2026-01-15T00:00:00Z"
+    }
+  },
+  "authorization_unknown_entity": {
+    "authority_id": "did:example:authority",
+    "entity_id": "did:example:nonexistent",
+    "action": "https://example.org/vocab/action/issue-vc/v1",
+    "resource": "https://example.org/vocab/resource/driver-license/v1"
+  },
+  "authorization_with_unknown_context_key": {
+    "authority_id": "did:example:authority",
+    "entity_id": "did:example:entity",
+    "action": "https://example.org/vocab/action/issue-vc/v1",
+    "resource": "https://example.org/vocab/resource/driver-license/v1",
+    "context": {
+      "time_requested": "2026-01-15T00:00:00Z",
+      "tracking_id": "do-not-allow-this"
+    }
+  }
+}
