@@ -1,0 +1,482 @@
+openapi: 3.1.0
+info:
+  title: TRQP Security & Privacy Profile (TSPP) v0.1 — OpenAPI
+  version: "0.1.0"
+  description: >
+    OpenAPI description for a TRQP deployment conformant with the TRQP Security & Privacy
+    Profile (TSPP) v0.1. This contract focuses on enforceable security/privacy behaviors:
+    authenticated access, scoped tokens, rate limiting, anti-enumeration, freshness semantics,
+    context allowlisting, and optional signed responses (AL2).
+
+    Notes:
+    - mTLS and sender-constrained tokens are operational/authn requirements and may be validated
+      by gateway/runtime controls in addition to what OpenAPI can formally express.
+    - Uniform error surface is modeled as a single generic error schema for "not found" classes.
+
+servers:
+  - url: https://{host}
+    variables:
+      host:
+        default: trqp.example.org
+
+tags:
+  - name: TRQP
+    description: Trust Registry Query Protocol endpoints
+  - name: Metadata
+    description: Registry metadata and profile declarations
+
+security:
+  - bearerAuth: []
+  - dpopAuth: []
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >
+        Bearer token. Profile requirements:
+        - short-lived (recommended max TTL: 15 minutes)
+        - aud-restricted to this registry
+        - scope-limited to trqp.authorization.query and/or trqp.recognition.query
+    dpopAuth:
+      type: apiKey
+      in: header
+      name: DPoP
+      description: >
+        Optional sender-constrained proof header (DPoP). Used with bearer tokens for
+        proof-of-possession style binding. For AL2 bulk clients, sender-constrained tokens are required.
+
+  parameters:
+    RequestId:
+      name: X-Request-ID
+      in: header
+      required: false
+      schema:
+        type: string
+        maxLength: 128
+      description: Correlation ID provided by client; echoed by server where possible.
+    ClientClass:
+      name: X-Client-Class
+      in: header
+      required: false
+      schema:
+        type: string
+        enum: [standard, bulk, privileged]
+      description: >
+        Optional hint for traffic management. Server MUST NOT trust this for authorization;
+        used for observability/rate limiting diagnostics.
+    AcceptSignature:
+      name: Accept-Signature
+      in: header
+      required: false
+      schema:
+        type: string
+        enum: [none, jws]
+        default: none
+      description: >
+        Client preference for signed responses. In AL2, servers SHOULD support JWS signing for
+        high-stakes workflows. If unsupported, server returns unsigned but still MUST provide
+        freshness semantics (time_evaluated, expires_at).
+
+  headers:
+    RateLimit-Limit:
+      schema: { type: integer, minimum: 0 }
+      description: Requests allowed in the current window (profile-recommended header).
+    RateLimit-Remaining:
+      schema: { type: integer, minimum: 0 }
+      description: Requests remaining in the current window.
+    RateLimit-Reset:
+      schema: { type: integer, minimum: 0 }
+      description: Seconds until the rate limit window resets.
+    Retry-After:
+      schema: { type: integer, minimum: 0 }
+      description: Seconds to wait before retrying (returned on 429).
+    Cache-Control:
+      schema: { type: string }
+      description: Explicit caching directives. Clients MUST honor expiry/max-age.
+    X-Response-Signature:
+      schema: { type: string }
+      description: >
+        Optional detached signature indicator. If present, response body may contain signature metadata
+        or the signature may be provided separately. Prefer embedded JWSResponse for AL2.
+
+  schemas:
+    Identifier:
+      type: string
+      minLength: 3
+      maxLength: 2048
+      description: >
+        Globally unique identifier for authorities/entities. Commonly a DID or URL.
+        MUST be stable and verifiable within the ecosystem.
+    NamespacedToken:
+      type: string
+      minLength: 3
+      maxLength: 2048
+      description: >
+        Namespaced, versioned token for action/resource (AL2 requirement).
+        Recommended formats: URI/URN/DID-fragment.
+        Example: "https://example.org/vocab/action/issue-vc/v1"
+    RFC3339DateTime:
+      type: string
+      format: date-time
+      description: RFC 3339 timestamp.
+
+    Context:
+      type: object
+      description: >
+        Context object used to parameterize queries. Profile requirement:
+        - server MUST define an allowlist of accepted keys
+        - unknown keys MUST be rejected or stripped
+        - avoid stable correlators (privacy risk)
+      additionalProperties: false
+      properties:
+        time_requested:
+          $ref: "#/components/schemas/RFC3339DateTime"
+        locator:
+          type: string
+          maxLength: 512
+          description: >
+            OPTIONAL. High correlation risk. If supported, MUST be coarse-grained and
+            MUST NOT contain stable per-person/per-org identifiers unless justified by policy.
+
+    AuthorizationQueryRequest:
+      type: object
+      additionalProperties: false
+      required: [authority_id, entity_id, action, resource]
+      properties:
+        authority_id: { $ref: "#/components/schemas/Identifier" }
+        entity_id: { $ref: "#/components/schemas/Identifier" }
+        action: { $ref: "#/components/schemas/NamespacedToken" }
+        resource: { $ref: "#/components/schemas/NamespacedToken" }
+        context: { $ref: "#/components/schemas/Context" }
+
+    RecognitionQueryRequest:
+      type: object
+      additionalProperties: false
+      required: [authority_id, entity_id]
+      properties:
+        authority_id: { $ref: "#/components/schemas/Identifier" }
+        entity_id: { $ref: "#/components/schemas/Identifier" }
+        action: { $ref: "#/components/schemas/NamespacedToken" }
+        resource: { $ref: "#/components/schemas/NamespacedToken" }
+        context: { $ref: "#/components/schemas/Context" }
+
+    DecisionTriState:
+      type: string
+      enum: [true, false, indeterminate]
+      description: >
+        Client-safe tri-state outcome. Profile requirement:
+        - clients MUST surface indeterminate and MUST NOT coerce it to true.
+
+    Provenance:
+      type: object
+      additionalProperties: false
+      properties:
+        governance_framework_id:
+          type: string
+          maxLength: 2048
+        decision_record_id:
+          type: string
+          maxLength: 2048
+        effective_from:
+          $ref: "#/components/schemas/RFC3339DateTime"
+        effective_to:
+          $ref: "#/components/schemas/RFC3339DateTime"
+
+    ResponseMeta:
+      type: object
+      additionalProperties: false
+      required: [time_evaluated, expires_at]
+      properties:
+        time_evaluated:
+          $ref: "#/components/schemas/RFC3339DateTime"
+        expires_at:
+          $ref: "#/components/schemas/RFC3339DateTime"
+        max_age_seconds:
+          type: integer
+          minimum: 0
+        policy_version:
+          type: string
+          maxLength: 256
+        provenance:
+          $ref: "#/components/schemas/Provenance"
+
+    AuthorizationQueryResponse:
+      type: object
+      additionalProperties: false
+      required: [authorized, meta]
+      properties:
+        authorized: { $ref: "#/components/schemas/DecisionTriState" }
+        meta: { $ref: "#/components/schemas/ResponseMeta" }
+
+    RecognitionQueryResponse:
+      type: object
+      additionalProperties: false
+      required: [recognized, meta]
+      properties:
+        recognized: { $ref: "#/components/schemas/DecisionTriState" }
+        meta: { $ref: "#/components/schemas/ResponseMeta" }
+
+    JWSResponseEnvelope:
+      type: object
+      additionalProperties: false
+      required: [payload, signature]
+      properties:
+        payload:
+          oneOf:
+            - $ref: "#/components/schemas/AuthorizationQueryResponse"
+            - $ref: "#/components/schemas/RecognitionQueryResponse"
+        signature:
+          type: object
+          additionalProperties: false
+          required: [alg, kid, jws, query_hash]
+          properties:
+            alg: { type: string, maxLength: 64 }
+            kid: { type: string, maxLength: 256 }
+            jws: { type: string }
+            query_hash: { type: string, maxLength: 512 }
+
+    ErrorResponse:
+      type: object
+      additionalProperties: false
+      required: [error, message, meta]
+      properties:
+        error:
+          type: string
+          enum: [invalid_request, unauthorized, forbidden, not_available, not_found, rate_limited, server_error]
+        message:
+          type: string
+          maxLength: 512
+        meta:
+          type: object
+          additionalProperties: false
+          required: [time_evaluated]
+          properties:
+            time_evaluated:
+              $ref: "#/components/schemas/RFC3339DateTime"
+            request_id:
+              type: string
+              maxLength: 128
+
+    TRQPMetadata:
+      type: object
+      additionalProperties: false
+      required:
+        - profile
+        - assurance_level
+        - auth
+        - rate_limits
+        - freshness
+        - context_allowlist
+        - signing
+        - recognition_policy
+      properties:
+        profile:
+          type: string
+          const: "TSPP-TRQP-0.1"
+        assurance_level:
+          type: string
+          enum: [AL1, AL2]
+        auth:
+          type: object
+          additionalProperties: false
+          required: [required, methods, max_token_ttl_seconds, required_scopes]
+          properties:
+            required: { type: boolean }
+            methods:
+              type: array
+              items: { type: string, enum: [bearer, mtls, dpop] }
+            max_token_ttl_seconds: { type: integer, minimum: 1 }
+            required_scopes:
+              type: array
+              minItems: 1
+              items: { type: string, enum: [trqp.authorization.query, trqp.recognition.query] }
+        rate_limits:
+          type: object
+          additionalProperties: false
+          required: [per_client_rps, per_ip_rps, burst]
+          properties:
+            per_client_rps: { type: integer, minimum: 1 }
+            per_ip_rps: { type: integer, minimum: 1 }
+            burst: { type: integer, minimum: 0 }
+        freshness:
+          type: object
+          additionalProperties: false
+          required: [max_staleness_seconds, default_expires_seconds]
+          properties:
+            max_staleness_seconds: { type: integer, minimum: 0 }
+            default_expires_seconds: { type: integer, minimum: 1 }
+        context_allowlist:
+          type: array
+          items: { type: string }
+        signing:
+          type: object
+          additionalProperties: false
+          required: [supported, required_for_al2, algorithms, jwks_uri]
+          properties:
+            supported: { type: boolean }
+            required_for_al2: { type: boolean }
+            algorithms:
+              type: array
+              items: { type: string }
+            jwks_uri:
+              type: string
+              format: uri
+        recognition_policy:
+          type: object
+          additionalProperties: false
+          required: [scoped_required, expiry_required, transitive_default, max_chain_depth]
+          properties:
+            scoped_required: { type: boolean }
+            expiry_required: { type: boolean }
+            transitive_default: { type: boolean }
+            max_chain_depth: { type: integer, minimum: 0 }
+
+paths:
+  /.well-known/trqp-metadata:
+    get:
+      tags: [Metadata]
+      summary: Registry metadata (TSPP conformance declaration)
+      operationId: getTRQPMetadata
+      responses:
+        "200":
+          description: Metadata document describing security/privacy posture and constraints.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TRQPMetadata"
+        "429":
+          description: Rate limited
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ErrorResponse" }
+
+  /authorization:
+    post:
+      tags: [TRQP]
+      summary: Authorization query
+      operationId: postAuthorizationQuery
+      parameters:
+        - $ref: "#/components/parameters/RequestId"
+        - $ref: "#/components/parameters/ClientClass"
+        - $ref: "#/components/parameters/AcceptSignature"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthorizationQueryRequest"
+      responses:
+        "200":
+          description: Authorization decision.
+          headers:
+            Cache-Control:
+              $ref: "#/components/headers/Cache-Control"
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: "#/components/schemas/AuthorizationQueryResponse"
+                  - $ref: "#/components/schemas/JWSResponseEnvelope"
+        "400":
+          description: Invalid request (schema/context allowlist failures).
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ErrorResponse" }
+        "401":
+          description: Missing/invalid authentication.
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ErrorResponse" }
+        "403":
+          description: Authenticated but not permitted (scope/quota policy).
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ErrorResponse" }
+        "404":
+          description: Uniform not_found (anti-enumeration).
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ErrorResponse" }
+        "429":
+          description: Rate limited.
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ErrorResponse" }
+        "503":
+          description: Service unavailable (clients MUST treat as indeterminate).
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ErrorResponse" }
+
+  /recognition:
+    post:
+      tags: [TRQP]
+      summary: Recognition query
+      operationId: postRecognitionQuery
+      parameters:
+        - $ref: "#/components/parameters/RequestId"
+        - $ref: "#/components/parameters/ClientClass"
+        - $ref: "#/components/parameters/AcceptSignature"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RecognitionQueryRequest"
+      responses:
+        "200":
+          description: Recognition decision.
+          headers:
+            Cache-Control:
+              $ref: "#/components/headers/Cache-Control"
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: "#/components/schemas/RecognitionQueryResponse"
+                  - $ref: "#/components/schemas/JWSResponseEnvelope"
+        "400":
+          description: Invalid request.
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ErrorResponse" }
+        "401":
+          description: Missing/invalid authentication.
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ErrorResponse" }
+        "403":
+          description: Authenticated but not permitted.
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ErrorResponse" }
+        "404":
+          description: Uniform not_found (anti-enumeration).
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ErrorResponse" }
+        "429":
+          description: Rate limited.
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ErrorResponse" }
+        "503":
+          description: Service unavailable (clients MUST treat as indeterminate).
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ErrorResponse" }
+
+x-tsp-profile:
+  name: "TSPP-TRQP-0.1"
+  assurance_levels:
+    AL1:
+      notes:
+        - "TLS 1.2+ required; authenticated access recommended; rate limiting and context allowlist required."
+        - "Freshness semantics mandatory: time_evaluated, expires_at."
+    AL2:
+      notes:
+        - "Authenticated access required; sender-constrained tokens required for bulk clients."
+        - "Signed responses expected by ecosystem policy; endpoint pinning + change transparency expected."
