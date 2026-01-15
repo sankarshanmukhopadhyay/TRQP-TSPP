@@ -1,0 +1,10 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tspp-trqp-harness"
+version = "0.1.0"
+description = "Conformance harness for TRQP Security & Privacy Profile (TSPP) v0.1"
+requires-python = ">=3.9"
+dependencies = ["requests", "pytest", "jsonschema", "python-dateutil", "jwcrypto"]
