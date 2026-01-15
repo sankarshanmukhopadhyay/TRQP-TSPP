@@ -1,0 +1,25 @@
+{
+  "description": "Golden fixtures to validate bridge semantic equivalence between system-of-record and TRQP outcomes.",
+  "cases": [
+    {
+      "id": "case-001",
+      "system_of_record_truth": {
+        "authorized": true,
+        "authority": "did:example:authority",
+        "entity": "did:example:entity",
+        "action": "https://example.org/vocab/action/issue-vc/v1",
+        "resource": "https://example.org/vocab/resource/driver-license/v1"
+      },
+      "trqp_query": {
+        "authority_id": "did:example:authority",
+        "entity_id": "did:example:entity",
+        "action": "https://example.org/vocab/action/issue-vc/v1",
+        "resource": "https://example.org/vocab/resource/driver-license/v1",
+        "context": {
+          "time_requested": "2026-01-15T00:00:00Z"
+        }
+      },
+      "expected_trqp_outcome": "true"
+    }
+  ]
+}
