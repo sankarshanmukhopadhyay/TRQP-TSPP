@@ -1,8 +1,13 @@
 import pytest
 
+from tspp_trqp_harness.client import parse_ratelimit_headers
+from tspp_trqp_harness.reporting import requirements
+
+
+@requirements("TSPP-RL-01")
 def test_ratelimit_headers_present_on_429(_client, _load_queries):
-    c = _client()
-    q = _load_queries()["authorization_valid"]
+    c = _client
+    q = _load_queries["authorization_valid"]
 
     # Try a small burst. Not all environments will trigger 429; treat as informational.
     last = None
@@ -14,4 +19,4 @@ def test_ratelimit_headers_present_on_429(_client, _load_queries):
             assert hdrs, "429 without any rate limit headers"
             return
 
-    pytest.skip("Did not hit 429; cannot assert rate limit headers in this environment.")
+    pytest.skip("Did not hit 429; cannot assert rate limit headers")

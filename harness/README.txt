@@ -40,3 +40,12 @@ Notes
 -----
 - Some controls (mTLS, true timing equalization) cannot be perfectly proven from client-side tests.
   The harness treats them as "evidence required" controls, with optional operator-provided attestations.
+
+
+REPORTING
+---------
+Set TSPP_REPORT_PATH to write a JSON conformance report (CI-friendly):
+  export TSPP_REPORT_PATH=./tspp_conformance_report.json
+
+The report includes per-test outcomes and mapped TSPP requirement IDs.
+Schema: schemas/tspp-conformance-report.schema.json

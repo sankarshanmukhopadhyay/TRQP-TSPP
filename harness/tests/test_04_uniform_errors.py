@@ -1,9 +1,13 @@
-import pytest
 import time
+import pytest
 
+from tspp_trqp_harness.reporting import requirements
+
+
+@requirements("TSPP-ERR-01", "TSPP-ENUM-01")
 def test_uniform_not_found_surface(_client, _load_queries):
-    c = _client()
-    q = _load_queries()["authorization_unknown_entity"]
+    c = _client
+    q = _load_queries["authorization_unknown_entity"]
 
     # Run a few times to observe status/body shape
     samples = []
@@ -17,12 +21,12 @@ def test_uniform_not_found_surface(_client, _load_queries):
             j = {"_nonjson": r.text[:200]}
         samples.append((r.status_code, set(j.keys()) if isinstance(j, dict) else None, round(dt, 3)))
 
-    # Acceptable statuses include 404 (preferred), 200 (if registry returns explicit false/indeterminate),
-    # or 400 (if request invalid). Any of these can be policy choices; the goal is to avoid detailed leakage.
-    for code, keys, dt in samples:
-        assert code in (200, 400, 404, 401, 403, 429, 503), f"unexpected status {code}"
+    # Acceptable statuses include 404 (preferred), 401/403 (if auth), or 200 with deny=false depending on impl.
+    assert all(s[0] in (200, 401, 403, 404, 429, 503) for s in samples), f"unexpected status in samples: {samples}"
 
-    # Heuristic check: if 404 used, body should be uniform ErrorResponse-like (error/message/meta)
-    for code, keys, _ in samples:
-        if code == 404 and keys:
-            assert {"error", "message", "meta"}.issubset(keys), f"404 body missing expected keys: {keys}"
+    # If JSON is returned, it should be shape-consistent across runs (helps reduce enumeration side channels)
+    json_shapes = [s[1] for s in samples if s[1] is not None]
+    if len(json_shapes) >= 2:
+        assert len(set(map(lambda x: tuple(sorted(x)) if x else tuple(), json_shapes))) == 1, f"inconsistent error JSON shapes: {samples}"
+
+    # Timing equalization can't be strictly asserted here; we record samples for operator review.

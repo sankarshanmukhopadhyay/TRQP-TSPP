@@ -73,3 +73,18 @@ pytest -q
 ## License
 
 Apache 2.0 (see `LICENSE`).
+
+## Conformance report output
+
+The harness can emit a machine-readable conformance report artifact (JSON) suitable for CI pipelines.
+
+```bash
+cd harness
+export TRQP_BASE_URL="https://example.org"
+export TSPP_EXPECT_AL="AL1"   # or AL2
+export TSPP_REPORT_PATH="./tspp_conformance_report.json"
+pytest -q
+```
+
+Report schema: `harness/schemas/tspp-conformance-report.schema.json`.
+

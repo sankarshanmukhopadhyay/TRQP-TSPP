@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/tspp-conformance-report.schema.json",
+  "title": "TSPP Conformance Report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "profile",
+    "generated_at",
+    "target",
+    "summary",
+    "results"
+  ],
+  "properties": {
+    "profile": {
+      "type": "string"
+    },
+    "generated_at": {
+      "type": "string"
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "base_url": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "expected_assurance_level": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "exit_status",
+        "passed",
+        "failed",
+        "skipped"
+      ],
+      "properties": {
+        "exit_status": {
+          "type": "integer"
+        },
+        "passed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "failed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "skipped": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "nodeid",
+          "name",
+          "outcome",
+          "duration_seconds",
+          "requirement_ids"
+        ],
+        "properties": {
+          "nodeid": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "outcome": {
+            "type": "string"
+          },
+          "duration_seconds": {
+            "type": "number",
+            "minimum": 0
+          },
+          "requirement_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
