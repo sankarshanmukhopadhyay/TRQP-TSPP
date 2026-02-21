@@ -45,7 +45,7 @@ def test_al2_signed_response_verifies_with_jwks(_client, _load_queries):
 
     body = r.json()
     payload, sig = _unwrap_if_signed(body)
-    assert sig, "Expected signature in AL2 response"
+    assert isinstance(sig, dict) and sig.get("jws"), "Expected signature block with jws in AL2 response"
 
     # Fetch JWKS and verify JWS
     m = c.get_metadata()
@@ -67,7 +67,7 @@ def test_al2_signed_response_verifies_with_jwks(_client, _load_queries):
     assert keys, "JWKS has no keys"
 
     verifier = jws.JWS()
-    verifier.deserialize(sig)
+    verifier.deserialize(sig["jws"])
 
     verified = False
     for k in keys:
