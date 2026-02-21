@@ -97,3 +97,11 @@ pytest -q
 
 Report schema: `harness/schemas/tspp-conformance-report.schema.json`.
 
+
+
+## Repo hygiene and assurance artifacts
+
+- Schema checks: `python scripts/schema_check.py`
+- Preflight (optional): `python scripts/preflight.py --base-url https://your-sut/ --endpoint /.well-known/jwks.json`
+- Traceability template: `docs/traceability.md`
+- Evidence bundle guidance: `docs/evidence_bundles.md`
