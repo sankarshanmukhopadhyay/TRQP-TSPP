@@ -1,25 +1,92 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://example.org/schemas/tspp-conformance-report.schema.json",
-  "title": "TSPP Conformance Report",
-  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "additionalProperties": false,
-  "required": [
-    "profile",
-    "generated_at",
-    "target",
-    "summary",
-    "results"
-  ],
   "properties": {
-    "profile": {
-      "type": "string"
-    },
     "generated_at": {
       "type": "string"
     },
+    "profile": {
+      "type": "string"
+    },
+    "results": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "duration_seconds": {
+            "minimum": 0,
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "nodeid": {
+            "type": "string"
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "outcome": {
+            "$ref": "../../schemas/core/test_outcome.schema.json"
+          },
+          "requirement_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "nodeid",
+          "name",
+          "outcome",
+          "duration_seconds",
+          "requirement_ids"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "summary": {
+      "additionalProperties": false,
+      "properties": {
+        "ERROR": {
+          "type": "integer"
+        },
+        "FAIL": {
+          "type": "integer"
+        },
+        "NOT_APPLICABLE": {
+          "type": "integer"
+        },
+        "PASS": {
+          "type": "integer"
+        },
+        "SKIP": {
+          "type": "integer"
+        },
+        "XFAIL": {
+          "type": "integer"
+        },
+        "exit_status": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "exit_status",
+        "PASS",
+        "FAIL",
+        "SKIP",
+        "NOT_APPLICABLE",
+        "ERROR",
+        "XFAIL"
+      ],
+      "type": "object"
+    },
     "target": {
-      "type": "object",
       "additionalProperties": true,
       "properties": {
         "base_url": {
@@ -34,82 +101,17 @@
             "null"
           ]
         }
-      }
-    },
-    "summary": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "exit_status",
-        "passed",
-        "failed",
-        "skipped"
-      ],
-      "properties": {
-        "exit_status": {
-          "type": "integer"
-        },
-        "passed": {
-          "type": "integer",
-          "minimum": 0
-        },
-        "failed": {
-          "type": "integer",
-          "minimum": 0
-        },
-        "skipped": {
-          "type": "integer",
-          "minimum": 0
-        }
-      }
-    },
-    "results": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "nodeid",
-          "name",
-          "outcome",
-          "duration_seconds",
-          "requirement_ids"
-        ],
-        "properties": {
-          "nodeid": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "outcome": {
-            "type": "string",
-            "enum": [
-              "passed",
-              "failed",
-              "skipped",
-              "xfailed",
-              "error"
-            ]
-          },
-          "duration_seconds": {
-            "type": "number",
-            "minimum": 0
-          },
-          "requirement_ids": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "notes": {
-            "type": [
-              "string",
-              "null"
-            ]
-          }
-        }
-      }
+      },
+      "type": "object"
     }
-  }
+  },
+  "required": [
+    "profile",
+    "generated_at",
+    "target",
+    "summary",
+    "results"
+  ],
+  "title": "TSPP Conformance Report",
+  "type": "object"
 }

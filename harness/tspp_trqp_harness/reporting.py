@@ -18,7 +18,7 @@ def requirements(*ids: str):
 class TestResult:
     nodeid: str
     name: str
-    outcome: str  # passed|failed|skipped|error
+    outcome: str  # PASS|FAIL|SKIP|NOT_APPLICABLE|ERROR|XFAIL
     duration_seconds: float
     requirement_ids: List[str]
     notes: Optional[str] = None

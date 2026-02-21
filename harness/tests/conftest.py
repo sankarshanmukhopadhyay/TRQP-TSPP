@@ -11,7 +11,7 @@ from tspp_trqp_harness.reporting import TestResult, utc_now_iso
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 FIXTURES = ROOT / "fixtures"
-SCHEMAS = ROOT / "schemas"
+SCHEMAS = ROOT.parent / "schemas" / "core"
 
 
 # -------------------------
@@ -75,9 +75,24 @@ def pytest_runtest_logreport(report):
     nodeid = report.nodeid
     reqs = cfg._tspp_req_map.get(nodeid, [])
 
-    outcome = report.outcome  # passed|failed|skipped
+    outcome_raw = report.outcome  # passed|failed|skipped
     if report.outcome == "failed" and getattr(report, "wasxfail", False):
-        outcome = "xfailed"
+        outcome_raw = "xfailed"
+
+    # Normalize outcomes to a shared TRQP taxonomy
+    if outcome_raw == "passed":
+        outcome = "PASS"
+    elif outcome_raw == "failed":
+        outcome = "FAIL"
+    elif outcome_raw == "xfailed":
+        outcome = "XFAIL"
+    elif outcome_raw == "skipped":
+        # Treat explicit 'not applicable' skips as NOT_APPLICABLE
+        lr = str(report.longrepr) if report.longrepr else ""
+        outcome = "NOT_APPLICABLE" if "not applicable" in lr.lower() else "SKIP"
+    else:
+        outcome = "ERROR"
+
 
     notes: Optional[str] = None
     if report.longrepr:
@@ -114,9 +129,12 @@ def pytest_sessionfinish(session, exitstatus):
         },
         "summary": {
             "exit_status": exitstatus,
-            "passed": sum(1 for r in cfg._tspp_results if r.outcome == "passed"),
-            "failed": sum(1 for r in cfg._tspp_results if r.outcome == "failed"),
-            "skipped": sum(1 for r in cfg._tspp_results if r.outcome == "skipped"),
+            "PASS": sum(1 for r in cfg._tspp_results if r.outcome == "PASS"),
+            "FAIL": sum(1 for r in cfg._tspp_results if r.outcome == "FAIL"),
+            "SKIP": sum(1 for r in cfg._tspp_results if r.outcome == "SKIP"),
+            "NOT_APPLICABLE": sum(1 for r in cfg._tspp_results if r.outcome == "NOT_APPLICABLE"),
+            "ERROR": sum(1 for r in cfg._tspp_results if r.outcome == "ERROR"),
+            "XFAIL": sum(1 for r in cfg._tspp_results if r.outcome == "XFAIL"),
         },
         "results": [r.to_dict() for r in cfg._tspp_results],
     }
