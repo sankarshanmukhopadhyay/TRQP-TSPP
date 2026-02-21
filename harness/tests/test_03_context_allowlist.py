@@ -19,4 +19,5 @@ def test_unknown_context_key_rejected_or_stripped(_client, _load_queries):
             payload = body.get("payload") if ("payload" in body and "signature" in body) else body
             ctx = payload.get("context") if isinstance(payload, dict) else None
         if isinstance(ctx, dict):
-            assert "unknown_tracking_key" not in ctx, "Server reflected unknown context key"
+            assert "tracking_id" not in ctx, "Server reflected unknown context key (tracking_id)"
+            assert "unknown_tracking_key" not in ctx, "Server reflected unknown context key (unknown_tracking_key)"

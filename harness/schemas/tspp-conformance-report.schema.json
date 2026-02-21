@@ -83,7 +83,14 @@
             "type": "string"
           },
           "outcome": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "passed",
+              "failed",
+              "skipped",
+              "xfailed",
+              "error"
+            ]
           },
           "duration_seconds": {
             "type": "number",

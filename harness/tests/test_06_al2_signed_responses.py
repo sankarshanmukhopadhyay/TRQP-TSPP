@@ -57,7 +57,12 @@ def test_al2_signed_response_verifies_with_jwks(_client, _load_queries):
         pytest.skip("jwks_uri not declared")
 
     import requests
-    jwks = requests.get(jwks_uri, timeout=10).json()
+    try:
+        resp = requests.get(jwks_uri, timeout=10)
+        resp.raise_for_status()
+        jwks = resp.json()
+    except Exception as e:
+        pytest.fail(f"Failed to fetch/parse JWKS from {jwks_uri}: {e}")
     keys = jwks.get("keys", [])
     assert keys, "JWKS has no keys"
 

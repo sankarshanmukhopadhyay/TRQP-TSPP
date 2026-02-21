@@ -155,10 +155,16 @@ components:
     RecognitionQueryRequest:
       type: object
       additionalProperties: false
-      required: [authority_id, entity_id]
+      required: [authority_id, subject_authority_id]
       properties:
         authority_id: { $ref: "#/components/schemas/Identifier" }
-        entity_id: { $ref: "#/components/schemas/Identifier" }
+        subject_authority_id: { $ref: "#/components/schemas/Identifier" }
+        entity_id:
+          allOf:
+            - { $ref: "#/components/schemas/Identifier" }
+          deprecated: true
+          description: >
+            Legacy alias for subject_authority_id. Implementations SHOULD prefer subject_authority_id.
         action: { $ref: "#/components/schemas/NamespacedToken" }
         resource: { $ref: "#/components/schemas/NamespacedToken" }
         context: { $ref: "#/components/schemas/Context" }

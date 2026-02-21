@@ -76,7 +76,7 @@ def pytest_runtest_logreport(report):
     reqs = cfg._tspp_req_map.get(nodeid, [])
 
     outcome = report.outcome  # passed|failed|skipped
-    if getattr(report, "failed", False) and getattr(report, "wasxfail", False):
+    if report.outcome == "failed" and getattr(report, "wasxfail", False):
         outcome = "xfailed"
 
     notes: Optional[str] = None
