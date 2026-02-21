@@ -1,4 +1,4 @@
-# TRQP Security & Privacy Profile (TSPP) v0.2
+# TRQP Security & Privacy Profile (TSPP) v0.1
 
 This document defines a practical security and privacy deployment profile for the Trust Over IP
 Trust Registry Query Protocol (TRQP).
@@ -19,24 +19,9 @@ The dominant risks are not “crypto breaks,” but:
 
 ## Assurance levels
 
-TSPP defines assurance levels as **auditable properties**, not vibes. Each level is a bundle of
-requirements with clear evidence expectations.
-
 - **AL1 (Baseline / Internet-safe):** minimum posture for public internet exposure.
-- **AL2 (High Assurance / Critical infrastructure):** signed responses on demand (when requested) and tightened controls for high-impact authorities.
-- **AL3 (Operational non-repudiation + change transparency):** signed responses are the *default* for machine-consumed outputs, with explicit request/response binding, bounded replay windows, and published change transparency signals.
-- **AL4 (High-risk / regulated operations):** AL3 plus auditable key custody/protection claims and operational monitoring/retention posture suitable for regulated or nationally strategic reliance.
-
-### What becomes stronger at AL3 / AL4
-
-| Area | AL3 (Auditable operations) | AL4 (Regulated-grade posture) |
-|---|---|---|
-| Signing default | MUST sign successful machine-consumed responses by default | MUST sign; plus MUST sign structured errors |
-| Binding | MUST include request binding (`query_hash`) and time semantics (`iat/exp`) | Same as AL3 (non-negotiable) |
-| Replay window | MUST be bounded and declared (`max_ttl_seconds`) | Same as AL3, with stronger evidence retention |
-| Change transparency | MUST publish a change log / published-at semantics | MUST publish + treat drift as an incident class |
-| Key lifecycle | MUST declare rotation/overlap/revocation posture | MUST declare + provide auditable key protection evidence |
-| Monitoring | SHOULD have operational runbooks | MUST declare monitoring + incident contact + retention |
+- **AL2 (High Assurance / Critical infrastructure):** tightened requirements for high-impact authorities
+  and high-volume, high-stakes reliance.
 
 ## Normative requirements (summary)
 

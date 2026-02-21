@@ -1,7 +1,5 @@
 # TRQP Security & Privacy Baseline (TSPP)
 
-TSPP turns TRQP security and privacy guidance into **testable requirements** and evidence-driven assurance levels.
-
 ![License](https://img.shields.io/github/license/sankarshanmukhopadhyay/TRQP-TSPP)
 ![Last Commit](https://img.shields.io/github/last-commit/sankarshanmukhopadhyay/TRQP-TSPP)
 ![Issues](https://img.shields.io/github/issues/sankarshanmukhopadhyay/TRQP-TSPP)
@@ -17,14 +15,6 @@ Looking for the *single front door* across TRQP conformance + security/privacy a
 
 - Hub repo (onboarding, operating model, combined workflows): https://github.com/sankarshanmukhopadhyay/trqp-assurance-hub
 
-
-## Assurance levels
-
-TSPP defines AL1–AL4 as **auditable properties** (not marketing tiers):
-- AL1 baseline internet-safe
-- AL2 high assurance (signed responses on request)
-- AL3 operational non-repudiation + transparency (default signing + binding meta)
-- AL4 regulated-grade posture (key custody evidence + monitoring/retention)
 
 This repository packages a practical, implementer-ready **security and privacy profile** for the Trust Over IP
 **Trust Registry Query Protocol (TRQP)**, along with machine-readable artifacts and a conformance harness.

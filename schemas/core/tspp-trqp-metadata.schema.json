@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/sankarshanmukhopadhyay/TRQP-TSPP/main/schemas/core/tspp-trqp-metadata.schema.json",
+  "$id": "https://example.org/schemas/tspp-trqp-metadata.schema.json",
   "title": "TSPP TRQP Metadata",
   "type": "object",
   "additionalProperties": false,
@@ -17,18 +17,16 @@
   "properties": {
     "profile": {
       "type": "string",
-      "const": "TSPP-TRQP-0.2",
-      "description": "Profile identifier (schema + normative requirements set)."
+      "const": "TSPP-TRQP-0.1",
+      "description": "Profile identifier."
     },
     "assurance_level": {
       "type": "string",
       "enum": [
         "AL1",
-        "AL2",
-        "AL3",
-        "AL4"
+        "AL2"
       ],
-      "description": "Declared assurance level for this TRQP deployment as defined by TSPP (AL1\u2013AL4)."
+      "description": "Declared assurance level for this TRQP deployment."
     },
     "operator": {
       "type": "object",
@@ -285,84 +283,6 @@
               "description": "Subset of allowlisted context keys included in the query_hash."
             }
           }
-        },
-        "default_signed_responses": {
-          "type": "boolean",
-          "description": "If true, the service signs successful machine-consumed responses by default (even when clients do not explicitly request a signature)."
-        },
-        "sign_errors": {
-          "type": "string",
-          "enum": [
-            "MAY",
-            "SHOULD",
-            "MUST"
-          ],
-          "description": "Policy for signing structured error responses (4xx/structured denials)."
-        },
-        "binding": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": [
-            "query_hash_required",
-            "iat_required",
-            "exp_required",
-            "max_ttl_seconds"
-          ],
-          "properties": {
-            "query_hash_required": {
-              "type": "boolean",
-              "description": "Whether signed envelopes MUST include a query_hash that binds the request to the response."
-            },
-            "iat_required": {
-              "type": "boolean",
-              "description": "Whether signed envelopes MUST include an issued-at (iat) timestamp."
-            },
-            "exp_required": {
-              "type": "boolean",
-              "description": "Whether signed envelopes MUST include an expiry (exp) timestamp."
-            },
-            "max_ttl_seconds": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 604800,
-              "description": "Maximum allowed TTL in seconds for signed responses (exp - iat)."
-            }
-          },
-          "description": "Binding and time semantics required in signed envelopes."
-        },
-        "key_lifecycle": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": [
-            "rotation_max_days",
-            "overlap_min_days",
-            "revocation_supported",
-            "revocation_uri"
-          ],
-          "properties": {
-            "rotation_max_days": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 365,
-              "description": "Maximum key rotation interval (days)."
-            },
-            "overlap_min_days": {
-              "type": "integer",
-              "minimum": 0,
-              "maximum": 90,
-              "description": "Minimum overlap window (days) when rotating keys to avoid verification failures."
-            },
-            "revocation_supported": {
-              "type": "boolean",
-              "description": "Whether key revocation is supported and communicated to verifiers."
-            },
-            "revocation_uri": {
-              "type": "string",
-              "format": "uri",
-              "description": "URL describing how verifiers learn about key revocations/withdrawals (could be a feed, transparency log, or policy page)."
-            }
-          },
-          "description": "Key lifecycle controls advertised for auditability."
         }
       }
     },
@@ -391,231 +311,6 @@
           "maximum": 32
         }
       }
-    },
-    "transparency": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "change_log_uri",
-        "published_at"
-      ],
-      "properties": {
-        "change_log_uri": {
-          "type": "string",
-          "format": "uri",
-          "description": "Human- and machine-readable change log for operationally meaningful changes (metadata/JWKS/policy)."
-        },
-        "published_at": {
-          "type": "string",
-          "format": "date-time",
-          "description": "Timestamp when this metadata was last published/updated."
-        }
-      },
-      "description": "Change transparency signals that enable relying parties to detect drift."
-    },
-    "key_protection": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "protection",
-        "evidence_uri"
-      ],
-      "properties": {
-        "protection": {
-          "type": "string",
-          "enum": [
-            "software",
-            "KMS",
-            "HSM"
-          ],
-          "description": "How signing keys are protected at rest and during signing operations."
-        },
-        "evidence_uri": {
-          "type": "string",
-          "format": "uri",
-          "description": "URL to an auditable statement about key custody and protection (policy, audit letter, or attestation evidence)."
-        },
-        "attestation_type": {
-          "type": "string",
-          "enum": [
-            "none",
-            "policy_statement",
-            "third_party_audit",
-            "remote_attestation"
-          ],
-          "description": "Type of evidence available for key protection claims."
-        }
-      },
-      "description": "Key custody and protection posture (AL4 focus)."
-    },
-    "monitoring": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "evidence_retention_days",
-        "incident_contact",
-        "runbook_uri"
-      ],
-      "properties": {
-        "evidence_retention_days": {
-          "type": "integer",
-          "minimum": 1,
-          "maximum": 3650,
-          "description": "Minimum retention period for security-relevant evidence (logs, signature verification telemetry, change events)."
-        },
-        "incident_contact": {
-          "type": "string",
-          "minLength": 3,
-          "maxLength": 256,
-          "description": "Contact for security incidents and operational escalations."
-        },
-        "runbook_uri": {
-          "type": "string",
-          "format": "uri",
-          "description": "URL to an incident response / operational runbook (high-level is acceptable)."
-        }
-      },
-      "description": "Operational monitoring and incident readiness signals (AL4 focus)."
     }
-  },
-  "allOf": [
-    {
-      "if": {
-        "properties": {
-          "assurance_level": {
-            "const": "AL2"
-          }
-        }
-      },
-      "then": {
-        "properties": {
-          "signing": {
-            "required": [
-              "supported",
-              "required_for_al2"
-            ]
-          }
-        },
-        "allOf": [
-          {
-            "properties": {
-              "signing": {
-                "properties": {
-                  "supported": {
-                    "const": true
-                  },
-                  "required_for_al2": {
-                    "const": true
-                  }
-                }
-              }
-            }
-          }
-        ]
-      }
-    },
-    {
-      "if": {
-        "properties": {
-          "assurance_level": {
-            "const": "AL3"
-          }
-        }
-      },
-      "then": {
-        "required": [
-          "transparency"
-        ],
-        "properties": {
-          "signing": {
-            "required": [
-              "supported",
-              "default_signed_responses",
-              "sign_errors",
-              "binding",
-              "key_lifecycle"
-            ],
-            "properties": {
-              "supported": {
-                "const": true
-              },
-              "default_signed_responses": {
-                "const": true
-              },
-              "sign_errors": {
-                "enum": [
-                  "SHOULD",
-                  "MUST"
-                ]
-              },
-              "binding": {
-                "properties": {
-                  "query_hash_required": {
-                    "const": true
-                  },
-                  "iat_required": {
-                    "const": true
-                  },
-                  "exp_required": {
-                    "const": true
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    {
-      "if": {
-        "properties": {
-          "assurance_level": {
-            "const": "AL4"
-          }
-        }
-      },
-      "then": {
-        "required": [
-          "transparency",
-          "key_protection",
-          "monitoring"
-        ],
-        "properties": {
-          "signing": {
-            "required": [
-              "supported",
-              "default_signed_responses",
-              "sign_errors",
-              "binding",
-              "key_lifecycle"
-            ],
-            "properties": {
-              "supported": {
-                "const": true
-              },
-              "default_signed_responses": {
-                "const": true
-              },
-              "sign_errors": {
-                "const": "MUST"
-              },
-              "binding": {
-                "properties": {
-                  "query_hash_required": {
-                    "const": true
-                  },
-                  "iat_required": {
-                    "const": true
-                  },
-                  "exp_required": {
-                    "const": true
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  ]
+  }
 }
