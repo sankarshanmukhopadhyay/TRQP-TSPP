@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://example.org/schemas/tspp-trqp-signed-response.schema.json",
-  "title": "TSPP TRQP Signed Response Envelope (AL2)",
+  "$id": "https://raw.githubusercontent.com/sankarshanmukhopadhyay/TRQP-TSPP/main/schemas/core/tspp-trqp-signed-response.schema.json",
+  "title": "TSPP TRQP Signed Response Envelope (AL2+)",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -22,6 +22,46 @@
     },
     "signature": {
       "$ref": "#/$defs/SignatureBlock"
+    },
+    "meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "query_hash",
+        "iat",
+        "exp"
+      ],
+      "properties": {
+        "query_hash": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 256,
+          "description": "Hash binding of the canonicalized request (and selected context keys) to the signed response."
+        },
+        "iat": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Issued-at time for the signed response envelope."
+        },
+        "exp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Expiry time for the signed response envelope."
+        },
+        "nonce": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 128,
+          "description": "Optional nonce for replay-resistance when supported."
+        },
+        "kid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "description": "Key identifier used for signature verification (if not derivable from the signature object)."
+        }
+      },
+      "description": "Binding and time semantics for signed envelopes."
     }
   },
   "$defs": {

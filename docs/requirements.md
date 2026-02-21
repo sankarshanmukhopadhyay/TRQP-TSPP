@@ -93,3 +93,48 @@ In AL2, servers **MUST** publish a `signing.jwks_uri` in metadata and signatures
 If an operator provides bridge equivalence fixtures, a deployment **SHOULD** satisfy the expected semantic outcomes for those cases.
 
 **Evidence:** Harness runs fixtures provided via `TSPP_BRIDGE_FIXTURES`.
+
+
+## Assurance Level 3 (AL3) — Operational Non-Repudiation & Transparency
+
+### TSPP-AL3-01 — Default signing for machine-consumed responses
+When `assurance_level` is `AL3`, the deployment **MUST** advertise `signing.default_signed_responses=true` in metadata.
+
+**Evidence:** metadata contains `signing.default_signed_responses=true`.
+
+### TSPP-AL3-02 — Request/response binding in signed envelopes
+When `assurance_level` is `AL3`, signed response envelopes **MUST** include `meta.query_hash`, `meta.iat`, and `meta.exp`.
+
+**Evidence:** harness requests a signed response and validates `meta` fields.
+
+### TSPP-AL3-03 — Bounded replay window declared
+When `assurance_level` is `AL3`, the deployment **MUST** advertise `signing.binding.max_ttl_seconds` and it **MUST** be <= 7 days.
+
+**Evidence:** metadata contains `signing.binding.max_ttl_seconds` within bounds.
+
+### TSPP-AL3-04 — Change transparency signals
+When `assurance_level` is `AL3`, the deployment **MUST** publish `transparency.change_log_uri` and `transparency.published_at`.
+
+**Evidence:** metadata contains `transparency` object; `change_log_uri` fetch returns HTTP 200.
+
+### TSPP-AL3-05 — Key lifecycle posture declared
+When `assurance_level` is `AL3`, the deployment **MUST** advertise `signing.key_lifecycle` including rotation, overlap, and revocation posture.
+
+**Evidence:** metadata contains `signing.key_lifecycle` with required fields.
+
+## Assurance Level 4 (AL4) — Regulated-grade Key Custody & Operational Readiness
+
+### TSPP-AL4-01 — Mandatory signing of structured errors
+When `assurance_level` is `AL4`, the deployment **MUST** advertise `signing.sign_errors="MUST"`.
+
+**Evidence:** metadata contains `signing.sign_errors="MUST"`.
+
+### TSPP-AL4-02 — Auditable key protection posture
+When `assurance_level` is `AL4`, the deployment **MUST** advertise a `key_protection` object including `protection` and an `evidence_uri`.
+
+**Evidence:** metadata contains `key_protection`; `evidence_uri` fetch returns HTTP 200.
+
+### TSPP-AL4-03 — Monitoring and evidence retention posture
+When `assurance_level` is `AL4`, the deployment **MUST** advertise `monitoring` including retention, incident contact, and runbook URI.
+
+**Evidence:** metadata contains `monitoring`; `runbook_uri` fetch returns HTTP 200.
