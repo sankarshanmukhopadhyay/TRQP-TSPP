@@ -9,6 +9,13 @@
 ![Conformance](https://img.shields.io/badge/Conformance-Harness-brightgreen)
 ![Assurance Levels](https://img.shields.io/badge/Assurance-AL1%20%7C%20AL2-purple)
 
+## Start here: TRQP Assurance Hub
+
+Looking for the *single front door* across TRQP conformance + security/privacy assurance?
+
+- Hub repo (onboarding, operating model, combined workflows): https://github.com/sankarshanmukhopadhyay/trqp-assurance-hub
+
+
 This repository packages a practical, implementer-ready **security and privacy profile** for the Trust Over IP
 **Trust Registry Query Protocol (TRQP)**, along with machine-readable artifacts and a conformance harness.
 
