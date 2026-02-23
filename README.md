@@ -112,3 +112,13 @@ Report schema: `harness/schemas/tspp-conformance-report.schema.json`.
 - Preflight (optional): `python scripts/preflight.py --base-url https://your-sut/ --endpoint /.well-known/jwks.json`
 - Traceability template: `docs/traceability.md`
 - Evidence bundle guidance: `docs/evidence_bundles.md`
+
+
+## Certification Baseline Compatibility (CTR-ACB)
+
+TSPP provides **security and privacy posture expectations** that can be used as evidence inputs to the *Candidate Trust Registry Assurance & Certification Baseline (CTR-ACB)* (defined in the TRQP Assurance Hub).
+
+- TSPP describes **what security posture looks like** (profiles, expectations, artifacts).
+- CTR-ACB describes **how that posture becomes certifiable** (controls, evaluation procedure, certification attestation).
+
+See: `docs/ctr-acb-alignment.md`.
