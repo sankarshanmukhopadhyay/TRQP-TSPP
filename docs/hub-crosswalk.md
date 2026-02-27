@@ -38,3 +38,8 @@ This repo focuses on emitting the **posture evidence bundle** and making its evi
 
 - `schemas/evidence/tspp_posture_bundle_descriptor.schema.json`
 - `schemas/evidence/checksums.schema.json`
+
+
+## Assurance Level contract
+
+This repo ships `al-contract.json` which references the canonical AL definitions in the Assurance Hub and includes the canonical doc SHA-256 (61c599c5fa06e0c9110f40ff71c0174db5502105b97f1391dbd9ae8548115f71).

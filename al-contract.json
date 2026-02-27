@@ -1,0 +1,17 @@
+{
+  "contract_version": "0.1.0",
+  "generated_at": "2026-02-27T23:31:23Z",
+  "canonical_source": {
+    "repo": "trqp-assurance-hub",
+    "canonical_doc": "docs/guides/assurance-levels.md",
+    "canonical_doc_sha256": "61c599c5fa06e0c9110f40ff71c0174db5502105b97f1391dbd9ae8548115f71"
+  },
+  "local_usage": {
+    "repo": "TRQP-TSPP",
+    "notes": "TSPP consumes AL semantics from the Assurance Hub and parameterizes requirements/tests by AL."
+  },
+  "pinning": {
+    "recommended": "Pin to a tagged release of trqp-assurance-hub for audit stability.",
+    "current": "UNPINNED (main) \u2014 update on release cut"
+  }
+}

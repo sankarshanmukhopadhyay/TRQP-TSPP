@@ -7,7 +7,7 @@
 ![Trust over IP](https://img.shields.io/badge/Trust%20over%20IP-Alignment-0A66C2)
 ![Security Profile](https://img.shields.io/badge/Security-Profile-critical)
 ![Conformance](https://img.shields.io/badge/Conformance-Harness-brightgreen)
-![Assurance Levels](https://img.shields.io/badge/Assurance-AL1%20%7C%20AL2-purple)
+![Assurance Levels](https://img.shields.io/badge/Assurance-AL1%20%7C%20AL2%20%7C%20AL3%20%7C%20AL4-purple)
 
 ## Start here: TRQP Assurance Hub
 
@@ -23,6 +23,17 @@ This repository packages a practical, implementer-ready **security and privacy p
 
 If TRQP becomes the *query plane* for institutional trust, this repo is the seatbelt kit: it converts high-level
 security considerations into enforceable requirements, and ships tooling to test deployments against them.
+
+## Assurance Level Dependency
+
+This repository **does not define** Assurance Level (AL1–AL4) semantics.
+
+- Canonical definitions live in **TRQP Assurance Hub**: `docs/guides/assurance-levels.md`
+- Machine-readable contract: `al-contract.json`
+
+**Pinning for audit stability:** this repo ships an `al-contract.json` that includes the SHA-256 of the canonical AL definition document (`61c599c5fa06e0c9110f40ff71c0174db5502105b97f1391dbd9ae8548115f71`).
+
+TSPP implements **requirements, tests, and evidence expectations** parameterized by AL. It MUST NOT redefine AL meanings locally.
 
 ## What’s in here
 
@@ -124,3 +135,22 @@ TSPP provides **security and privacy posture expectations** that can be used as 
 - CTR-ACB describes **how that posture becomes certifiable** (controls, evaluation procedure, certification attestation).
 
 See: `docs/ctr-acb-alignment.md`.
+
+
+## Standards Alignment
+
+To reduce adoption friction in mature security programs, TSPP includes an **informative mapping** from TSPP Requirement IDs to common security frameworks:
+
+- OWASP API Security Top 10
+- NIST SP 800-53 / 800-63 / 800-218 (SSDF)
+- ISO/IEC 27001 / 27002 (and 27701 where relevant)
+
+See `docs/standards-alignment.md`.
+
+
+## Control IDs
+
+TSPP requirements are expressed as stable **Control IDs** (e.g., `TSPP-META-01`).
+
+- Normative list: `docs/requirements.md`
+- Machine-readable export: `controls/control-registry.json`
