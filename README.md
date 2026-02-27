@@ -14,6 +14,8 @@
 Looking for the *single front door* across TRQP conformance + security/privacy assurance?
 
 - Hub repo (onboarding, operating model, combined workflows): https://github.com/sankarshanmukhopadhyay/trqp-assurance-hub
+- Hub crosswalk for this repo: `docs/hub-crosswalk.md`
+- Evidence bundles: `docs/evidence_bundles.md`
 
 
 This repository packages a practical, implementer-ready **security and privacy profile** for the Trust Over IP

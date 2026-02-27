@@ -1,58 +1,36 @@
 # Evidence Bundles
 
-Evidence bundles are generated artifacts that make conformance results **auditable** and **replayable**.
+TSPP produces **posture evidence bundles**: portable artifacts that make TSPP results *auditable*, *replayable*, and easy to ingest into the **TRQP Assurance Hub** combined-assurance workflow.
 
-## Design goals
-- **Deterministic**: rerunning the same inputs against the same SUT should produce comparable outputs
-- **Complete**: include enough request/response material to reproduce the decision
-- **Safe**: do not leak secrets (API keys, private keys, access tokens)
+## What the bundle contains
 
-## Recommended contents
-- `run.json`: run metadata (run_id, timestamp, profile, SUT target)
-- `verdicts.json`: per-test outcomes with reasons and assertions
-- `requests/`: normalized requests used
-- `responses/`: normalized responses captured
-- `logs/`: runner logs (optional)
+When you run the harness with `TSPP_REPORT_PATH=...`, the conformance report is generated as JSON.
 
-## AL-aware evidence artifact expectations
+To package a Hub-aligned evidence bundle:
 
-To operationalize audits (and avoid “interpretive dance”), AL3/AL4 are defined as **auditable properties** with a deterministic evidence surface.
+```bash
+python scripts/create_evidence_bundle.py \
+  --report reports/tspp_conformance_AL2.json \
+  --out reports/evidence_AL2
+```
 
-### Canonical artifact kinds
+This produces:
 
-Implementations and tools SHOULD use these `kind` values consistently:
+| Artifact | Path | artifact_kind | Notes |
+|---|---|---|---|
+| Posture report | `tspp_posture_report.json` | `tspp_posture_report` | Normalized TSPP results (stable filename). |
+| Bundle descriptor | `bundle_descriptor.json` | `tspp_posture_evidence_bundle_descriptor` | Machine-readable index (paths + hashes). |
+| Checksums | `checksums.json` | `evidence_bundle_checksums` | SHA-256 checksums for key artifacts. |
+| Bundle zip | `bundle.zip` | `tspp_posture_evidence_bundle_zip` | Convenience packaging of the directory. |
 
-- `signed_response_sample`
-- `jwks_snapshot`
-- `binding_meta_log`
-- `replay_window_test_log`
-- `change_log_snapshot`
-- `key_rotation_evidence`
-- `error_response_sample`
-- `key_custody_evidence`
-- `monitoring_runbook`
-- `retention_policy`
+## Assurance Hub alignment
 
-### Evidence artifact matrix (normative)
+- Hub combined workflow guide: https://github.com/sankarshanmukhopadhyay/trqp-assurance-hub/blob/main/docs/guides/combined-assurance.md
+- Hub evidence artifacts matrix: https://github.com/sankarshanmukhopadhyay/trqp-assurance-hub/blob/main/docs/guides/evidence-artifacts.md
 
-| Artifact kind | What it proves | AL2 | AL3 | AL4 |
-|---|---|---:|---:|---:|
-| `signed_response_sample` | Successful responses are signed and verifiable | REQUIRED | REQUIRED | REQUIRED |
-| `jwks_snapshot` | Signing keys used during the run are discoverable/consistent | REQUIRED | REQUIRED | REQUIRED |
-| `binding_meta_log` | Signed envelope includes binding meta (`query_hash`, `iat`, `exp`) and it is enforced | OPTIONAL | REQUIRED | REQUIRED |
-| `replay_window_test_log` | Replay window / TTL controls are enforced (`max_ttl_seconds`) | OPTIONAL | REQUIRED | REQUIRED |
-| `change_log_snapshot` | Change transparency signals exist and are consumable | OPTIONAL | REQUIRED | REQUIRED |
-| `key_rotation_evidence` | Rotation/overlap posture exists and is evidenced | OPTIONAL | REQUIRED | REQUIRED |
-| `error_response_sample` | Structured errors are signed and deterministic | OPTIONAL | OPTIONAL | REQUIRED |
-| `key_custody_evidence` | Key protection/custody claims are backed by evidence (HSM/KMS/policy attestation) | OPTIONAL | OPTIONAL | REQUIRED |
-| `monitoring_runbook` | Monitoring + incident response posture is documented | OPTIONAL | OPTIONAL | REQUIRED |
-| `retention_policy` | Evidence/log retention is declared for auditability | OPTIONAL | OPTIONAL | REQUIRED |
+TSPP bundles are the primary producer for the Hub row “**TSPP posture evidence bundle**”.
 
-**REQUIRED** means a run claiming that AL MUST include the artifact in its evidence bundle (or a clearly referenced equivalent).  
-**OPTIONAL** means it MAY be included and, when present, SHOULD be machine-checkable.
+## Schema references
 
-
-## Redaction policy
-- Authorization headers and API keys MUST be redacted.
-- Signed responses MAY be stored; private key material MUST NEVER be stored.
-
+- `schemas/evidence/tspp_posture_bundle_descriptor.schema.json`
+- `schemas/evidence/checksums.schema.json`
