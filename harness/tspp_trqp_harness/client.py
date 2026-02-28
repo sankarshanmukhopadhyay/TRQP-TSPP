@@ -1,3 +1,14 @@
+"""TRQP-TSPP harness client.
+
+Purpose:
+- Provide a small client wrapper used by conformance-style tests.
+- Keep request/response handling consistent across AL-specific tests.
+
+Assumptions:
+- AL semantics are defined canonically in TRQP Assurance Hub.
+- Tests in `harness/tests/` bind expectations to AL without redefining AL meaning.
+"""
+
 from __future__ import annotations
 import time
 from dataclasses import dataclass

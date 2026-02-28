@@ -1,4 +1,4 @@
-# TRQP Security & Privacy Profile (TSPP) v0.1
+# TRQP Security & Privacy Profile (TSPP) v0.2.1
 
 This document defines a practical security and privacy deployment profile for the Trust Over IP
 Trust Registry Query Protocol (TRQP).
@@ -19,9 +19,11 @@ The dominant risks are not “crypto breaks,” but:
 
 ## Assurance levels
 
-- **AL1 (Baseline / Internet-safe):** minimum posture for public internet exposure.
-- **AL2 (High Assurance / Critical infrastructure):** tightened requirements for high-impact authorities
-  and high-volume, high-stakes reliance.
+This repository **consumes** Assurance Level (AL1–AL4) semantics from the TRQP Assurance Hub.
+
+- Canonical definitions (normative): `trqp-assurance-hub/docs/guides/assurance-levels.md`
+- This profile binds requirements and test expectations to ALs, but **does not redefine** AL meaning.
+
 
 ## Normative requirements (summary)
 

@@ -21,6 +21,6 @@
       "schemas/tspp-trqp-signed-response.schema.json"
     ]
   },
-  "generated_at": "2026-02-13T00:00:00Z",
-  "profile": "TSPP-TRQP-0.1"
+  "generated_at": "2026-02-27T23:49:33Z",
+  "profile": "TSPP-TRQP-0.2.1"
 }

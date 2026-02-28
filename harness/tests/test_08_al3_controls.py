@@ -1,3 +1,15 @@
+"""TSPP harness test for AL3 expectations.
+
+What this test is proving:
+- Advanced control checks are enforced (hardening beyond AL2) to reduce authority-laundering and endpoint drift risks.
+
+Why it matters:
+- This is a ship-stopping check for deployments claiming AL3 posture.
+
+Evidence:
+- Conformance report sections: control outcomes, configuration evidence, and operator attestations.
+"""
+
 import os
 import pytest
 

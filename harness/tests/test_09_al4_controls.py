@@ -1,3 +1,15 @@
+"""TSPP harness test for AL4 expectations.
+
+What this test is proving:
+- Highest-assurance control checks are enforced, targeting adversarial operation and high-impact ecosystems.
+
+Why it matters:
+- This is a ship-stopping check for deployments claiming AL4 posture.
+
+Evidence:
+- Conformance report sections: control outcomes, independent assessment references, and change transparency evidence.
+"""
+
 import os
 import pytest
 

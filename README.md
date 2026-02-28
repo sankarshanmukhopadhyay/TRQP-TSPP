@@ -1,5 +1,8 @@
 # TRQP Security & Privacy Baseline (TSPP)
 
+**Current version:** v0.2.1
+
+
 ![License](https://img.shields.io/github/license/sankarshanmukhopadhyay/TRQP-TSPP)
 ![Last Commit](https://img.shields.io/github/last-commit/sankarshanmukhopadhyay/TRQP-TSPP)
 ![Issues](https://img.shields.io/github/issues/sankarshanmukhopadhyay/TRQP-TSPP)
@@ -75,7 +78,7 @@ export TSPP_EXPECT_AL="AL1"      # or AL2
 ```
 
 ### 3) Update fixtures
-Edit `harness/fixtures/queries.json` to replace placeholder identifiers (`did:example:*`) and vocab URIs with
+Edit `harness/fixtures/queries.json` to replace example identifiers (`did:example:*`) and vocab URIs with
 values valid in your environment.
 
 ### 4) Run tests

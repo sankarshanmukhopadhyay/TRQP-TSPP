@@ -1,3 +1,15 @@
+"""TSPP harness test for AL2 expectations.
+
+What this test is proving:
+- Responses are signed and verifiable where required, enabling integrity and non-repudiation for high-impact reliance.
+
+Why it matters:
+- This is a ship-stopping check for deployments claiming AL2 posture.
+
+Evidence:
+- Conformance report sections: signatures, verification results, and key material references.
+"""
+
 import os
 import pytest
 from jwcrypto import jwk, jws
