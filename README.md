@@ -1,6 +1,6 @@
 # TRQP Security & Privacy Baseline (TSPP)
 
-**Current version:** v0.2.2
+**Current version:** v0.2.4
 
 
 ![License](https://img.shields.io/github/license/sankarshanmukhopadhyay/TRQP-TSPP)
