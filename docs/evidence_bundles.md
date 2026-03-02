@@ -1,5 +1,8 @@
 # Evidence Bundles
 
+See also: [docs/OUTPUT_CONTRACT.md](OUTPUT_CONTRACT.md) for the stable report artifact produced by the harness.
+
+
 TSPP produces **posture evidence bundles**: portable artifacts that make TSPP results *auditable*, *replayable*, and easy to ingest into the **TRQP Assurance Hub** combined-assurance workflow.
 
 ## What the bundle contains

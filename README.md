@@ -16,6 +16,21 @@
 
 - Read the cross-repo playbook: [docs/PLAYBOOK.md](docs/PLAYBOOK.md)
 
+
+
+## Running the harness (operator contract)
+
+- Output layout contract: [docs/OUTPUT_CONTRACT.md](docs/OUTPUT_CONTRACT.md)
+
+CI uses `pytest` directly, but operators can use the wrapper CLI for a consistent interface:
+
+```bash
+python -m pip install -r harness/requirements.txt
+python -m pip install -e harness
+
+tspp-harness --base-url http://127.0.0.1:8001 --bearer-token dev-token --expected-al AL1 --report-path reports/tspp_conformance_AL1.json
+```
+
 ## Start here: TRQP Assurance Hub
 
 Looking for the *single front door* across TRQP conformance + security/privacy assurance?
