@@ -1,4 +1,8 @@
 from __future__ import annotations
+"""CLI entrypoint for running the TSPP harness.
+
+The CLI primarily sets standard environment variables and dispatches to pytest to keep operator usage consistent."""
+
 
 import argparse
 import os

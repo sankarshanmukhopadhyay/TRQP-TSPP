@@ -87,6 +87,69 @@ In AL2, servers **MUST** publish a `signing.jwks_uri` in metadata and signatures
 
 **Evidence:** Harness fetches JWKS and verifies JWS.
 
+
+## Assurance Level AL3 — Independently Assessable
+
+### TSPP-AL3-01 — Default signing declared
+In AL3, metadata **MUST** declare `signing.default_signed_responses=true`.
+
+**Evidence:** Metadata field present and set to true.
+
+### TSPP-AL3-02 — Signed envelope includes verifiable meta
+In AL3, successful machine-consumed responses **MUST** be signed by default and the signed envelope **MUST** include a `meta` object with:
+- `query_hash`
+- `iat`
+- `exp`
+
+**Evidence:** Harness validates signed envelope shape and schema.
+
+### TSPP-AL3-03 — Independent assessment reference
+In AL3, metadata **MUST** declare `audit.independent_assessment_uri` that resolves to evidence suitable for third-party review.
+
+**Evidence:** Harness fetches the URI and expects HTTP 200.
+
+### TSPP-AL3-04 — Transparency change log
+In AL3, metadata **MUST** declare:
+- `transparency.change_log_uri`
+- `transparency.published_at`
+
+**Evidence:** Harness fetches `change_log_uri` and expects HTTP 200.
+
+### TSPP-AL3-05 — Change control documentation
+In AL3, metadata **MUST** declare `governance.change_control_uri` describing how policy/config changes are reviewed and activated.
+
+**Evidence:** Harness fetches the URI and expects HTTP 200.
+
+## Assurance Level AL4 — Governance + Audit Ready
+
+### TSPP-AL4-01 — Governance policy + rollback declared
+In AL4, metadata **MUST** declare:
+- `governance.policy_uri`
+- `governance.rollback_uri`
+
+**Evidence:** Harness fetches both URIs and expects HTTP 200.
+
+### TSPP-AL4-02 — Key protection declared
+In AL4, metadata **MUST** declare `key_protection.protection` and `key_protection.evidence_uri`.
+
+**Evidence:** Harness fetches `evidence_uri` and expects HTTP 200.
+
+### TSPP-AL4-03 — Monitoring + retention declared
+In AL4, metadata **MUST** declare monitoring evidence retention and operational response references:
+- `monitoring.evidence_retention_days`
+- `monitoring.incident_contact`
+- `monitoring.runbook_uri`
+
+**Evidence:** Harness fetches `runbook_uri` and expects HTTP 200.
+
+### TSPP-AL4-04 — Audit log immutability + retention
+In AL4, metadata **MUST** declare audit log posture:
+- `audit.audit_log_uri`
+- `audit.immutability` in {`append-only`, `immutable`}
+- `audit.retention_days`
+
+**Evidence:** Harness fetches `audit_log_uri` and expects HTTP 200.
+
 ## Bridge Equivalence
 
 ### TSPP-BRIDGE-01 — Semantic equivalence fixtures (optional)
