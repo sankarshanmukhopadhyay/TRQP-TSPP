@@ -1,3 +1,14 @@
+
+
+## v0.2.2
+
+### Added
+- Program playbook (`docs/PLAYBOOK.md`) mirrored from Assurance Hub for cross-repo adoption consistency.
+
+### Changed
+- README and deployment guidance updated to reference the playbook and Hub operator runbook.
+- Version bump for documentation alignment release.
+
 # Changelog
 
 All notable changes to this repository will be documented here.

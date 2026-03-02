@@ -1,6 +1,6 @@
 # TRQP Security & Privacy Baseline (TSPP)
 
-**Current version:** v0.2.1
+**Current version:** v0.2.2
 
 
 ![License](https://img.shields.io/github/license/sankarshanmukhopadhyay/TRQP-TSPP)
@@ -12,11 +12,19 @@
 ![Conformance](https://img.shields.io/badge/Conformance-Harness-brightgreen)
 ![Assurance Levels](https://img.shields.io/badge/Assurance-AL1%20%7C%20AL2%20%7C%20AL3%20%7C%20AL4-purple)
 
+## Program playbook
+
+- Read the cross-repo playbook: [docs/PLAYBOOK.md](docs/PLAYBOOK.md)
+
 ## Start here: TRQP Assurance Hub
 
 Looking for the *single front door* across TRQP conformance + security/privacy assurance?
 
 - Hub repo (onboarding, operating model, combined workflows): https://github.com/sankarshanmukhopadhyay/trqp-assurance-hub
+- Program playbook (non-technical overview): https://github.com/sankarshanmukhopadhyay/trqp-assurance-hub/blob/main/docs/PLAYBOOK.md
+- Operator runbook (combined assurance): https://github.com/sankarshanmukhopadhyay/trqp-assurance-hub/blob/main/docs/OPERATOR_RUNBOOK.md
+
+ned workflows): https://github.com/sankarshanmukhopadhyay/trqp-assurance-hub
 - Hub crosswalk for this repo: `docs/hub-crosswalk.md`
 - Evidence bundles: `docs/evidence_bundles.md`
 

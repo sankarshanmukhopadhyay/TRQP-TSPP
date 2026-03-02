@@ -3,6 +3,8 @@
 This document maps **Assurance Hub** evidence expectations to the concrete artifacts emitted by **TRQP-TSPP**.
 
 - Assurance Hub “front door”: https://github.com/sankarshanmukhopadhyay/trqp-assurance-hub
+- Program playbook: https://github.com/sankarshanmukhopadhyay/trqp-assurance-hub/blob/main/docs/PLAYBOOK.md
+- Operator runbook: https://github.com/sankarshanmukhopadhyay/trqp-assurance-hub/blob/main/docs/OPERATOR_RUNBOOK.md
 - Hub evidence artifacts matrix: https://github.com/sankarshanmukhopadhyay/trqp-assurance-hub/blob/main/docs/guides/evidence-artifacts.md
 
 ## What TSPP emits
