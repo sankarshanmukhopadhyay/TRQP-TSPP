@@ -92,3 +92,8 @@ If your security team asks “what program does this map to?”, point them to:
 
 - `docs/standards-alignment.md` (control-ID mappings to OWASP/NIST/ISO)
 - `docs/standards/README.md` (at-scale distributed service references: Zero Trust, OpenTelemetry, SLSA, container/Kubernetes posture)
+
+---
+
+## Methodology references
+- TRACE ↔ TSAM: `docs/reference/TRACE-TSAM.md`
