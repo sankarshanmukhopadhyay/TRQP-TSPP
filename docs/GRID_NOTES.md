@@ -1,15 +1,17 @@
-# TSPP notes for GRID-style directories
+# GRID interop notes (for TSPP implementers)
 
-TSPP implementers may consume a GRID-style directory to discover registrar services and decide whether to treat a registrar as authoritative.
+This note explains how TSPP operators can consume GRID-style directory data as **trust claims** rather than as an unquestioned database.
 
-## Minimum posture
+## Practical guidance
 
-- Treat the directory as **claims**, not truth.
-- Require the registrar to be `active` in a **signed status feed** before treating it as authoritative.
-- Apply the Assurance Hub mapping:
-  - AL2: informational only
-  - AL3: authoritative allowed
-  - AL4: critical/high-assurance allowed
+- Treat a directory listing as a *claim* bound to an issuer policy.
+- Require a **signed status feed** for operational reliance.
+- Apply AL-based eligibility (e.g., AL3/AL4) according to your risk posture.
+- Prefer verifier-first workflows: validate schema → verify signature → check freshness → apply policy.
 
-See the Assurance Hub for the canonical workflow:
-- `docs/how-to-verify-grid.md`
+## External references
+
+These references are included to demonstrate that TRQP can support different trust registry implementations:
+
+- UN/CEFACT GTR / GRID: https://un.opensource.unicc.org/unece/uncefact/gtr/
+- EBSI Trusted Issuers Registry APIs: https://hub.ebsi.eu/apis/pilot/trusted-issuers-registry

@@ -7,13 +7,10 @@ All notable changes to this repository will be documented here.
 
 ## v0.2.4
 ### Added
-- GRID interop guidance for TSPP implementers (`docs/GRID_NOTES.md`).
-- Updated Assurance Hub crosswalk pointers to include GRID verifier workflow and profile references.
+- GRID interop guidance for TSPP consumers
+- Version-pinned cross-repo reference updates
 
-### Changed
-- Release packaging/version alignment to v0.2.4 (no protocol behavior changes).
-
-## v0.2.2
+## v0.2.1
 ### Added
 - Machine-readable `al-contract.json` to pin Assurance Level semantics to the canonical TRQP Assurance Hub definitions.
 - `controls/control-registry.json` exporting TSPP control/requirement IDs for automation and mapping.
