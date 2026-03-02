@@ -42,3 +42,17 @@ At a minimum, wire up:
 - `TRQP_BASE_URL`
 - `TRQP_BEARER_TOKEN` (if needed)
 - update `harness/fixtures/queries.json` with IDs valid in your environment
+
+
+## At-scale hardening references (informative)
+
+When operating TRQP endpoints as internet-exposed, distributed services, the following operator programs are commonly used in mature environments:
+
+- Zero Trust Architecture: NIST SP 800-207
+- API hardening checklist: OWASP API Security Top 10
+- Telemetry standardization: OpenTelemetry
+- Software supply chain posture: SLSA
+- Container hardening: NIST SP 800-190
+- Kubernetes baseline posture: CIS Kubernetes Benchmark
+
+Short operator notes for each reference live in `docs/standards/README.md`.

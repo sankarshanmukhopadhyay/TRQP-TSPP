@@ -148,7 +148,7 @@ To reduce adoption friction in mature security programs, TSPP includes an **info
 - NIST SP 800-53 / 800-63 / 800-218 (SSDF)
 - ISO/IEC 27001 / 27002 (and 27701 where relevant)
 
-See `docs/standards-alignment.md`.
+See `docs/standards-alignment.md` and the at-scale notes in `docs/standards/README.md`.
 
 
 ## Control IDs

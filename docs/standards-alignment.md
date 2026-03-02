@@ -38,15 +38,19 @@ This document provides an **informative mapping** from **TSPP Requirement IDs (C
 
 ## Recommended at-scale standards (secure distributed services)
 
-The following references are **informative**. They help adopters map TSPP requirements to
+The references below are **informative**. They help adopters map TSPP requirements to
 well-known programs for operating secure, reliable distributed services at scale.
 
-| Theme | Standard / guidance | Why it matters for TRQP operators | Where TSPP hooks in |
-|---|---|---|---|
-| Zero Trust | NIST SP 800-207 | Reduces lateral movement and authority laundering across service tiers | `auth.*`, `recognition_policy.*`, signed responses (AL2+) |
-| API security | OWASP API Security Top 10 | Common failure modes for internet-exposed APIs | `uniform_errors`, `rate_limits`, `auth.*`, schema validation |
-| Service telemetry | OpenTelemetry | Enables audit-grade tracing, incident response, and SLO governance | `monitoring.telemetry_uri` (AL4), operator runbooks |
-| Supply chain | SLSA | Strengthens build provenance for service + artifacts | pinned deps + deterministic outputs; publish provenance in ops docs |
-| Containers | NIST SP 800-190 | Container runtime security expectations for common deployment patterns | `key_protection.*`, `monitoring.*`, ops hardening guidance |
-| Kubernetes posture | CIS Kubernetes Benchmark | Baseline cluster hardening for multi-tenant deployments | referenced in operator guidance; complements TSPP metadata |
+This repo now includes short operator notes for each reference under `docs/standards/`.
+
+### Crosswalk (informative)
+
+| Standard / guidance | Primary themes | Relevant TSPP control IDs | Operator evidence to collect | Notes in this repo |
+|---|---|---|---|---|
+| NIST SP 800-207 (Zero Trust Architecture) | Zero Trust, policy enforcement at request boundaries | `TSPP-CTX-01`, `TSPP-CTX-02`, `TSPP-RL-01`, `TSPP-AL2-01`, `TSPP-AL2-02` | ZTA policy docs; token validation policies; segmentation / gateway rules; change control artifacts | `docs/standards/nist-sp-800-207-zero-trust.md` |
+| OWASP API Security Top 10 | API threat catalog, common failure modes | `TSPP-META-01`, `TSPP-META-02`, `TSPP-ERR-01`, `TSPP-ENUM-01`, `TSPP-RL-01`, `TSPP-AL2-02` | Schema validation tests; uniform error tests; rate-limit config + verification; API threat model | `docs/standards/owasp-api-security-top-10.md` |
+| OpenTelemetry | Traces/metrics/logs, audit-grade observability | `TSPP-AL4-03`, `TSPP-AL4-05` | Telemetry pipeline diagram; retention settings; incident reconstruction example; SLO dashboards | `docs/standards/opentelemetry.md` |
+| SLSA | Build provenance, dependency integrity, release hygiene | `TSPP-META-01`, `TSPP-META-02`, `TSPP-AL4-04` | Provenance/attestations; pinned dependency manifests; release promotion + rollback procedures | `docs/standards/slsa.md` |
+| NIST SP 800-190 (Container security) | Image/registry/runtime hardening | `TSPP-AL4-02`, `TSPP-AL4-03`, `TSPP-AL4-05` | Image scan outputs; runtime hardening snapshots; secrets/key protection evidence; IR runbooks | `docs/standards/nist-sp-800-190-containers.md` |
+| CIS Kubernetes Benchmark | Cluster posture hardening | `TSPP-AL4-02`, `TSPP-AL4-03`, `TSPP-AL4-05` | CIS scan outputs; RBAC review; admission policies; K8s audit retention config | `docs/standards/cis-kubernetes-benchmark.md` |
 

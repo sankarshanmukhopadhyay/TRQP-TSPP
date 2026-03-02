@@ -84,3 +84,11 @@ As of this release line:
 - TSPP: **v0.2.x**
 
 For “known-good” pairings, see `docs/policies/compatibility.md`.
+
+
+## Standards hooks for operating at scale (informative)
+
+If your security team asks “what program does this map to?”, point them to:
+
+- `docs/standards-alignment.md` (control-ID mappings to OWASP/NIST/ISO)
+- `docs/standards/README.md` (at-scale distributed service references: Zero Trust, OpenTelemetry, SLSA, container/Kubernetes posture)
