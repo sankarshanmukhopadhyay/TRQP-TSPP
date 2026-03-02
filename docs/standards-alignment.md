@@ -33,3 +33,20 @@ This document provides an **informative mapping** from **TSPP Requirement IDs (C
 1. Start with `docs/requirements.md` to understand the normative requirement.
 2. Use this mapping to align the requirement to your organization’s security control catalog.
 3. Use `docs/traceability-matrix.md` to link the requirement to tests and evidence artifacts.
+
+---
+
+## Recommended at-scale standards (secure distributed services)
+
+The following references are **informative**. They help adopters map TSPP requirements to
+well-known programs for operating secure, reliable distributed services at scale.
+
+| Theme | Standard / guidance | Why it matters for TRQP operators | Where TSPP hooks in |
+|---|---|---|---|
+| Zero Trust | NIST SP 800-207 | Reduces lateral movement and authority laundering across service tiers | `auth.*`, `recognition_policy.*`, signed responses (AL2+) |
+| API security | OWASP API Security Top 10 | Common failure modes for internet-exposed APIs | `uniform_errors`, `rate_limits`, `auth.*`, schema validation |
+| Service telemetry | OpenTelemetry | Enables audit-grade tracing, incident response, and SLO governance | `monitoring.telemetry_uri` (AL4), operator runbooks |
+| Supply chain | SLSA | Strengthens build provenance for service + artifacts | pinned deps + deterministic outputs; publish provenance in ops docs |
+| Containers | NIST SP 800-190 | Container runtime security expectations for common deployment patterns | `key_protection.*`, `monitoring.*`, ops hardening guidance |
+| Kubernetes posture | CIS Kubernetes Benchmark | Baseline cluster hardening for multi-tenant deployments | referenced in operator guidance; complements TSPP metadata |
+

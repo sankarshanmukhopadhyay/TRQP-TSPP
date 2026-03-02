@@ -1,8 +1,10 @@
+"""JSON/schema validation helpers for the TSPP harness.
+
+These helpers are intentionally small and deterministic so they can be reused in both
+pytest tests and any future CLI/automation surfaces.
+"""
+
 from __future__ import annotations
-"""Schema validation helpers for the TSPP harness.
-
-Used by tests to validate JSON documents against the repo's canonical schemas."""
-
 import json
 from pathlib import Path
 from typing import Any, Dict, Optional, Tuple

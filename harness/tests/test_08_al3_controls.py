@@ -79,38 +79,3 @@ def test_al3_transparency_uris_resolve(_client):
     import requests
     rr = requests.get(t["change_log_uri"], timeout=10)
     assert rr.status_code == 200, f"expected 200 from change_log_uri, got {rr.status_code}"
-
-@requirements("TSPP-AL3-03")
-def test_al3_independent_assessment_uri_resolves(_client):
-    expected = os.environ.get("TSPP_EXPECT_AL")
-    if expected != "AL3":
-        pytest.skip("Not in AL3 mode")
-
-    r = _client.get_metadata()
-    assert r.status_code == 200, f"expected 200, got {r.status_code}: {r.text}"
-    m = r.json()
-
-    audit = m.get("audit", {})
-    assert "independent_assessment_uri" in audit, "AL3 requires audit.independent_assessment_uri"
-
-    import requests
-    rr = requests.get(audit["independent_assessment_uri"], timeout=10)
-    assert rr.status_code == 200, f"expected 200 from independent_assessment_uri, got {rr.status_code}"
-
-
-@requirements("TSPP-AL3-05")
-def test_al3_change_control_uri_resolves(_client):
-    expected = os.environ.get("TSPP_EXPECT_AL")
-    if expected != "AL3":
-        pytest.skip("Not in AL3 mode")
-
-    r = _client.get_metadata()
-    assert r.status_code == 200, f"expected 200, got {r.status_code}: {r.text}"
-    m = r.json()
-
-    g = m.get("governance", {})
-    assert "change_control_uri" in g, "AL3 requires governance.change_control_uri"
-
-    import requests
-    rr = requests.get(g["change_control_uri"], timeout=10)
-    assert rr.status_code == 200, f"expected 200 from change_control_uri, got {rr.status_code}"

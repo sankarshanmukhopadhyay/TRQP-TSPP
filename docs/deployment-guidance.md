@@ -1,7 +1,4 @@
-# Deployment guidance
-
-Before diving into mechanics, read the cross-repo program narrative: [Program playbook](PLAYBOOK.md).
- (TSPP v0.1)
+# Deployment guidance (TSPP v0.1)
 
 This is operator-focused guidance for rolling out TRQP with the TSPP profile.
 

@@ -87,72 +87,33 @@ In AL2, servers **MUST** publish a `signing.jwks_uri` in metadata and signatures
 
 **Evidence:** Harness fetches JWKS and verifies JWS.
 
-
-## Assurance Level AL3 — Independently Assessable
-
-### TSPP-AL3-01 — Default signing declared
-In AL3, metadata **MUST** declare `signing.default_signed_responses=true`.
-
-**Evidence:** Metadata field present and set to true.
-
-### TSPP-AL3-02 — Signed envelope includes verifiable meta
-In AL3, successful machine-consumed responses **MUST** be signed by default and the signed envelope **MUST** include a `meta` object with:
-- `query_hash`
-- `iat`
-- `exp`
-
-**Evidence:** Harness validates signed envelope shape and schema.
-
-### TSPP-AL3-03 — Independent assessment reference
-In AL3, metadata **MUST** declare `audit.independent_assessment_uri` that resolves to evidence suitable for third-party review.
-
-**Evidence:** Harness fetches the URI and expects HTTP 200.
-
-### TSPP-AL3-04 — Transparency change log
-In AL3, metadata **MUST** declare:
-- `transparency.change_log_uri`
-- `transparency.published_at`
-
-**Evidence:** Harness fetches `change_log_uri` and expects HTTP 200.
-
-### TSPP-AL3-05 — Change control documentation
-In AL3, metadata **MUST** declare `governance.change_control_uri` describing how policy/config changes are reviewed and activated.
-
-**Evidence:** Harness fetches the URI and expects HTTP 200.
-
-## Assurance Level AL4 — Governance + Audit Ready
-
-### TSPP-AL4-01 — Governance policy + rollback declared
-In AL4, metadata **MUST** declare:
-- `governance.policy_uri`
-- `governance.rollback_uri`
-
-**Evidence:** Harness fetches both URIs and expects HTTP 200.
-
-### TSPP-AL4-02 — Key protection declared
-In AL4, metadata **MUST** declare `key_protection.protection` and `key_protection.evidence_uri`.
-
-**Evidence:** Harness fetches `evidence_uri` and expects HTTP 200.
-
-### TSPP-AL4-03 — Monitoring + retention declared
-In AL4, metadata **MUST** declare monitoring evidence retention and operational response references:
-- `monitoring.evidence_retention_days`
-- `monitoring.incident_contact`
-- `monitoring.runbook_uri`
-
-**Evidence:** Harness fetches `runbook_uri` and expects HTTP 200.
-
-### TSPP-AL4-04 — Audit log immutability + retention
-In AL4, metadata **MUST** declare audit log posture:
-- `audit.audit_log_uri`
-- `audit.immutability` in {`append-only`, `immutable`}
-- `audit.retention_days`
-
-**Evidence:** Harness fetches `audit_log_uri` and expects HTTP 200.
-
 ## Bridge Equivalence
 
 ### TSPP-BRIDGE-01 — Semantic equivalence fixtures (optional)
 If an operator provides bridge equivalence fixtures, a deployment **SHOULD** satisfy the expected semantic outcomes for those cases.
 
 **Evidence:** Harness runs fixtures provided via `TSPP_BRIDGE_FIXTURES`.
+
+---
+
+## AL3 requirements (governance + audit)
+
+These requirements apply when the deployment declares `assurance_level: "AL3"`.
+They are **parameterized by** the canonical definitions in `../al-contract.json`
+(the Hub is the upstream source of truth).
+
+- **TSPP-AL3-01**: `metadata.signing.default_signed_responses` MUST be `true`.
+- **TSPP-AL3-02**: Signed response envelopes MUST include a `meta` section suitable for audit.
+- **TSPP-AL3-03**: `metadata.audit.independent_assessment_uri` MUST be present and resolvable.
+- **TSPP-AL3-04**: `metadata.governance.change_control_uri` MUST be present and resolvable.
+
+## AL4 requirements (governance + audit + monitoring)
+
+These requirements apply when the deployment declares `assurance_level: "AL4"`.
+
+- **TSPP-AL4-01**: All AL3 requirements MUST hold.
+- **TSPP-AL4-02**: `metadata.key_protection.protection` MUST be declared and `metadata.key_protection.evidence_uri` MUST resolve.
+- **TSPP-AL4-03**: `metadata.monitoring` MUST declare `evidence_retention_days`, `incident_contact`, and a resolvable `runbook_uri`.
+- **TSPP-AL4-04**: `metadata.governance.policy_uri` and `metadata.governance.rollback_uri` MUST resolve.
+- **TSPP-AL4-05**: `metadata.audit` MUST declare `audit_log_uri`, `immutability`, and `retention_days`.
+

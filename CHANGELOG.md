@@ -1,31 +1,9 @@
-
-
-## v0.2.2
-
-### Added
-- Program playbook (`docs/PLAYBOOK.md`) mirrored from Assurance Hub for cross-repo adoption consistency.
-
-### Changed
-- README and deployment guidance updated to reference the playbook and Hub operator runbook.
-- Version bump for documentation alignment release.
-
 # Changelog
 
 All notable changes to this repository will be documented here.
 
 ## Unreleased
 - (nothing yet)
-
-## v0.2.3 (2026-03-02)
-
-### Changed
-- Pinned harness dependencies for deterministic CI runs (`harness/requirements.txt` and `harness/pyproject.toml`).
-- CI now installs pinned FastAPI/Uvicorn deps for the reference SUT (`harness/ci-requirements.txt`).
-- CI uses `tspp-harness` wrapper to ensure report emission is stable and explicit.
-
-### Fixed
-- CI reliability: wait-for-port loop for reference SUT startup; integration matrix no longer fail-fast.
-
 
 ## v0.2.1
 ### Added
