@@ -5,7 +5,7 @@ All notable changes to this repository will be documented here.
 ## Unreleased
 - (nothing yet)
 
-## v0.2.1
+## v0.2.2
 ### Added
 - Machine-readable `al-contract.json` to pin Assurance Level semantics to the canonical TRQP Assurance Hub definitions.
 - `controls/control-registry.json` exporting TSPP control/requirement IDs for automation and mapping.

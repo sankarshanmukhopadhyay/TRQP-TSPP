@@ -43,3 +43,12 @@ This repo focuses on emitting the **posture evidence bundle** and making its evi
 ## Assurance Level contract
 
 This repo ships `al-contract.json` which references the canonical AL definitions in the Assurance Hub and includes the canonical doc SHA-256 (61c599c5fa06e0c9110f40ff71c0174db5502105b97f1391dbd9ae8548115f71).
+
+
+## GRID
+
+The Assurance Hub includes a minimal GRID kernel (registrar listing schema, signed status feed schema, and verifier workflow). TSPP operators consuming registrar directories should follow the verifier-first guidance and apply the assurance mapping.
+
+- Hub profile: `profiles/grid-profile.md`
+- Hub verifier workflow: `docs/how-to-verify-grid.md`
+- Hub mapping: `docs/grid-assurance-mapping.md`
