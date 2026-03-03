@@ -18,4 +18,4 @@ This roadmap tracks high-level increments for TSPP.
 - ✅ Findings addressed: AL contract pinning, template hygiene, and code intent documentation.
 - ✅ Release artifacts: VERSION file, changelog entries, and release template updated.
 
-_Last updated: 2026-02-27_
+_Last updated: 2026-03-03_

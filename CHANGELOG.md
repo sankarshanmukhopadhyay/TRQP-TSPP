@@ -1,6 +1,11 @@
 # Changelog
 
-All notable changes to this repository will be documented here.
+
+## v0.3.0 (2026-03-03)
+
+- Add SAD-1 security and privacy expectations for authoritative directory publication and governance.
+- Add GRID security and privacy expectations aligned to SAD-1 and the Assurance Hub workflow.
+- Update public documentation to position TSPP as a reusable security layer for evaluating authoritative directories.
 
 ## Unreleased
 - (nothing yet)

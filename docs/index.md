@@ -24,3 +24,12 @@ This site publishes the documentation for the **TRQP TSPP** repository via **Git
 ## Repo entry points
 
 - Source repository: see root `README.md`
+
+
+## Authoritative directories (SAD-1 / GRID)
+
+TSPP participates in evaluating authoritative directories by defining security and privacy expectations for directory
+publication, administration, lifecycle integrity, and accountability.
+
+- SAD-1 expectations: [docs/profiles/sad-1.md](profiles/sad-1.md)
+- GRID expectations: [docs/profiles/grid.md](profiles/grid.md)

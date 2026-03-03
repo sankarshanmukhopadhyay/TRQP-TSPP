@@ -3,7 +3,7 @@
 📘 **Documentation site (GitHub Pages):** https://<OWNER>.github.io/TRQP-TSPP/
 
 
-**Current version:** v0.2.4
+**Current version:** v0.3.0
 
 
 ![License](https://img.shields.io/github/license/sankarshanmukhopadhyay/TRQP-TSPP)
@@ -25,6 +25,7 @@ Looking for the *single front door* across TRQP conformance + security/privacy a
 
 
 This repository packages a practical, implementer-ready **security and privacy profile** for the Trust Over IP
+**Trust Registry Query Protocol (TRQP)** and supports evaluating **authoritative digital trust directories** (SAD-1), including sovereign registry patterns.
 **Trust Registry Query Protocol (TRQP)**, along with machine-readable artifacts and a conformance harness.
 
 If TRQP becomes the *query plane* for institutional trust, this repo is the seatbelt kit: it converts high-level
