@@ -67,3 +67,7 @@ This repository **consumes** Assurance Level (AL1–AL4) semantics from the TRQP
 - The **conformance harness** in `harness/` runs tests against a live TRQP deployment.
 
 See `docs/threat-model.md` for deeper adversarial framing and `docs/deployment-guidance.md` for practical rollout.
+
+## Experimental profiles
+
+- **DeDi**: `docs/profiles/dedi-experimental.md` (experimental posture mapping for decentralized directories; snapshot 2026-03-03)

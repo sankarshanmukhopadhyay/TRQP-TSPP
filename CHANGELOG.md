@@ -1,7 +1,14 @@
 # Changelog
 
 
-## v0.3.0 (2026-03-03)
+## v0.4.0 (2026-03-03)
+
+- Add **DeDi experimental** posture profile for decentralized directory operators.
+- Documentation updates linking Hub profile mapping and CTS schema validation.
+- Repo hygiene: remove stray OS and bytecode artifacts.
+
+
+## v0.4.0 (2026-03-03)
 
 - Add SAD-1 security and privacy expectations for authoritative directory publication and governance.
 - Add GRID security and privacy expectations aligned to SAD-1 and the Assurance Hub workflow.

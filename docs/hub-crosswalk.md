@@ -48,7 +48,7 @@ This repo ships `al-contract.json` which references the canonical AL definitions
 
 - TRQP Assurance Hub: v0.6.0
 - TRQP Conformance Suite: v0.5.0
-- TRQP TSPP: v0.3.0
+- TRQP TSPP: v0.4.0
 
 ## UNTP DIA alignment
 

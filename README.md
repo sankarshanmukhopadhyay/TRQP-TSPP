@@ -3,7 +3,7 @@
 📘 **Documentation site (GitHub Pages):** https://<OWNER>.github.io/TRQP-TSPP/
 
 
-**Current version:** v0.3.0
+**Current version:** v0.4.0
 
 
 ![License](https://img.shields.io/github/license/sankarshanmukhopadhyay/TRQP-TSPP)
@@ -168,3 +168,14 @@ SAD-1 includes an identity anchoring extension for directories that use UNTP DIA
 
 - DIA spec: https://untp.unece.org/docs/specification/DigitalIdentityAnchor/
 - DIA context (0.6.1): https://test.uncefact.org/vocabulary/untp/dia/0.6.1/context/
+
+## Experimental: DeDi posture mapping
+
+TRQP-TSPP includes an **experimental** DeDi operator posture profile to align decentralized directory deployments with Hub controls and evidence bundle patterns.
+
+- Profile: `docs/profiles/dedi-experimental.md`
+- Upstream: https://github.com/LF-Decentralized-Trust-labs/decentralized-directory-protocol
+
+- DeDi mapping matrix: `docs/reference/dedi-mapping-matrix.md`
+- Machine-readable matrix: `docs/reference/dedi-mapping-matrix.yaml`
+
