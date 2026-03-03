@@ -58,3 +58,31 @@ When evaluating a directory under SAD-1, an evidence bundle SHOULD include:
 - operational logs or attestations appropriate to the target AL
 
 See also: `docs/evidence_bundles.md` and `docs/requirements.md`.
+
+## Identity anchoring extension (DIA / IDR)
+
+Authoritative directories may bind directory subjects (registrars, facilities, products, trademarks, etc.) to an identity anchoring mechanism so that relying parties can independently verify issuer identity and resolve identifiers.
+
+When UNTP Digital Identity Anchor (DIA) and Identity Resolver (IDR) patterns are used, the directory evaluation scope is the **composite trust system**: directory governance + directory publication integrity + identity anchoring.
+
+### Requirements
+
+SAD-1-ANCHOR-01: If the directory publishes identity anchors, it MUST declare the anchor mechanism and version (for example `UNTP_DIA_0.6.1`).
+
+SAD-1-ANCHOR-02: Anchor credentials MUST be referenceable using the correct JSON-LD context URL for the declared anchor mechanism.
+
+SAD-1-ANCHOR-03: If issuer identifiers are DIDs, the directory operator MUST document the DID method(s) supported and the resolution approach (direct DID resolution, registry-based, or hybrid via an Identity Resolver).
+
+SAD-1-ANCHOR-04: If revocation or status is supported, the directory MUST publish status pointers and lifecycle rules, and MUST ensure revocation state propagates to the directory status feed within defined SLAs.
+
+### Evidence
+
+- Anchor credential samples (or references) and context references
+- Resolver configuration / endpoint documentation
+- Revocation/status publication artifacts (where applicable)
+- Assessment notes on resolution and lifecycle behavior
+
+Normative references:
+- UNTP DIA: https://untp.unece.org/docs/specification/DigitalIdentityAnchor/
+- UNTP IDR: https://untp.unece.org/docs/specification/IdentityResolver/
+- DIA JSON-LD context (0.6.1): https://test.uncefact.org/vocabulary/untp/dia/0.6.1/context/

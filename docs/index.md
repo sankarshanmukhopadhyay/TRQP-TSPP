@@ -33,3 +33,9 @@ publication, administration, lifecycle integrity, and accountability.
 
 - SAD-1 expectations: [docs/profiles/sad-1.md](profiles/sad-1.md)
 - GRID expectations: [docs/profiles/grid.md](profiles/grid.md)
+
+## External specifications referenced
+
+- UNTP Digital Identity Anchor (DIA): https://untp.unece.org/docs/specification/DigitalIdentityAnchor/
+- UNTP Identity Resolver (IDR): https://untp.unece.org/docs/specification/IdentityResolver/
+- DIA JSON-LD context (0.6.1): https://test.uncefact.org/vocabulary/untp/dia/0.6.1/context/

@@ -161,3 +161,10 @@ TSPP requirements are expressed as stable **Control IDs** (e.g., `TSPP-META-01`)
 
 - Normative list: `docs/requirements.md`
 - Machine-readable export: `controls/control-registry.json`
+
+## UNTP Digital Identity Anchor (DIA)
+
+SAD-1 includes an identity anchoring extension for directories that use UNTP DIA / Identity Resolver patterns.
+
+- DIA spec: https://untp.unece.org/docs/specification/DigitalIdentityAnchor/
+- DIA context (0.6.1): https://test.uncefact.org/vocabulary/untp/dia/0.6.1/context/

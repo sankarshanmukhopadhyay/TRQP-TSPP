@@ -49,3 +49,7 @@ This repo ships `al-contract.json` which references the canonical AL definitions
 - TRQP Assurance Hub: v0.6.0
 - TRQP Conformance Suite: v0.5.0
 - TRQP TSPP: v0.3.0
+
+## UNTP DIA alignment
+
+Directory evaluations that rely on UNTP Digital Identity Anchor (DIA) SHOULD apply the SAD-1 identity anchoring extension requirements and capture DIA artifacts as evidence (context reference, resolver approach, and status lifecycle).

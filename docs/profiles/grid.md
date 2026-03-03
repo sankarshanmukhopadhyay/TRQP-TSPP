@@ -20,3 +20,9 @@ GRID is treated as an authoritative directory pattern where:
 
 - Hub profile: `https://github.com/sankarshanmukhopadhyay/trqp-assurance-hub/blob/main/profiles/grid-profile.md`
 - Hub workflow: `https://github.com/sankarshanmukhopadhyay/trqp-assurance-hub/blob/main/docs/guides/directory-assurance-workflow.md`
+
+## Identity anchoring considerations (UNTP DIA)
+
+GRID implementations are likely to rely on UNTP identity anchoring patterns (DIA) so that listed registrars can prove control of issuer identifiers and bind those identifiers to verifiable credentials.
+
+A GRID assessment SHOULD therefore include the SAD-1 identity anchoring extension requirements (SAD-1-ANCHOR-01..04) and ensure that any published anchors reference the correct JSON-LD context and resolver approach.

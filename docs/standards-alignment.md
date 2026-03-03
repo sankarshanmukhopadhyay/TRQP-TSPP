@@ -54,3 +54,6 @@ This repo now includes short operator notes for each reference under `docs/stand
 | NIST SP 800-190 (Container security) | Image/registry/runtime hardening | `TSPP-AL4-02`, `TSPP-AL4-03`, `TSPP-AL4-05` | Image scan outputs; runtime hardening snapshots; secrets/key protection evidence; IR runbooks | `docs/standards/nist-sp-800-190-containers.md` |
 | CIS Kubernetes Benchmark | Cluster posture hardening | `TSPP-AL4-02`, `TSPP-AL4-03`, `TSPP-AL4-05` | CIS scan outputs; RBAC review; admission policies; K8s audit retention config | `docs/standards/cis-kubernetes-benchmark.md` |
 
+## UNTP DIA alignment
+
+Directory evaluations that rely on UNTP Digital Identity Anchor (DIA) SHOULD apply the SAD-1 identity anchoring extension requirements and capture DIA artifacts as evidence (context reference, resolver approach, and status lifecycle).

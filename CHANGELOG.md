@@ -9,7 +9,7 @@
 
 ## Unreleased
 - (nothing yet)
-
+- Add SAD-1 identity anchoring extension requirements aligned to UNTP Digital Identity Anchor (DIA) and Identity Resolver (IDR); vendor DIA JSON-LD context.
 ## v0.2.4
 ### Added
 - GRID interop guidance for TSPP consumers

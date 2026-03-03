@@ -19,3 +19,7 @@ This roadmap tracks high-level increments for TSPP.
 - ✅ Release artifacts: VERSION file, changelog entries, and release template updated.
 
 _Last updated: 2026-03-03_
+
+## UNTP DIA / IDR alignment
+
+Add explicit guidance and examples for evaluating authoritative directories that use UNTP Digital Identity Anchor (DIA) and Identity Resolver (IDR) patterns (identity anchoring extension for SAD-1).
