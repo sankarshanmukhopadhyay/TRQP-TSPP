@@ -57,3 +57,19 @@ This repo now includes short operator notes for each reference under `docs/stand
 ## UNTP DIA alignment
 
 Directory evaluations that rely on UNTP Digital Identity Anchor (DIA) SHOULD apply the SAD-1 identity anchoring extension requirements and capture DIA artifacts as evidence (context reference, resolver approach, and status lifecycle).
+
+
+## OpenSSF alignment
+
+TSPP's **Software Supply Chain Integrity** control family (TSPP-SCI-xx) aligns with OpenSSF guidance to make software integrity and provenance **auditable** for TRQP deployments.
+
+| TSPP control | OpenSSF guidance (example) | Notes |
+|---|---|---|
+| TSPP-SCI-01 | SBOM practices (SPDX/CycloneDX) | Evidence-grade SBOM for production artifacts |
+| TSPP-SCI-02 | Scorecard dependency/vuln checks | Continuous monitoring + remediation workflow |
+| TSPP-SCI-03 | Signed releases | Artifact signing + verification evidence |
+| TSPP-SCI-04 | SLSA provenance | Provenance attestation for AL3+ |
+| TSPP-SCI-05 | Scorecard / secure CI practices | Branch protections and guarded release workflows |
+
+Reference: `docs/reference/openssf-supply-chain.md`.
+

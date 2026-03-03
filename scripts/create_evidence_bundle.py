@@ -40,6 +40,9 @@ ARTIFACT_KIND_MAP = {
     "tspp_posture_bundle_descriptor": "tspp_posture_evidence_bundle_descriptor",
     "tspp_checksums": "evidence_bundle_checksums",
     "tspp_bundle_zip": "tspp_posture_evidence_bundle_zip",
+    "software_sbom": "software_sbom",
+    "build_provenance": "build_provenance",
+    "openssf_scorecard_report": "openssf_scorecard_report",
 }
 
 def add_idx(out: Path, artifact_index: List[Dict[str, Any]], kind: str, rel_path: str, notes: str | None = None):
@@ -63,6 +66,10 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--report", required=True, help="Path to the TSPP conformance report JSON")
     ap.add_argument("--out", required=True, help="Output directory for evidence bundle")
+    ap.add_argument("--sbom", help="Optional path to SBOM (SPDX or CycloneDX) for the production artifact")
+    ap.add_argument("--provenance", help="Optional path to build provenance / attestation (e.g., SLSA provenance)")
+    ap.add_argument("--scorecard", help="Optional path to OpenSSF Scorecard output (or equivalent security posture report)")
+
     args = ap.parse_args()
 
     report_p = Path(args.report)
@@ -74,6 +81,25 @@ def main() -> None:
     # Normalize the report filename inside the bundle (stable path)
     stable_report = out / "tspp_posture_report.json"
     stable_report.write_text(json.dumps(report_obj, indent=2, sort_keys=True), encoding="utf-8")
+
+    # Optional: attach supply chain integrity artifacts (TSPP-SCI)
+    optional_inputs = [
+        ("software_sbom", args.sbom),
+        ("build_provenance", args.provenance),
+        ("openssf_scorecard_report", args.scorecard),
+    ]
+    attached = []
+    for key, p in optional_inputs:
+        if not p:
+            continue
+        src = Path(p)
+        if not src.exists():
+            raise SystemExit(f"ERROR: optional artifact not found: {src}")
+        dst_name = src.name
+        dst = out / dst_name
+        if src.resolve() != dst.resolve():
+            dst.write_bytes(src.read_bytes())
+        attached.append((key, dst_name))
 
     profile = report_obj.get("profile") or "TSPP-TRQP"
     generated_at = report_obj.get("generated_at")
@@ -122,6 +148,11 @@ def main() -> None:
     descriptor["artifacts"]["bundle_zip"] = "bundle.zip"
     add_idx(out, artifact_index, "tspp_bundle_zip", "bundle.zip", notes="Convenience packaging of the evidence bundle directory.")
 
+
+    # Attach optional SCI artifacts to the artifact index
+    for key, fname in attached:
+        descriptor["artifacts"].setdefault("supply_chain", {})[key] = fname
+        add_idx(out, artifact_index, key, fname, notes="Optional supply chain integrity evidence (TSPP-SCI).")
     # Rewrite descriptor with updated artifact_index
     descriptor["artifact_index"] = artifact_index
     desc_p.write_text(json.dumps(descriptor, indent=2), encoding="utf-8")

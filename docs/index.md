@@ -39,3 +39,7 @@ publication, administration, lifecycle integrity, and accountability.
 - UNTP Digital Identity Anchor (DIA): https://untp.unece.org/docs/specification/DigitalIdentityAnchor/
 - UNTP Identity Resolver (IDR): https://untp.unece.org/docs/specification/IdentityResolver/
 - DIA JSON-LD context (0.6.1): https://test.uncefact.org/vocabulary/untp/dia/0.6.1/context/
+
+## Supply chain integrity
+
+- OpenSSF-aligned guidance: `docs/reference/openssf-supply-chain.md`

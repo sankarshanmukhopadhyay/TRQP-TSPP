@@ -8,6 +8,10 @@
 - Update public documentation to position TSPP as a reusable security layer for evaluating authoritative directories.
 
 ## Unreleased
+
+- Add Software Supply Chain Integrity controls (TSPP-SCI-01..05) aligned with OpenSSF guidance.
+- Support bundling optional SBOM/provenance/Scorecard artifacts in posture evidence bundles.
+
 - (nothing yet)
 - Add SAD-1 identity anchoring extension requirements aligned to UNTP Digital Identity Anchor (DIA) and Identity Resolver (IDR); vendor DIA JSON-LD context.
 ## v0.2.4

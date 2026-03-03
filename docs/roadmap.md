@@ -23,3 +23,7 @@ _Last updated: 2026-03-03_
 ## UNTP DIA / IDR alignment
 
 Add explicit guidance and examples for evaluating authoritative directories that use UNTP Digital Identity Anchor (DIA) and Identity Resolver (IDR) patterns (identity anchoring extension for SAD-1).
+
+### Supply chain integrity
+
+- Expand TSPP-SCI evidence patterns (SBOM, provenance, signed releases) and align validation hooks with CTS and Assurance Hub.

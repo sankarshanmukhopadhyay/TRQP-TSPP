@@ -34,3 +34,16 @@ TSPP bundles are the primary producer for the Hub row “**TSPP posture evidence
 
 - `schemas/evidence/tspp_posture_bundle_descriptor.schema.json`
 - `schemas/evidence/checksums.schema.json`
+
+
+### Optional supply chain integrity artifacts (TSPP-SCI)
+
+Where available, evidence bundles SHOULD include supply chain integrity artifacts to support audit-ready evaluation:
+
+- **SBOM** (SPDX or CycloneDX) for the deployed artifact
+- **Build provenance / attestation** (for example, SLSA-style provenance)
+- **Scorecard report** or equivalent automated security posture output
+- **Release signature verification log** (sample)
+
+These artifacts support TSPP-SCI-01..05 and are consumed by the Assurance Hub crosswalk.
+

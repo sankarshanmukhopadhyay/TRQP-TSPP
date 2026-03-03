@@ -2,66 +2,6 @@
   "version": "0.1.0",
   "controls": [
     {
-      "id": "TSPP-META-01",
-      "category": "META",
-      "title": "Metadata publication",
-      "normative_source": "docs/requirements.md"
-    },
-    {
-      "id": "TSPP-META-02",
-      "category": "META",
-      "title": "Metadata schema conformance",
-      "normative_source": "docs/requirements.md"
-    },
-    {
-      "id": "TSPP-CTX-01",
-      "category": "CTX",
-      "title": "Explicit context allowlist declared",
-      "normative_source": "docs/requirements.md"
-    },
-    {
-      "id": "TSPP-CTX-02",
-      "category": "CTX",
-      "title": "Unknown context key handling",
-      "normative_source": "docs/requirements.md"
-    },
-    {
-      "id": "TSPP-FRESH-01",
-      "category": "FRESH",
-      "title": "Response freshness fields (authorization)",
-      "normative_source": "docs/requirements.md"
-    },
-    {
-      "id": "TSPP-FRESH-02",
-      "category": "FRESH",
-      "title": "RFC3339-like formatting",
-      "normative_source": "docs/requirements.md"
-    },
-    {
-      "id": "TSPP-FRESH-03",
-      "category": "FRESH",
-      "title": "Response freshness fields (recognition)",
-      "normative_source": "docs/requirements.md"
-    },
-    {
-      "id": "TSPP-ERR-01",
-      "category": "ERR",
-      "title": "Uniform error surface",
-      "normative_source": "docs/requirements.md"
-    },
-    {
-      "id": "TSPP-ENUM-01",
-      "category": "ENUM",
-      "title": "Enumeration side-channel mitigation (operator review)",
-      "normative_source": "docs/requirements.md"
-    },
-    {
-      "id": "TSPP-RL-01",
-      "category": "RL",
-      "title": "Rate limit signals on 429",
-      "normative_source": "docs/requirements.md"
-    },
-    {
       "id": "TSPP-AL2-01",
       "category": "AL2",
       "title": "Signed envelope in AL2",
@@ -71,12 +11,6 @@
       "id": "TSPP-AL2-02",
       "category": "AL2",
       "title": "Verifiable signature via declared JWKS",
-      "normative_source": "docs/requirements.md"
-    },
-    {
-      "id": "TSPP-BRIDGE-01",
-      "category": "BRIDGE",
-      "title": "Semantic equivalence fixtures (optional)",
       "normative_source": "docs/requirements.md"
     },
     {
@@ -146,6 +80,102 @@
         "AL4"
       ],
       "category": "Audit"
+    },
+    {
+      "id": "TSPP-BRIDGE-01",
+      "category": "BRIDGE",
+      "title": "Semantic equivalence fixtures (optional)",
+      "normative_source": "docs/requirements.md"
+    },
+    {
+      "id": "TSPP-CTX-01",
+      "category": "CTX",
+      "title": "Explicit context allowlist declared",
+      "normative_source": "docs/requirements.md"
+    },
+    {
+      "id": "TSPP-CTX-02",
+      "category": "CTX",
+      "title": "Unknown context key handling",
+      "normative_source": "docs/requirements.md"
+    },
+    {
+      "id": "TSPP-ENUM-01",
+      "category": "ENUM",
+      "title": "Enumeration side-channel mitigation (operator review)",
+      "normative_source": "docs/requirements.md"
+    },
+    {
+      "id": "TSPP-ERR-01",
+      "category": "ERR",
+      "title": "Uniform error surface",
+      "normative_source": "docs/requirements.md"
+    },
+    {
+      "id": "TSPP-FRESH-01",
+      "category": "FRESH",
+      "title": "Response freshness fields (authorization)",
+      "normative_source": "docs/requirements.md"
+    },
+    {
+      "id": "TSPP-FRESH-02",
+      "category": "FRESH",
+      "title": "RFC3339-like formatting",
+      "normative_source": "docs/requirements.md"
+    },
+    {
+      "id": "TSPP-FRESH-03",
+      "category": "FRESH",
+      "title": "Response freshness fields (recognition)",
+      "normative_source": "docs/requirements.md"
+    },
+    {
+      "id": "TSPP-META-01",
+      "category": "META",
+      "title": "Metadata publication",
+      "normative_source": "docs/requirements.md"
+    },
+    {
+      "id": "TSPP-META-02",
+      "category": "META",
+      "title": "Metadata schema conformance",
+      "normative_source": "docs/requirements.md"
+    },
+    {
+      "id": "TSPP-RL-01",
+      "category": "RL",
+      "title": "Rate limit signals on 429",
+      "normative_source": "docs/requirements.md"
+    },
+    {
+      "id": "TSPP-SCI-01",
+      "category": "SCI",
+      "title": "SBOM availability",
+      "normative_source": "docs/requirements.md"
+    },
+    {
+      "id": "TSPP-SCI-02",
+      "category": "SCI",
+      "title": "Dependency vulnerability monitoring",
+      "normative_source": "docs/requirements.md"
+    },
+    {
+      "id": "TSPP-SCI-03",
+      "category": "SCI",
+      "title": "Signed releases for production artifacts",
+      "normative_source": "docs/requirements.md"
+    },
+    {
+      "id": "TSPP-SCI-04",
+      "category": "SCI",
+      "title": "Provenance for build outputs (AL3+)",
+      "normative_source": "docs/requirements.md"
+    },
+    {
+      "id": "TSPP-SCI-05",
+      "category": "SCI",
+      "title": "CI policy enforcement",
+      "normative_source": "docs/requirements.md"
     }
   ]
 }

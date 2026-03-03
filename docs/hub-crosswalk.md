@@ -53,3 +53,16 @@ This repo ships `al-contract.json` which references the canonical AL definitions
 ## UNTP DIA alignment
 
 Directory evaluations that rely on UNTP Digital Identity Anchor (DIA) SHOULD apply the SAD-1 identity anchoring extension requirements and capture DIA artifacts as evidence (context reference, resolver approach, and status lifecycle).
+
+## Supply chain integrity (OpenSSF-aligned) artifacts
+
+TSPP supports optional inclusion of supply chain integrity evidence in the posture bundle to support **TSPP-SCI** controls:
+
+| Artifact | Example path | artifact_kind |
+|---|---|---|
+| SBOM | `sbom.spdx.json` | `software_sbom` |
+| Build provenance | `provenance.json` | `build_provenance` |
+| Scorecard output | `scorecard.json` | `openssf_scorecard_report` |
+
+These artifacts are optional, but recommended for AL3+ deployments.
+
