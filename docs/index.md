@@ -1,6 +1,9 @@
 ---
 layout: default
 title: TRQP TSPP
+owner: maintainers
+last_reviewed: 2026-03-04
+tier: 0
 ---
 
 # TRQP TSPP
@@ -43,3 +46,7 @@ publication, administration, lifecycle integrity, and accountability.
 ## Supply chain integrity
 
 - OpenSSF-aligned guidance: `docs/reference/openssf-supply-chain.md`
+
+## Governance
+
+- Documentation freshness policy: [`docs/governance/README.md`](governance/README.md)

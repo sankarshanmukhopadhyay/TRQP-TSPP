@@ -1,3 +1,13 @@
+---
+owner: maintainers
+last_reviewed: 2026-03-04
+tier: 0
+---
+
+## Documentation
+
+- Documentation governance: [`docs/governance/README.md`](docs/governance/README.md)
+
 # TRQP Security & Privacy Baseline (TSPP)
 
 📘 **Documentation site (GitHub Pages):** https://<OWNER>.github.io/TRQP-TSPP/
@@ -178,4 +188,3 @@ TRQP-TSPP includes an **experimental** DeDi operator posture profile to align de
 
 - DeDi mapping matrix: `docs/reference/dedi-mapping-matrix.md`
 - Machine-readable matrix: `docs/reference/dedi-mapping-matrix.yaml`
-
