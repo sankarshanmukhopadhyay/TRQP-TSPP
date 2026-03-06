@@ -1,17 +1,16 @@
-"""TSPP harness test for AL4 expectations.
+"""TSPP harness tests for AL4 expectations.
+
+Canonical AL semantics: see the TRQP Assurance Hub guide:
+https://trustoverip.github.io/tswg-trqp-specification/ (or the repo canonical doc docs/guides/assurance-levels.md)
 
 What this test is proving:
-- Highest-assurance control checks are enforced, targeting adversarial operation and high-impact ecosystems.
-
-Why it matters:
-- This is a ship-stopping check for deployments claiming AL4 posture.
-
-Evidence:
-- Conformance report sections: control outcomes, independent assessment references, and change transparency evidence.
+- AL4 claims are backed by key protection evidence, monitoring/runbook evidence,
+  rollback/policy evidence, and audit-log retention declarations.
 """
 
 import os
 import pytest
+import requests
 
 from tspp_trqp_harness.reporting import requirements
 
@@ -31,7 +30,6 @@ def test_al4_key_protection_declared(_client):
     assert kp.get("protection") in ["software", "KMS", "HSM"], "AL4 requires key_protection.protection"
     assert "evidence_uri" in kp, "AL4 requires key_protection.evidence_uri"
 
-    import requests
     rr = requests.get(kp["evidence_uri"], timeout=10)
     assert rr.status_code == 200, f"expected 200 from key_protection.evidence_uri, got {rr.status_code}"
 
@@ -51,6 +49,42 @@ def test_al4_monitoring_declared(_client):
     assert "incident_contact" in mon, "AL4 requires monitoring.incident_contact"
     assert "runbook_uri" in mon, "AL4 requires monitoring.runbook_uri"
 
-    import requests
     rr = requests.get(mon["runbook_uri"], timeout=10)
     assert rr.status_code == 200, f"expected 200 from monitoring.runbook_uri, got {rr.status_code}"
+
+
+@requirements("TSPP-AL4-04")
+def test_al4_policy_and_rollback_uris_resolve(_client):
+    expected = os.environ.get("TSPP_EXPECT_AL")
+    if expected != "AL4":
+        pytest.skip("Not in AL4 mode")
+
+    r = _client.get_metadata()
+    assert r.status_code == 200, f"expected 200, got {r.status_code}: {r.text}"
+    m = r.json()
+
+    governance = m.get("governance", {})
+    for field in ("policy_uri", "rollback_uri"):
+        uri = governance.get(field)
+        assert uri, f"AL4 requires governance.{field}"
+        rr = requests.get(uri, timeout=10)
+        assert rr.status_code == 200, f"expected 200 from governance.{field}, got {rr.status_code}"
+
+
+@requirements("TSPP-AL4-05")
+def test_al4_audit_log_declared(_client):
+    expected = os.environ.get("TSPP_EXPECT_AL")
+    if expected != "AL4":
+        pytest.skip("Not in AL4 mode")
+
+    r = _client.get_metadata()
+    assert r.status_code == 200, f"expected 200, got {r.status_code}: {r.text}"
+    m = r.json()
+
+    audit = m.get("audit", {})
+    assert audit.get("audit_log_uri"), "AL4 requires audit.audit_log_uri"
+    assert isinstance(audit.get("immutability"), bool), "AL4 requires audit.immutability"
+    assert isinstance(audit.get("retention_days"), int), "AL4 requires audit.retention_days"
+
+    rr = requests.get(audit["audit_log_uri"], timeout=10)
+    assert rr.status_code == 200, f"expected 200 from audit_log_uri, got {rr.status_code}"

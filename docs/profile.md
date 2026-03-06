@@ -1,4 +1,4 @@
-# TRQP Security & Privacy Profile (TSPP) v0.4.1
+# TRQP Security & Privacy Profile (TSPP) v0.5.0
 
 This document defines a practical security and privacy deployment profile for the Trust Over IP
 Trust Registry Query Protocol (TRQP).

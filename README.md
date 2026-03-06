@@ -13,7 +13,7 @@ tier: 0
 📘 **Documentation site (GitHub Pages):** https://sankarshanmukhopadhyay.github.io/TRQP-TSPP/
 
 
-**Current version:** v0.4.1
+**Current version:** v0.5.0
 
 
 ![License](https://img.shields.io/github/license/sankarshanmukhopadhyay/TRQP-TSPP)

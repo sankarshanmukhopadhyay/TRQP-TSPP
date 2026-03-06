@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.5.0 (2026-03-06)
+
+- Harden AL3 and AL4 coverage with executable harness tests for independent assessment, change control, rollback, policy, monitoring, key protection, and audit-log evidence.
+- Expand the CI matrix to execute AL1 through AL4 against the reference SUT and add unit tests for core validation helpers.
+- Add machine-verifiable AL contract pin checking and refresh public documentation, roadmap entries, and cross-repo version references for the hardening release.
+
 ## v0.4.1 (2026-03-06)
 
 ### Fixed

@@ -22,6 +22,29 @@
     },
     "signature": {
       "$ref": "#/$defs/SignatureBlock"
+    },
+    "meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "query_hash",
+        "iat",
+        "exp"
+      ],
+      "properties": {
+        "query_hash": {
+          "type": "string",
+          "minLength": 32,
+          "maxLength": 128
+        },
+        "iat": {
+          "$ref": "#/$defs/RFC3339DateTime"
+        },
+        "exp": {
+          "$ref": "#/$defs/RFC3339DateTime"
+        }
+      },
+      "description": "Envelope-level audit metadata used for AL3+ signed responses."
     }
   },
   "$defs": {
@@ -87,33 +110,60 @@
     },
     "AuthorizationQueryResponse": {
       "type": "object",
-      "additionalProperties": false,
+      "additionalProperties": true,
       "required": [
-        "authorized",
         "meta"
       ],
       "properties": {
         "authorized": {
           "$ref": "#/$defs/DecisionTriState"
         },
+        "decision": {
+          "$ref": "#/$defs/AuthorizationDecision"
+        },
         "meta": {
           "$ref": "#/$defs/ResponseMeta"
+        },
+        "context": {
+          "type": "object"
         }
-      }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "authorized"
+          ]
+        },
+        {
+          "required": [
+            "decision"
+          ]
+        }
+      ]
     },
     "RecognitionQueryResponse": {
       "type": "object",
-      "additionalProperties": false,
+      "additionalProperties": true,
       "required": [
         "recognized",
         "meta"
       ],
       "properties": {
         "recognized": {
-          "$ref": "#/$defs/DecisionTriState"
+          "oneOf": [
+            {
+              "$ref": "#/$defs/DecisionTriState"
+            },
+            {
+              "type": "boolean"
+            }
+          ]
         },
         "meta": {
           "$ref": "#/$defs/ResponseMeta"
+        },
+        "context": {
+          "type": "object"
         }
       }
     },
@@ -203,6 +253,18 @@
         "issued_at": {
           "$ref": "#/$defs/RFC3339DateTime",
           "description": "Optional timestamp when signature was created."
+        }
+      }
+    },
+    "AuthorizationDecision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "authorized"
+      ],
+      "properties": {
+        "authorized": {
+          "$ref": "#/$defs/DecisionTriState"
         }
       }
     }

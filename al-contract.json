@@ -1,6 +1,6 @@
 {
   "contract_version": "0.1.0",
-  "generated_at": "2026-02-27T23:31:23Z",
+  "generated_at": "2026-03-06T00:00:00Z",
   "canonical_source": {
     "repo": "trqp-assurance-hub",
     "canonical_doc": "docs/guides/assurance-levels.md",
@@ -12,6 +12,6 @@
   },
   "pinning": {
     "recommended": "Pin to a tagged release of trqp-assurance-hub for audit stability.",
-    "current": "UNPINNED (main) \u2014 update on release cut"
+    "current": "Pinned to trqp-assurance-hub v0.8.0"
   }
 }

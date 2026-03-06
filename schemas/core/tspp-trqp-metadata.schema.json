@@ -285,6 +285,10 @@
               "description": "Subset of allowlisted context keys included in the query_hash."
             }
           }
+        },
+        "default_signed_responses": {
+          "type": "boolean",
+          "description": "Whether successful machine-consumed responses are signed by default without explicit client opt-in."
         }
       }
     },

@@ -9,16 +9,14 @@ from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, Optional
 
 from fastapi import FastAPI, Header, HTTPException, Request
+from fastapi.responses import JSONResponse
 from jwcrypto import jwk, jws
 
-APP_VERSION = "0.1.0"
+APP_VERSION = "0.2.0"
 
-# ----------------------------
-# Configuration (CI-friendly)
-# ----------------------------
 ASSURANCE_LEVEL = os.environ.get("TSPP_REF_AL", os.environ.get("TSPP_EXPECT_AL", "AL1"))
 BEARER_TOKEN = os.environ.get("TSPP_REF_BEARER_TOKEN", "dev-token")
-RATE_LIMIT_BURST = int(os.environ.get("TSPP_REF_RL_BURST", "999999"))  # high by default (avoid 429 unless tuned)
+RATE_LIMIT_BURST = int(os.environ.get("TSPP_REF_RL_BURST", "999999"))
 RATE_LIMIT_WINDOW_SECONDS = int(os.environ.get("TSPP_REF_RL_WINDOW", "60"))
 
 JWKS_PATH = "/.well-known/jwks.json"
@@ -26,14 +24,55 @@ KID = "ref-kid-1"
 
 app = FastAPI(title="TSPP TRQP Reference SUT", version=APP_VERSION)
 
-# Request counter for optional rate limiting
 WINDOW_START = time.time()
 WINDOW_COUNT = 0
 _RL_LOCK = asyncio.Lock()
 
-# Signing key (ephemeral for CI)
 _SIGNING_KEY = jwk.JWK.generate(kty="RSA", size=2048)
 _SIGNING_KEY.kid = KID
+
+
+PUBLIC_DOCS = {
+    "/.well-known/assessment/al3-independent-assessment": {
+        "assessment_id": "assess-al3-001",
+        "assessor": "Example Independent Assessor Ltd.",
+        "scope": ["authorization", "recognition", "metadata"],
+        "result": "pass",
+        "issued_at": "2026-03-06T00:00:00Z",
+    },
+    "/.well-known/governance/change-control": {
+        "document_id": "chg-ctl-001",
+        "owner": "Example Registry Operator",
+        "summary": "Change control procedure for TRQP posture changes.",
+    },
+    "/.well-known/governance/policy": {
+        "policy_id": "gov-pol-001",
+        "summary": "Governance policy for high-assurance TRQP operation.",
+    },
+    "/.well-known/governance/rollback": {
+        "procedure_id": "rollback-001",
+        "summary": "Rollback and release reversal procedure for production incidents.",
+    },
+    "/.well-known/audit/log": {
+        "log_id": "audit-log-001",
+        "storage": "append-only",
+        "coverage": ["authorization", "recognition", "metadata"],
+    },
+    "/.well-known/ops/runbook": {
+        "runbook_id": "ops-rb-001",
+        "summary": "Incident response and monitoring runbook.",
+    },
+    "/.well-known/keys/protection": {
+        "control_id": "key-protection-001",
+        "protection": "KMS",
+        "evidence": "Example control evidence for key protection posture.",
+    },
+    "/.well-known/service-docs": {
+        "service": "TRQP Reference SUT",
+        "version": APP_VERSION,
+        "assurance_level": ASSURANCE_LEVEL,
+    },
+}
 
 
 def _now() -> datetime:
@@ -44,7 +83,11 @@ def _iso(dt: datetime) -> str:
     return dt.astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
 
 
-async def _rate_limit_tick() -> Optional[Dict[str, str]]:
+def _public_uri(base: str, path: str) -> str:
+    return f"{base}{path}"
+
+
+async def _rate_limit_tick() -> Dict[str, str]:
     global WINDOW_START, WINDOW_COUNT
     async with _RL_LOCK:
         now = time.time()
@@ -66,7 +109,6 @@ async def _rate_limit_tick() -> Optional[Dict[str, str]]:
 
 
 def _require_auth(authorization: Optional[str]) -> None:
-    # Minimal bearer auth (tests accept 401/403 too, but CI wants 200 happy-path)
     if not authorization:
         raise HTTPException(status_code=401, detail="missing_authorization")
     if not authorization.startswith("Bearer "):
@@ -83,12 +125,9 @@ def _strip_unknown_context(ctx: Any, allowlist: list[str]) -> Any:
 
 
 def _query_hash(body: Dict[str, Any], allow_keys: list[str]) -> str:
-    # Operator-defined: hash only allowlisted context keys + primary identifiers if present.
-    # Tests do not assert this today; we still compute a stable value.
     ctx = body.get("context") if isinstance(body, dict) else None
     ctx = ctx if isinstance(ctx, dict) else {}
     bound = {k: ctx.get(k) for k in allow_keys if k in ctx}
-    # include entity/subject identifiers when present
     for k in ("entity_id", "subject_authority_id"):
         if k in body:
             bound[k] = body.get(k)
@@ -97,8 +136,6 @@ def _query_hash(body: Dict[str, Any], allow_keys: list[str]) -> str:
 
 
 def _sign_envelope(payload: Dict[str, Any], qh: str, ctx_keys: list[str]) -> Dict[str, Any]:
-    # Sign the canonical payload bytes. (The spec may bind query_hash into signing input;
-    # harness verifies only the JWS signature against JWKS.)
     canonical = json.dumps(payload, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
     signer = jws.JWS(payload=canonical)
     signer.add_signature(_SIGNING_KEY, None, protected={"alg": "RS256", "kid": KID}, header={})
@@ -119,19 +156,40 @@ def _sign_envelope(payload: Dict[str, Any], qh: str, ctx_keys: list[str]) -> Dic
             },
             "issued_at": _iso(_now()),
         },
+        "meta": {
+            "query_hash": qh,
+            "iat": _iso(_now()),
+            "exp": _iso(_now() + timedelta(seconds=300)),
+        },
     }
+
+
+def _should_sign_success(accept_signature: Optional[str]) -> bool:
+    if ASSURANCE_LEVEL in {"AL3", "AL4"}:
+        return True
+    return ASSURANCE_LEVEL == "AL2" and (accept_signature or "").lower() == "jws"
 
 
 @app.get("/.well-known/trqp-metadata")
 def get_metadata(request: Request):
     base = str(request.base_url).rstrip("/")
     allowlist = ["purpose", "audience", "locale"]
-    return {
+    metadata = {
         "profile": "TSPP-TRQP-0.1",
         "assurance_level": ASSURANCE_LEVEL,
+        "operator": {
+            "name": "Example Registry Operator",
+            "security_contact": {
+                "email": "security@example.org",
+                "url": _public_uri(base, "/.well-known/service-docs"),
+            },
+        },
         "auth": {
-            "scheme": "bearer",
-            "token_format": "opaque",
+            "required": True,
+            "methods": ["bearer"],
+            "max_token_ttl_seconds": 900,
+            "required_scopes": ["trqp.authorization.query", "trqp.recognition.query"],
+            "audience": "urn:example:trqp-reference-sut",
         },
         "rate_limits": {
             "per_client_rps": 100,
@@ -143,9 +201,16 @@ def get_metadata(request: Request):
             "default_expires_seconds": 300,
         },
         "context_allowlist": allowlist,
+        "namespacing": {
+            "action_required": True,
+            "resource_required": False,
+            "versioning_required": False,
+            "recommended_formats": ["uri", "urn"],
+        },
         "signing": {
             "supported": True,
             "required_for_al2": ASSURANCE_LEVEL == "AL2",
+            "default_signed_responses": ASSURANCE_LEVEL in {"AL3", "AL4"},
             "algorithms": ["RS256"],
             "jwks_uri": f"{base}{JWKS_PATH}",
             "canonicalization": {
@@ -159,16 +224,52 @@ def get_metadata(request: Request):
             "expiry_required": True,
             "transitive_default": False,
             "max_chain_depth": 1,
-        }
+        },
+        "transparency": {
+            "service_docs_uri": _public_uri(base, "/.well-known/service-docs"),
+            "change_log_uri": _public_uri(base, "/.well-known/governance/change-control"),
+            "security_txt_uri": _public_uri(base, "/.well-known/service-docs"),
+        },
     }
+    if ASSURANCE_LEVEL in {"AL3", "AL4"}:
+        metadata["audit"] = {
+            "independent_assessment_uri": _public_uri(base, "/.well-known/assessment/al3-independent-assessment"),
+            "audit_log_uri": _public_uri(base, "/.well-known/audit/log"),
+            "immutability": True,
+            "retention_days": 365,
+        }
+        metadata["governance"] = {
+            "policy_uri": _public_uri(base, "/.well-known/governance/policy"),
+            "change_control_uri": _public_uri(base, "/.well-known/governance/change-control"),
+            "rollback_uri": _public_uri(base, "/.well-known/governance/rollback"),
+        }
+    if ASSURANCE_LEVEL == "AL4":
+        metadata["key_protection"] = {
+            "protection": "KMS",
+            "evidence_uri": _public_uri(base, "/.well-known/keys/protection"),
+        }
+        metadata["monitoring"] = {
+            "evidence_retention_days": 365,
+            "incident_contact": {"email": "soc@example.org", "url": _public_uri(base, "/.well-known/ops/runbook")},
+            "runbook_uri": _public_uri(base, "/.well-known/ops/runbook"),
+            "telemetry_uri": _public_uri(base, "/.well-known/ops/runbook"),
+        }
+    return metadata
 
 
 @app.get(JWKS_PATH)
 def get_jwks():
     pub = jwk.JWK.from_json(_SIGNING_KEY.export_public())
-    # Ensure kid is present
     pub.kid = KID
     return {"keys": [json.loads(pub.export_public())]}
+
+
+@app.get("/{doc_path:path}")
+def get_public_doc(doc_path: str):
+    path = "/" + doc_path
+    if path in PUBLIC_DOCS:
+        return PUBLIC_DOCS[path]
+    raise HTTPException(status_code=404, detail="not_found")
 
 
 @app.post("/authorization")
@@ -185,7 +286,6 @@ async def post_authorization(req: Request, authorization: Optional[str] = Header
     if isinstance(body, dict):
         body["context"] = ctx
 
-    # Simple semantics: if entity_id looks like "unknown", respond 404 with uniform surface
     entity_id = body.get("entity_id") if isinstance(body, dict) else None
     if isinstance(entity_id, str) and "unknown" in entity_id.lower():
         raise HTTPException(status_code=404, detail="not_found")
@@ -200,13 +300,10 @@ async def post_authorization(req: Request, authorization: Optional[str] = Header
         "context": ctx if isinstance(ctx, dict) else {},
     }
 
-    # Optional signed envelope
-    if ASSURANCE_LEVEL == "AL2" and (accept_signature or "").lower() == "jws":
+    if _should_sign_success(accept_signature):
         qh = _query_hash(body, allowlist)
         return _sign_envelope(payload, qh, [k for k in allowlist if isinstance(ctx, dict) and k in ctx])
 
-    # attach ratelimit headers on success too (nice-to-have)
-    # FastAPI doesn't let easy per-route header injection without Response; keep minimal.
     return payload
 
 
@@ -228,7 +325,7 @@ async def post_recognition(req: Request, authorization: Optional[str] = Header(d
         },
         "context": ctx if isinstance(ctx, dict) else {},
     }
-    if ASSURANCE_LEVEL == "AL2" and (accept_signature or "").lower() == "jws":
+    if _should_sign_success(accept_signature):
         qh = _query_hash(body, allowlist)
         return _sign_envelope(payload, qh, [k for k in allowlist if isinstance(ctx, dict) and k in ctx])
     return payload
