@@ -1,10 +1,25 @@
 # Changelog
 
+## v0.5.1 (2026-03-06)
+
+- Synchronize public-facing documentation and release metadata with Conformance Suite v0.7.1 and Assurance Hub v0.8.1.
+- Update cross-repo version pins and compatibility references after Commit 3 and 4 completion.
+- Refresh roadmap and release artifacts for the patch alignment release.
+
 ## v0.5.0 (2026-03-06)
 
-- Harden AL3 and AL4 coverage with executable harness tests for independent assessment, change control, rollback, policy, monitoring, key protection, and audit-log evidence.
-- Expand the CI matrix to execute AL1 through AL4 against the reference SUT and add unit tests for core validation helpers.
-- Add machine-verifiable AL contract pin checking and refresh public documentation, roadmap entries, and cross-repo version references for the hardening release.
+### Added
+- Add `harness/README.md` consolidating harness documentation (supersedes `README.txt`), covering all AL1–AL4 test files, environment variables, and evidence packaging steps.
+- Add `QUICKSTART.md` at the repository root for fast onboarding of new implementers and operators.
+- Add documentation cross-links from `harness/tests/test_08_al3_controls.py` and `test_09_al4_controls.py` to the canonical Assurance Hub AL definitions.
+
+### Changed
+- Update `SECURITY.md` to expand threat model references and reporting scope clarification.
+- Synchronize roadmap, release notes, and version pins for the coordinated v0.5.0 release.
+
+---
+
+*Prior entries below reflect earlier releases in this series.*
 
 ## v0.4.1 (2026-03-06)
 

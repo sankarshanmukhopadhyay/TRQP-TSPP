@@ -1,7 +1,7 @@
 """TSPP harness tests for AL3 expectations.
 
 Canonical AL semantics: see the TRQP Assurance Hub guide:
-https://trustoverip.github.io/tswg-trqp-specification/ (or the repo canonical doc docs/guides/assurance-levels.md)
+https://github.com/sankarshanmukhopadhyay/trqp-assurance-hub/blob/main/docs/guides/assurance-levels.md
 
 What this test is proving:
 - AL3 claims are backed by independent review evidence, change-control evidence,

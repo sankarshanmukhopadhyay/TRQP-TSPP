@@ -12,6 +12,6 @@
   },
   "pinning": {
     "recommended": "Pin to a tagged release of trqp-assurance-hub for audit stability.",
-    "current": "Pinned to trqp-assurance-hub v0.8.0"
+    "current": "Pinned to trqp-assurance-hub v0.8.1"
   }
 }

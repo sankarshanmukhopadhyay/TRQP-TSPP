@@ -1,7 +1,7 @@
 """TSPP harness tests for AL4 expectations.
 
 Canonical AL semantics: see the TRQP Assurance Hub guide:
-https://trustoverip.github.io/tswg-trqp-specification/ (or the repo canonical doc docs/guides/assurance-levels.md)
+https://github.com/sankarshanmukhopadhyay/trqp-assurance-hub/blob/main/docs/guides/assurance-levels.md
 
 What this test is proving:
 - AL4 claims are backed by key protection evidence, monitoring/runbook evidence,

@@ -1,6 +1,6 @@
 ---
 owner: maintainers
-last_reviewed: 2026-03-04
+last_reviewed: 2026-03-06
 tier: 0
 ---
 
@@ -13,7 +13,7 @@ tier: 0
 📘 **Documentation site (GitHub Pages):** https://sankarshanmukhopadhyay.github.io/TRQP-TSPP/
 
 
-**Current version:** v0.5.0
+**Current version:** v0.5.1
 
 
 ![License](https://img.shields.io/github/license/sankarshanmukhopadhyay/TRQP-TSPP)
