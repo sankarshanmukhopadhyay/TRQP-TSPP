@@ -13,12 +13,12 @@ This roadmap tracks high-level increments for TSPP.
 - Expand requirements coverage for AL3/AL4 governance + audit expectations (parameterized by canonical AL definitions).
 
 
-## Release readiness (v0.2.1)
+## Release readiness (v0.4.1)
 
-- ✅ Findings addressed: AL contract pinning, template hygiene, and code intent documentation.
-- ✅ Release artifacts: VERSION file, changelog entries, and release template updated.
+- ✅ Security and correctness stabilization completed for the reference SUT and harness CLI.
+- ✅ Public-facing docs, release notes, and version pins synchronized to the current patch release.
 
-_Last updated: 2026-03-03_
+_Last updated: 2026-03-06_
 
 ## UNTP DIA / IDR alignment
 

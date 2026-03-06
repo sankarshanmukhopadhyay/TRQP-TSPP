@@ -10,10 +10,10 @@ tier: 0
 
 # TRQP Security & Privacy Baseline (TSPP)
 
-📘 **Documentation site (GitHub Pages):** https://<OWNER>.github.io/TRQP-TSPP/
+📘 **Documentation site (GitHub Pages):** https://sankarshanmukhopadhyay.github.io/TRQP-TSPP/
 
 
-**Current version:** v0.4.0
+**Current version:** v0.4.1
 
 
 ![License](https://img.shields.io/github/license/sankarshanmukhopadhyay/TRQP-TSPP)

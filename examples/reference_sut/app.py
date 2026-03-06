@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 import hashlib
 import json
 import os
@@ -28,6 +29,7 @@ app = FastAPI(title="TSPP TRQP Reference SUT", version=APP_VERSION)
 # Request counter for optional rate limiting
 WINDOW_START = time.time()
 WINDOW_COUNT = 0
+_RL_LOCK = asyncio.Lock()
 
 # Signing key (ephemeral for CI)
 _SIGNING_KEY = jwk.JWK.generate(kty="RSA", size=2048)
@@ -42,25 +44,25 @@ def _iso(dt: datetime) -> str:
     return dt.astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
 
 
-def _rate_limit_tick() -> Optional[Dict[str, str]]:
+async def _rate_limit_tick() -> Optional[Dict[str, str]]:
     global WINDOW_START, WINDOW_COUNT
-    now = time.time()
-    if now - WINDOW_START >= RATE_LIMIT_WINDOW_SECONDS:
-        WINDOW_START = now
-        WINDOW_COUNT = 0
-    WINDOW_COUNT += 1
+    async with _RL_LOCK:
+        now = time.time()
+        if now - WINDOW_START >= RATE_LIMIT_WINDOW_SECONDS:
+            WINDOW_START = now
+            WINDOW_COUNT = 0
+        WINDOW_COUNT += 1
 
-    remaining = max(0, RATE_LIMIT_BURST - WINDOW_COUNT)
-    reset = int(WINDOW_START + RATE_LIMIT_WINDOW_SECONDS)
-    headers = {
-        "RateLimit-Limit": str(RATE_LIMIT_BURST),
-        "RateLimit-Remaining": str(remaining),
-        "RateLimit-Reset": str(reset),
-    }
-    if WINDOW_COUNT > RATE_LIMIT_BURST:
-        headers["Retry-After"] = "1"
+        remaining = max(0, RATE_LIMIT_BURST - WINDOW_COUNT)
+        reset = int(WINDOW_START + RATE_LIMIT_WINDOW_SECONDS)
+        headers = {
+            "RateLimit-Limit": str(RATE_LIMIT_BURST),
+            "RateLimit-Remaining": str(remaining),
+            "RateLimit-Reset": str(reset),
+        }
+        if WINDOW_COUNT >= RATE_LIMIT_BURST:
+            headers["Retry-After"] = "1"
         return headers
-    return headers
 
 
 def _require_auth(authorization: Optional[str]) -> None:
@@ -132,20 +134,31 @@ def get_metadata(request: Request):
             "token_format": "opaque",
         },
         "rate_limits": {
-            "burst": RATE_LIMIT_BURST,
-            "window_seconds": RATE_LIMIT_WINDOW_SECONDS,
+            "per_client_rps": 100,
+            "per_ip_rps": 100,
+            "burst": min(RATE_LIMIT_BURST, 100000),
         },
         "freshness": {
-            "max_skew_seconds": 120,
-            "default_ttl_seconds": 300,
+            "max_staleness_seconds": 120,
+            "default_expires_seconds": 300,
         },
         "context_allowlist": allowlist,
         "signing": {
-            "response_signing": "optional" if ASSURANCE_LEVEL != "AL2" else "required",
+            "supported": True,
+            "required_for_al2": ASSURANCE_LEVEL == "AL2",
+            "algorithms": ["RS256"],
             "jwks_uri": f"{base}{JWKS_PATH}",
+            "canonicalization": {
+                "json_canonicalization": "operator-defined",
+                "unicode_normalization": "none",
+                "context_keys_included_in_hash": allowlist,
+            },
         },
         "recognition_policy": {
-            "unknown_subject_behavior": "not_found_or_uniform",
+            "scoped_required": True,
+            "expiry_required": True,
+            "transitive_default": False,
+            "max_chain_depth": 1,
         }
     }
 
@@ -160,8 +173,8 @@ def get_jwks():
 
 @app.post("/authorization")
 async def post_authorization(req: Request, authorization: Optional[str] = Header(default=None), accept_signature: Optional[str] = Header(default="none", alias="Accept-Signature")):
-    rl_headers = _rate_limit_tick()
-    if rl_headers and int(rl_headers.get("RateLimit-Remaining", "1")) == 0 and WINDOW_COUNT > RATE_LIMIT_BURST:
+    rl_headers = await _rate_limit_tick()
+    if rl_headers and int(rl_headers.get("RateLimit-Remaining", "1")) == 0 and WINDOW_COUNT >= RATE_LIMIT_BURST:
         raise HTTPException(status_code=429, detail="rate_limited", headers=rl_headers)
 
     _require_auth(authorization)

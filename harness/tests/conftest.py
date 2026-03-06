@@ -18,9 +18,11 @@ SCHEMAS = ROOT.parent / "schemas" / "core"
 # Fixtures
 # -------------------------
 
+_TSPP_PYTEST_CONFIG = None
+
 @pytest.fixture
 def _client() -> TRQPClient:
-    base = os.environ.get("TRQP_BASE_URL")
+    base = os.environ.get("TRQP_BASE_URL") or os.environ.get("TSPP_BASE_URL")
     if not base:
         pytest.skip("TRQP_BASE_URL not set")
     token = os.environ.get("TRQP_BEARER_TOKEN")
@@ -57,6 +59,8 @@ def _get_req_ids(item) -> List[str]:
 
 
 def pytest_configure(config):
+    global _TSPP_PYTEST_CONFIG
+    _TSPP_PYTEST_CONFIG = config
     config._tspp_results: List[TestResult] = []
     config._tspp_req_map: Dict[str, List[str]] = {}
 
@@ -71,7 +75,9 @@ def pytest_runtest_logreport(report):
     if report.when != "call":
         return
 
-    cfg = report.config
+    cfg = _TSPP_PYTEST_CONFIG
+    if cfg is None:
+        return
     nodeid = report.nodeid
     reqs = cfg._tspp_req_map.get(nodeid, [])
 
@@ -124,7 +130,7 @@ def pytest_sessionfinish(session, exitstatus):
         "profile": "TSPP-TRQP-0.1",
         "generated_at": utc_now_iso(),
         "target": {
-            "base_url": os.environ.get("TRQP_BASE_URL"),
+            "base_url": os.environ.get("TRQP_BASE_URL") or os.environ.get("TSPP_BASE_URL"),
             "expected_assurance_level": os.environ.get("TSPP_EXPECT_AL"),
         },
         "summary": {

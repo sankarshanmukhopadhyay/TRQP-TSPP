@@ -27,6 +27,7 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--pytest-args", nargs=argparse.REMAINDER, default=[], help="Additional args passed to pytest")
     args = p.parse_args(argv)
 
+    os.environ["TRQP_BASE_URL"] = args.base_url
     os.environ["TSPP_BASE_URL"] = args.base_url
     os.environ["TSPP_EXPECT_AL"] = args.expect_al
     if args.report_path:
