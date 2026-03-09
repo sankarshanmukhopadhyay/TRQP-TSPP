@@ -9,6 +9,9 @@ description = "Conformance harness for TRQP Security & Privacy Profile (TSPP) v0
 requires-python = ">=3.9"
 dependencies = ["requests", "pytest", "jsonschema", "python-dateutil", "jwcrypto"]
 
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["tspp_trqp_harness*"]
 
 [project.scripts]
 tspp-harness = "tspp_trqp_harness.cli:main"
