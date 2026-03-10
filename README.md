@@ -12,9 +12,7 @@ tier: 0
 
 📘 **Documentation site (GitHub Pages):** https://sankarshanmukhopadhyay.github.io/TRQP-TSPP/
 
-
-**Current version:** v0.6.0
-
+**Current version:** v0.7.0
 
 ![License](https://img.shields.io/github/license/sankarshanmukhopadhyay/TRQP-TSPP)
 ![Last Commit](https://img.shields.io/github/last-commit/sankarshanmukhopadhyay/TRQP-TSPP)
@@ -52,25 +50,49 @@ This repository **does not define** Assurance Level (AL1–AL4) semantics.
 
 TSPP implements **requirements, tests, and evidence expectations** parameterized by AL. It MUST NOT redefine AL meanings locally.
 
-## What’s in here
+## Ayra Trust Network
 
-- **OpenAPI contract** (`openapi/tspp-trqp-openapi.yaml`)  
+For registries targeting the [Ayra Trust Network](https://ayra.forum), see the Ayra baseline profile:
+
+- Profile guidance: [`docs/profiles/ayra-baseline.md`](docs/profiles/ayra-baseline.md)
+- `did:webvh` format validator: `schemas/ayra/did_webvh_validator.py`
+- Assurance Hub crosswalk: https://github.com/sankarshanmukhopadhyay/trqp-assurance-hub/blob/main/tools/ayra-mapping.md
+
+Key Ayra requirements handled by TSPP:
+
+- **JWS response signing is MUST at all Ayra tiers** — not an AL2-only upgrade. Run `test_06_al2_signed_responses.py` even for Basic tier.
+- **Recognition security parity** — `test_10_recognition_security.py` covers POST /recognition with the same freshness, anti-enumeration, context allowlist, and rate limiting controls as POST /authorization.
+- **`did:webvh` format validation** — `schemas/ayra/did_webvh_validator.py` provides syntax checking. Full DID resolution remains a manual step.
+
+Required query fixtures for full Ayra coverage (add to `harness/fixtures/queries.json`):
+
+| Fixture key | Used by |
+|---|---|
+| `recognition_valid` | `test_10_recognition_security.py` freshness, context, rate limit tests |
+| `recognition_unknown_ecosystem` | `test_10_recognition_security.py` anti-enumeration test |
+| `recognition_ayra_atn` | `test_10_recognition_security.py` ATN query shape test (set `authority_id` to `did:webvh:ayra.forum`) |
+
+## What's in here
+
+- **OpenAPI contract** (`openapi/tspp-trqp-openapi.yaml`)
   An HTTP-level contract capturing profile-required headers/fields, freshness semantics, and optional AL2 signed envelopes.
 
-- **JSON Schemas** (`schemas/`)  
-  - `tspp-trqp-metadata.schema.json` — machine-readable declaration of a registry’s posture and constraints  
-  - `tspp-trqp-signed-response.schema.json` — AL2 signed response envelope schema
+- **JSON Schemas** (`schemas/`)
+  - `schemas/core/tspp-trqp-metadata.schema.json` — machine-readable declaration of a registry's posture and constraints
+  - `schemas/core/tspp-trqp-signed-response.schema.json` — AL2 signed response envelope schema
+  - `schemas/ayra/did_webvh_validator.py` — did:webvh format validator for Ayra deployments
 
-- **Conformance harness** (`harness/`)  
-  A pytest-based harness that validates metadata, freshness, context allowlisting, rate limiting evidence,
-  anti-enumeration heuristics, optional AL2 signed envelopes, and optional bridge equivalence fixtures.
+- **Conformance harness** (`harness/`)
+  A pytest-based harness validating metadata, freshness, context allowlisting, rate limiting, anti-enumeration,
+  AL2 signed envelopes, bridge equivalence, and recognition endpoint security.
 
-- **Docs** (`docs/`)  
-  - `profile.md` — the profile summary and requirements map  
-  - `threat-model.md` — adversarial model of likely harms  
+- **Docs** (`docs/`)
+  - `profile.md` — the profile summary and requirements map
+  - `threat-model.md` — adversarial model of likely harms
   - `deployment-guidance.md` — operator-focused rollout sequence
+  - `profiles/ayra-baseline.md` — Ayra Trust Network control mapping and evidence guide
 
-- **Examples** (`examples/`)  
+- **Examples** (`examples/`)
   Sample queries and bridge golden fixtures.
 
 ## Quick start (run the harness)
@@ -93,7 +115,7 @@ export TSPP_EXPECT_AL="AL1"      # or AL2
 
 ### 3) Update fixtures
 Edit `harness/fixtures/queries.json` to replace example identifiers (`did:example:*`) and vocab URIs with
-values valid in your environment.
+values valid in your environment. For Ayra deployments, also add the three recognition fixtures listed above.
 
 ### 4) Run tests
 ```bash
@@ -102,11 +124,11 @@ pytest -q
 
 ## Conformance levels
 
-- **AL1 (Baseline / Internet-safe)**  
+- **AL1 (Baseline / Internet-safe)**
   Minimum posture for internet exposure: freshness semantics, context allowlisting, rate limiting evidence,
   and safe client semantics.
 
-- **AL2 (High Assurance / Critical infrastructure)**  
+- **AL2 (High Assurance / Critical infrastructure)**
   Tightened posture: authenticated access required, sender-constrained tokens for bulk clients, stronger
   anti-enumeration expectations, and signed response envelopes.
 
