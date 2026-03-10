@@ -1,3 +1,9 @@
+---
+owner: maintainers
+last_reviewed: 2026-03-10
+tier: 1
+---
+
 # Assurance Hub ↔ TSPP Crosswalk
 
 This document maps **Assurance Hub** evidence expectations to the concrete artifacts emitted by **TRQP-TSPP**.
@@ -46,9 +52,9 @@ This repo ships `al-contract.json` which references the canonical AL definitions
 
 ## Version pins
 
-- TRQP Assurance Hub: v0.8.1
-- TRQP Conformance Suite: v0.7.1
-- TRQP TSPP: v0.5.1
+- TRQP Assurance Hub: v0.9.0
+- TRQP Conformance Suite: v0.8.0
+- TRQP TSPP: v0.6.0
 
 ## UNTP DIA alignment
 

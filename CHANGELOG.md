@@ -1,5 +1,33 @@
 # Changelog
 
+## v0.6.0 (2026-03-10)
+
+### Fixed
+- Align `docs/hub-crosswalk.md` version pins with `al-contract.json`: Hub v0.8.1 → v0.9.0;
+  CTS v0.7.1 → v0.8.0; TSPP v0.5.1 → v0.6.0. Previously the crosswalk claimed v0.8.1 while
+  `al-contract.json` in the same repo already pinned v0.9.0.
+
+### Added
+- `schemas/README.md`: documents the canonical (`schemas/core/`) vs alias (`schemas/`,
+  `harness/schemas/`) schema layout, preventing future drift and explaining the `$ref`
+  wrapper pattern to contributors.
+- `docs/profiles/ayra-baseline.md`: TSPP control applicability table and evidence artifact
+  mapping for registries operating within the Ayra Trust Network.
+- Frontmatter (`owner`, `last_reviewed`, `tier`) to `docs/hub-crosswalk.md` to bring it
+  under freshness SLA enforcement.
+
+### Changed
+- Update `README.md` to reflect v0.6.0 and the current downstream release train
+  (CTS v0.8.0 · Hub v0.9.0).
+
+## Cross-repo versions
+
+| Repository | Version |
+|---|---|
+| TRQP-TSPP | v0.6.0 |
+| Conformance Suite | v0.8.0 |
+| Assurance Hub | v0.9.0 |
+
 ## v0.5.1 (2026-03-06)
 
 - Synchronize public-facing documentation and release metadata with Conformance Suite v0.7.1 and Assurance Hub v0.8.1.
