@@ -11,9 +11,23 @@
   "recognition_valid": {
     "authority_id": "did:example:authority",
     "entity_id": "did:example:entity",
+    "action": "recognize",
+    "resource": "ecosystem",
     "context": {
       "time_requested": "2026-01-15T00:00:00Z"
     }
+  },
+  "recognition_unknown_ecosystem": {
+    "authority_id": "did:example:authority",
+    "entity_id": "did:example:nonexistent-ecosystem",
+    "action": "recognize",
+    "resource": "ecosystem"
+  },
+  "recognition_ayra_atn": {
+    "authority_id": "did:webvh:ayra.forum",
+    "entity_id": "did:example:entity",
+    "action": "recognize",
+    "resource": "ecosystem"
   },
   "authorization_unknown_entity": {
     "authority_id": "did:example:authority",
