@@ -10,6 +10,8 @@ tier: 0
 
 This site publishes the documentation for the **TRQP TSPP** repository via **GitHub Pages**.
 
+**Current version:** v0.7.0 · [Assurance Hub](https://github.com/sankarshanmukhopadhyay/trqp-assurance-hub) · [Conformance Suite](https://github.com/sankarshanmukhopadhyay/trqp-conformance-suite)
+
 ## Start here
 
 - [Profile](profile.md)
@@ -24,10 +26,20 @@ This site publishes the documentation for the **TRQP TSPP** repository via **Git
 - [GRID interop notes](GRID_NOTES.md)
 - [Evidence bundles](evidence_bundles.md)
 
-## Repo entry points
+## Profiles
 
-- Source repository: see root `README.md`
+- [Ayra Trust Network baseline](profiles/ayra-baseline.md)
+- [SAD-1 (Sovereign Authoritative Directory)](profiles/sad-1.md)
+- [GRID](profiles/grid.md)
+- [DeDi (experimental)](profiles/dedi-experimental.md)
 
+## Ayra Trust Network
+
+- [Ayra baseline profile — control mapping and evidence guide](profiles/ayra-baseline.md)
+- `did:webvh` validator: `schemas/ayra/did_webvh_validator.py`
+- Ayra TRQP Profile: https://ayraforum.github.io/ayra-trust-registry-resources/
+- Ayra Implementers Guide: https://ayraforum.github.io/ayra-trust-registry-resources/guides/
+- Assurance Hub submission checklist: https://github.com/sankarshanmukhopadhyay/trqp-assurance-hub/blob/main/tools/ayra-mapping.md
 
 ## Authoritative directories (SAD-1 / GRID)
 
@@ -46,6 +58,10 @@ publication, administration, lifecycle integrity, and accountability.
 ## Supply chain integrity
 
 - OpenSSF-aligned guidance: `docs/reference/openssf-supply-chain.md`
+
+## Repo entry points
+
+- Source repository: see root `README.md`
 
 ## Governance
 
