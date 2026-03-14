@@ -12,7 +12,7 @@ tier: 0
 
 📘 **Documentation site (GitHub Pages):** https://sankarshanmukhopadhyay.github.io/TRQP-TSPP/
 
-**Current version:** v0.7.0
+**Current version:** v0.7.1
 
 ![License](https://img.shields.io/github/license/sankarshanmukhopadhyay/TRQP-TSPP)
 ![Last Commit](https://img.shields.io/github/last-commit/sankarshanmukhopadhyay/TRQP-TSPP)
@@ -28,6 +28,7 @@ tier: 0
 Looking for the *single front door* across TRQP conformance + security/privacy assurance?
 
 - Hub repo (onboarding, operating model, combined workflows): https://github.com/sankarshanmukhopadhyay/trqp-assurance-hub
+- Machine-readable assurance profiles and the Trust Registry reference service live in the Hub docs.
 - Hub crosswalk for this repo: `docs/hub-crosswalk.md`
 - Evidence bundles: `docs/evidence_bundles.md`
 

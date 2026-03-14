@@ -52,9 +52,9 @@ This repo ships `al-contract.json` which references the canonical AL definitions
 
 ## Version pins
 
-- TRQP Assurance Hub: v0.9.0
-- TRQP Conformance Suite: v0.8.0
-- TRQP TSPP: v0.6.0
+- TRQP Assurance Hub: v1.1.0
+- TRQP Conformance Suite: v0.9.1
+- TRQP TSPP: v0.7.1
 
 ## UNTP DIA alignment
 
@@ -72,3 +72,8 @@ TSPP supports optional inclusion of supply chain integrity evidence in the postu
 
 These artifacts are optional, but recommended for AL3+ deployments.
 
+
+
+## Discovery surface
+
+TSPP posture reports are intended to be bound into the Combined Assurance Manifest and then published through the Assurance Hub Trust Registry reference service together with the selected machine-readable assurance profile.

@@ -80,7 +80,7 @@ The TRQP assurance toolchain is intentionally **decentralized** (not a monorepo)
 As of this release line:
 
 - Assurance Hub: **v0.8.1**
-- Conformance Suite (CTS): **v0.7.1**
+- Conformance Suite (CTS): **v0.9.1**
 - TSPP: **v0.5.1**
 
 For “known-good” pairings, see `docs/policies/compatibility.md`.
@@ -97,3 +97,8 @@ If your security team asks “what program does this map to?”, point them to:
 
 ## Methodology references
 - TRACE ↔ TSAM: `docs/reference/TRACE-TSAM.md`
+
+
+## Publication path
+
+After a TSPP run, operators SHOULD bind the posture report into a Combined Assurance Manifest and publish the resulting evidence through the Assurance Hub Trust Registry reference service alongside the selected machine-readable assurance profile.
