@@ -210,3 +210,8 @@ TRQP-TSPP includes an **experimental** DeDi operator posture profile to align de
 
 - DeDi mapping matrix: `docs/reference/dedi-mapping-matrix.md`
 - Machine-readable matrix: `docs/reference/dedi-mapping-matrix.yaml`
+
+
+## Operational Stack integration
+
+TSPP reports now include shared `run_id`, `target_id`, `assurance_level`, and `tool_version` metadata so the Assurance Hub can assemble a combined manifest with less hand-waving and fewer brittle assumptions.

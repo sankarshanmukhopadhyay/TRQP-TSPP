@@ -22,6 +22,10 @@ The report is a single JSON object with these keys:
 
 - `profile` — fixed identifier for the harness profile (currently `TSPP-TRQP-0.1`)
 - `generated_at` — timestamp for the report (UTC ISO 8601)
+- `run_id` — shared execution identifier for Operational Stack workflows
+- `target_id` — stable identifier for the evaluated service
+- `assurance_level` — expected AL for the run
+- `tool_version` — version of TRQP-TSPP that produced the report
 - `target`
   - `base_url`
   - `expected_assurance_level`
@@ -52,3 +56,8 @@ tspp-harness \
 ```
 
 This CLI simply sets the standard environment variables and invokes pytest against `harness/tests`.
+
+
+## Operational Stack fields
+
+When used with the Assurance Hub, operators SHOULD set `--run-id` and `--target-id` on the CLI so TSPP emits metadata that lines up cleanly with CTS output.

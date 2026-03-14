@@ -1,3 +1,9 @@
+## v0.7.0
+
+- Add Operational Stack metadata to TSPP JSON reports: `run_id`, `target_id`, `assurance_level`, and `tool_version`.
+- Extend the harness CLI with `--run-id` and `--target-id` support.
+- Add `docs/profiles/interop-demo.md` and update the output contract for integrated stack workflows.
+
 # Changelog
 
 ## v0.6.0 (2026-03-10)

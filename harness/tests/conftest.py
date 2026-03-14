@@ -1,5 +1,6 @@
 import os
 import json
+import uuid
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
@@ -12,6 +13,7 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 FIXTURES = ROOT / "fixtures"
 SCHEMAS = ROOT.parent / "schemas" / "core"
+VERSION = (ROOT.parent / "VERSION").read_text(encoding="utf-8").strip()
 
 
 # -------------------------
@@ -129,6 +131,11 @@ def pytest_sessionfinish(session, exitstatus):
     report_obj: Dict[str, Any] = {
         "profile": "TSPP-TRQP-0.1",
         "generated_at": utc_now_iso(),
+        "run_id": os.environ.get("TSPP_RUN_ID") or str(uuid.uuid4()),
+        "target_id": os.environ.get("TSPP_TARGET_ID") or (os.environ.get("TRQP_BASE_URL") or os.environ.get("TSPP_BASE_URL")),
+        "assurance_level": os.environ.get("TSPP_EXPECT_AL"),
+        "tool_version": VERSION,
+        "tool": {"name": "trqp-tspp", "version": VERSION},
         "target": {
             "base_url": os.environ.get("TRQP_BASE_URL") or os.environ.get("TSPP_BASE_URL"),
             "expected_assurance_level": os.environ.get("TSPP_EXPECT_AL"),
