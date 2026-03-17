@@ -312,7 +312,20 @@ async def post_recognition(req: Request, authorization: Optional[str] = Header(d
     _require_auth(authorization)
     body = await req.json()
     allowlist = ["purpose", "audience", "locale"]
-    ctx = _strip_unknown_context(body.get("context"), allowlist)
+    raw_ctx = body.get("context") if isinstance(body, dict) else None
+    if isinstance(raw_ctx, dict):
+        unknown_keys = [k for k in raw_ctx if k not in allowlist]
+        if unknown_keys:
+            raise HTTPException(
+                status_code=400,
+                detail={
+                    "error": "invalid_context",
+                    "message": "Request context contains keys not declared in the server allowlist.",
+                    "unknown_keys": unknown_keys,
+                    "allowlist": allowlist,
+                },
+            )
+    ctx = _strip_unknown_context(raw_ctx, allowlist)
     if isinstance(body, dict):
         body["context"] = ctx
 

@@ -10,10 +10,10 @@ jobs:
   hygiene:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v4
 
       - name: Setup Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
           cache: "pip"
@@ -42,10 +42,10 @@ jobs:
       matrix:
         expected_al: ["AL1", "AL2", "AL3", "AL4"]
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v4
 
       - name: Setup Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
           cache: "pip"
@@ -75,7 +75,7 @@ jobs:
           pytest -q harness/tests
 
       - name: Upload conformance report
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v4
         with:
           name: tspp-conformance-report-${{ matrix.expected_al }}
           path: reports/tspp_conformance_${{ matrix.expected_al }}.json
