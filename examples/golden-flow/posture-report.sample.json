@@ -1,0 +1,23 @@
+{
+  "profile": "TSPP-TRQP-0.1",
+  "assurance_level": "AL2",
+  "summary": {
+    "PASS": 9,
+    "FAIL": 0,
+    "SKIP": 1,
+    "NOT_APPLICABLE": 0,
+    "ERROR": 0,
+    "XFAIL": 0,
+    "exit_status": 0,
+    "posture_score": 100.0,
+    "coverage_index": 90.0,
+    "control_satisfaction": {
+      "applicable_checks": 10,
+      "evaluated_checks": 9,
+      "passed_checks": 9,
+      "failed_checks": 0,
+      "skipped_checks": 1,
+      "not_applicable_checks": 0
+    }
+  }
+}

@@ -1,0 +1,2 @@
+[console_scripts]
+tspp-harness = tspp_trqp_harness.cli:main

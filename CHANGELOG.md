@@ -1,3 +1,9 @@
+## v0.8.0
+
+- Added Posture Report scoring, coverage, and control satisfaction metrics.
+- Added Operational Trust Stack public documentation and Golden Flow examples.
+- Refreshed public-facing docs and synchronized versions across the stack.
+
 ## v0.7.0
 
 - Add Operational Stack metadata to TSPP JSON reports: `run_id`, `target_id`, `assurance_level`, and `tool_version`.

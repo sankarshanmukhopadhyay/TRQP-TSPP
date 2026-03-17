@@ -1,6 +1,6 @@
 ---
 owner: maintainers
-last_reviewed: 2026-03-10
+last_reviewed: 2026-03-17
 tier: 0
 ---
 
@@ -12,7 +12,9 @@ tier: 0
 
 📘 **Documentation site (GitHub Pages):** https://sankarshanmukhopadhyay.github.io/TRQP-TSPP/
 
-**Current version:** v0.7.1
+**Current version:** v0.8.0
+
+**Release line:** Operational Trust Stack v1
 
 ![License](https://img.shields.io/github/license/sankarshanmukhopadhyay/TRQP-TSPP)
 ![Last Commit](https://img.shields.io/github/last-commit/sankarshanmukhopadhyay/TRQP-TSPP)
@@ -23,60 +25,38 @@ tier: 0
 ![Conformance](https://img.shields.io/badge/Conformance-Harness-brightgreen)
 ![Assurance Levels](https://img.shields.io/badge/Assurance-AL1%20%7C%20AL2%20%7C%20AL3%20%7C%20AL4-purple)
 
-## Start here: TRQP Assurance Hub
+TSPP is the **posture computation layer** in the three-repository Operational Trust Stack v1 release line.
+It converts TRQP security and privacy expectations into executable checks, control satisfaction evidence,
+and a machine-readable **Posture Report** that downstream layers can consume without reinterpretation.
 
-Looking for the *single front door* across TRQP conformance + security/privacy assurance?
+## Where this fits
 
-- Hub repo (onboarding, operating model, combined workflows): https://github.com/sankarshanmukhopadhyay/trqp-assurance-hub
-- Machine-readable assurance profiles and the Trust Registry reference service live in the Hub docs.
-- Hub crosswalk for this repo: `docs/hub-crosswalk.md`
-- Evidence bundles: `docs/evidence_bundles.md`
+| Layer | Repository role | Primary output |
+|---|---|---|
+| TSPP | Posture computation | Posture Report |
+| Conformance Suite | Protocol verification | Conformance Report |
+| Assurance Hub | Assurance orchestration and publication | Combined Assurance Manifest |
 
+## What is new in v0.8.0
 
-This repository packages a practical, implementer-ready **security and privacy profile** for the Trust Over IP
-**Trust Registry Query Protocol (TRQP)** and supports evaluating **authoritative digital trust directories** (SAD-1), including sovereign registry patterns.
-**Trust Registry Query Protocol (TRQP)**, along with machine-readable artifacts and a conformance harness.
+- Stable Posture Report metrics: `posture_score`, `coverage_index`, and `control_satisfaction`
+- Golden flow example assets for cross-repo integration
+- Public-facing docs synchronized with the Operational Trust Stack v1 narrative
+- Version alignment with Conformance Suite v1.0.0 and Assurance Hub v1.2.0
 
-If TRQP becomes the *query plane* for institutional trust, this repo is the seatbelt kit: it converts high-level
-security considerations into enforceable requirements, and ships tooling to test deployments against them.
+## Start here
 
-## Assurance Level Dependency
+- Operational stack overview: [`docs/operational-stack.md`](docs/operational-stack.md)
+- Output contract: [`docs/OUTPUT_CONTRACT.md`](docs/OUTPUT_CONTRACT.md)
+- Quickstart: [`QUICKSTART.md`](QUICKSTART.md)
+- Hub repo: https://github.com/sankarshanmukhopadhyay/trqp-assurance-hub
+- Hub crosswalk for this repo: [`docs/hub-crosswalk.md`](docs/hub-crosswalk.md)
 
-This repository **does not define** Assurance Level (AL1–AL4) semantics.
+## Why this exists
 
-- Canonical definitions live in **TRQP Assurance Hub**: `docs/guides/assurance-levels.md`
-- Machine-readable contract: `al-contract.json`
-
-**Pinning for audit stability:** this repo ships an `al-contract.json` that includes the SHA-256 of the canonical AL definition document (`61c599c5fa06e0c9110f40ff71c0174db5502105b97f1391dbd9ae8548115f71`).
-
-TSPP implements **requirements, tests, and evidence expectations** parameterized by AL. It MUST NOT redefine AL meanings locally.
-
-## Ayra Trust Network
-
-For registries targeting the [Ayra Trust Network](https://ayra.forum), see the Ayra baseline profile:
-
-- Profile guidance: [`docs/profiles/ayra-baseline.md`](docs/profiles/ayra-baseline.md)
-- `did:webvh` format validator: `schemas/ayra/did_webvh_validator.py`
-- Assurance Hub crosswalk: https://github.com/sankarshanmukhopadhyay/trqp-assurance-hub/blob/main/tools/ayra-mapping.md
-
-Key Ayra requirements handled by TSPP:
-
-- **JWS response signing is MUST at all Ayra tiers** — not an AL2-only upgrade. Run `test_06_al2_signed_responses.py` even for Basic tier.
-- **Recognition security parity** — `test_10_recognition_security.py` covers POST /recognition with the same freshness, anti-enumeration, context allowlist, and rate limiting controls as POST /authorization.
-- **`did:webvh` format validation** — `schemas/ayra/did_webvh_validator.py` provides syntax checking. Full DID resolution remains a manual step.
-
-Required query fixtures for full Ayra coverage (add to `harness/fixtures/queries.json`):
-
-| Fixture key | Used by |
-|---|---|
-| `recognition_valid` | `test_10_recognition_security.py` freshness, context, rate limit tests |
-| `recognition_unknown_ecosystem` | `test_10_recognition_security.py` anti-enumeration test |
-| `recognition_ayra_atn` | `test_10_recognition_security.py` ATN query shape test (set `authority_id` to `did:webvh:ayra.forum`) |
-
-## What's in here
-
-- **OpenAPI contract** (`openapi/tspp-trqp-openapi.yaml`)
-  An HTTP-level contract capturing profile-required headers/fields, freshness semantics, and optional AL2 signed envelopes.
+If TRQP becomes the query plane for institutional trust, TSPP is the layer that keeps security and privacy from
+turning into hand-wavy prose. It makes requirements testable, produces portable evidence, and gives operators a way
+to show what was checked, what passed, and what remains outside scope.
 
 - **JSON Schemas** (`schemas/`)
   - `schemas/core/tspp-trqp-metadata.schema.json` — machine-readable declaration of a registry's posture and constraints

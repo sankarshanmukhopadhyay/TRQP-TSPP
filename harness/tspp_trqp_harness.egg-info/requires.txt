@@ -1,0 +1,5 @@
+requests
+pytest
+jsonschema
+python-dateutil
+jwcrypto

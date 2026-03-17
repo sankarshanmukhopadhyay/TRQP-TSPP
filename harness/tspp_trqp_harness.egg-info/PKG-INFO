@@ -1,0 +1,10 @@
+Metadata-Version: 2.4
+Name: tspp-trqp-harness
+Version: 0.1.0
+Summary: Conformance harness for TRQP Security & Privacy Profile (TSPP) v0.1
+Requires-Python: >=3.9
+Requires-Dist: requests
+Requires-Dist: pytest
+Requires-Dist: jsonschema
+Requires-Dist: python-dateutil
+Requires-Dist: jwcrypto
