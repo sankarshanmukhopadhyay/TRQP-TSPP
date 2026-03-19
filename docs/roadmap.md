@@ -24,7 +24,7 @@ This roadmap tracks high-level increments for TSPP.
 - AL contract pinning verified against the canonical Assurance Hub snapshot (Hub v1.1.0).
 - Harness documentation consolidated; quickstart available for new implementers.
 
-_Last updated: 2026-03-17_
+_Last updated: 2026-03-19_
 
 ## UNTP DIA / IDR alignment
 
@@ -36,9 +36,9 @@ Add explicit guidance and examples for evaluating authoritative directories that
 
 ### Supply chain integrity
 
-- Expand TSPP-SCI evidence patterns (SBOM, provenance, signed releases) and align validation hooks with CTS and Assurance Hub.
-- Add a supply chain integrity harness test module (`harness/tests/test_10_sci_controls.py`) covering SBOM presence, release provenance, and signing key freshness.
+- ✅ `harness/tests/test_11_sci_controls.py`: TSPP-SCI-01 (SBOM), TSPP-SCI-02 (provenance), TSPP-SCI-03 (key freshness). Advisory at AL1/AL2, required at AL3+.
+- ✅ SCI requirement IDs added to `docs/standards-alignment.md` with OWASP/NIST/ISO mappings.
 
 ### Schema contract guidance
 
-- Publish a schema contract note (analogous to `schemas/README.md`) clarifying which fields are stable across minor versions and what migration path adopters should follow when upgrading AL contract pins.
+- ✅ `schemas/CONTRACT.md`: stability tiers (Stable / Extensible / Experimental), per-schema field contract, and AL contract pin upgrade checklist.

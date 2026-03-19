@@ -21,6 +21,17 @@ This document provides an **informative mapping** from **TSPP Requirement IDs (C
 | `TSPP-AL2-01` | Signed envelope in AL2 | API2 (auth); API8 (integrity) — signed responses | SC-12/SC-13 (cryptographic protections); SI-7 (integrity) | A.8.24 (Use of cryptography) |
 | `TSPP-AL2-02` | Verifiable signature via declared JWKS | API8: Security Misconfiguration? (key management) / integrity verification | SC-12/SC-13; IA-5 (authenticator management) | A.8.24; A.5.17 |
 | `TSPP-BRIDGE-01` | Semantic equivalence fixtures (optional) | API10 (consistent consumption); interoperability risk reduction | SA-15 (development process); SA-11 | A.8.28 |
+| `TSPP-AL3-01` | Default signed responses at AL3 | API8: Injection (signing integrity) | SC-12/13; SI-7 | A.8.24 (Use of cryptography) |
+| `TSPP-AL3-02` | Signed envelope includes meta (query hash, iat, exp) | API8; API2 | SC-12/13; SI-10 | A.8.24 |
+| `TSPP-AL3-03` | Independent assessment URI resolves | API10 (provenance) | CA-2 (security assessments) | A.5.35 (Independent review) |
+| `TSPP-AL3-04` | Change control URI resolves | API10 | CM-3 (change control) | A.8.32 (Change management) |
+| `TSPP-AL4-02` | Key protection declared and evidence URI resolves | API2 | SC-12; IA-5 | A.8.24 |
+| `TSPP-AL4-03` | Monitoring and runbook declared | — | SI-4; IR-4 | A.8.16 (Monitoring) |
+| `TSPP-AL4-04` | Policy and rollback URIs resolve | API10 | CM-3; CP-10 | A.8.32; A.5.26 |
+| `TSPP-AL4-05` | Audit log declared | — | AU-2; AU-9 | A.8.15 (Logging) |
+| `TSPP-SCI-01` | SBOM reference declared | OWASP SAMM: Supply chain security | SA-12 (supply chain); SR-3 (supply chain controls) | A.5.19 (ICT supply chain security) |
+| `TSPP-SCI-02` | Release provenance attestation declared | OWASP SAMM: Build integrity | SA-15 (development process); SR-4 (provenance) | A.8.30 (Outsourced development) |
+| `TSPP-SCI-03` | Signing key freshness declared | API8 (key management) | SC-12/13; IA-5 | A.8.24 (Use of cryptography) |
 
 ## Included standards
 

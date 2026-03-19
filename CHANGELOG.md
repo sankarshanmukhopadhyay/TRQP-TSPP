@@ -1,3 +1,10 @@
+## v0.10.0
+
+- Add `harness/tests/test_11_sci_controls.py`: supply chain integrity test module covering TSPP-SCI-01 (SBOM reference), TSPP-SCI-02 (release provenance), and TSPP-SCI-03 (signing key freshness). Advisory at AL1/AL2, required at AL3+.
+- Add `schemas/CONTRACT.md`: schema stability tiers (Stable / Extensible / Experimental) with per-schema field contract and AL contract pin upgrade checklist.
+- Extend `docs/standards-alignment.md` with TSPP-SCI-01/02/03 and AL3/AL4 requirement IDs (TSPP-AL3-01–04, TSPP-AL4-02–05) mapped to OWASP, NIST SP 800-53, and ISO/IEC 27002.
+- Update cross-repo version references to Conformance Suite v1.2.0 and trqp-assurance-hub v1.4.0.
+
 ## v0.9.0
 
 - Fix `harness/tests/conftest.py` `pytest_sessionfinish` to compute and emit `posture_score`, `coverage_index`, and `control_satisfaction` in the TSPP conformance report summary, matching the golden flow sample shape and enabling direct ingestion by the Assurance Hub `generate-manifest.py`.
