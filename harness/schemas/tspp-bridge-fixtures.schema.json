@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/tspp-bridge-fixtures.schema.json",
+  "title": "TSPP Bridge Golden Fixtures",
+  "description": "Schema for the bridge_golden_fixtures.json file. Validates the structure of bridge semantic equivalence test cases used by test_07_bridge_equivalence.py.",
+  "type": "object",
+  "required": ["cases"],
+  "additionalProperties": false,
+  "properties": {
+    "description": {"type": "string"},
+    "cases": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "query", "expected"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {"type": "string", "description": "Stable case identifier, e.g. case-001."},
+          "system_of_record_truth": {
+            "type": "object",
+            "description": "Optional ground-truth record from the system of record for documentation purposes.",
+            "additionalProperties": true
+          },
+          "trqp_query": {
+            "type": "object",
+            "description": "Deprecated alias for query. Use query instead.",
+            "additionalProperties": true
+          },
+          "query": {
+            "type": "object",
+            "description": "The TRQP authorization request body to issue.",
+            "required": ["authority_id"],
+            "additionalProperties": true,
+            "properties": {
+              "authority_id": {"type": "string"},
+              "entity_id": {"type": "string"},
+              "action": {"type": "string"},
+              "resource": {"type": "string"},
+              "context": {"type": "object", "additionalProperties": true}
+            }
+          },
+          "expected": {
+            "type": "object",
+            "description": "Key-value pairs that must be present and equal in the (unwrapped) TRQP authorization response payload.",
+            "additionalProperties": true
+          },
+          "expected_trqp_outcome": {
+            "type": "string",
+            "description": "Deprecated flat expected outcome string. Use expected instead.",
+            "enum": ["true", "false", "indeterminate"]
+          }
+        }
+      }
+    }
+  }
+}

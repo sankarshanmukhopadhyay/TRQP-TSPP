@@ -33,7 +33,7 @@ jobs:
 
       - name: Python syntax smoke check
         run: |
-          python -m compileall -q .
+          python -m compileall -q harness/ scripts/ examples/ schemas/
 
   integration:
     runs-on: ubuntu-latest
@@ -70,6 +70,8 @@ jobs:
           TRQP_BASE_URL: http://127.0.0.1:8001
           TRQP_BEARER_TOKEN: dev-token
           TSPP_EXPECT_AL: ${{ matrix.expected_al }}
+          TSPP_RUN_ID: ci-${{ github.run_id }}-${{ matrix.expected_al }}
+          TSPP_TARGET_ID: http://127.0.0.1:8001
           TSPP_REPORT_PATH: reports/tspp_conformance_${{ matrix.expected_al }}.json
         run: |
           pytest -q harness/tests

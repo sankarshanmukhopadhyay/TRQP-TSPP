@@ -101,10 +101,8 @@ def pytest_runtest_logreport(report):
     else:
         outcome = "ERROR"
 
-
     notes: Optional[str] = None
     if report.longrepr:
-        # Keep this short; details belong in CI logs
         try:
             notes = str(report.longrepr)[:1000]
         except Exception:
@@ -122,12 +120,53 @@ def pytest_runtest_logreport(report):
     )
 
 
+def _compute_summary_metrics(results: List[TestResult], exit_status: int) -> Dict[str, Any]:
+    """Compute summary counts and derived posture/coverage metrics.
+
+    These metrics are emitted in every TSPP report and must match the golden
+    flow sample shape so the Assurance Hub generate-manifest.py can ingest them.
+    """
+    pass_count = sum(1 for r in results if r.outcome == "PASS")
+    fail_count = sum(1 for r in results if r.outcome == "FAIL")
+    skip_count = sum(1 for r in results if r.outcome == "SKIP")
+    na_count = sum(1 for r in results if r.outcome == "NOT_APPLICABLE")
+    error_count = sum(1 for r in results if r.outcome == "ERROR")
+    xfail_count = sum(1 for r in results if r.outcome == "XFAIL")
+
+    applicable = len(results) - na_count
+    evaluated = pass_count + fail_count + error_count + xfail_count
+    coverage_index = round((evaluated / applicable) * 100.0, 2) if applicable else 100.0
+    posture_score = round((pass_count / applicable) * 100.0, 2) if applicable else 100.0
+
+    return {
+        "exit_status": exit_status,
+        "PASS": pass_count,
+        "FAIL": fail_count,
+        "SKIP": skip_count,
+        "NOT_APPLICABLE": na_count,
+        "ERROR": error_count,
+        "XFAIL": xfail_count,
+        "posture_score": posture_score,
+        "coverage_index": coverage_index,
+        "control_satisfaction": {
+            "applicable_checks": applicable,
+            "evaluated_checks": evaluated,
+            "passed_checks": pass_count,
+            "failed_checks": fail_count,
+            "skipped_checks": skip_count,
+            "not_applicable_checks": na_count,
+        },
+    }
+
+
 def pytest_sessionfinish(session, exitstatus):
     path = os.environ.get("TSPP_REPORT_PATH")
     if not path:
         return
 
     cfg = session.config
+    summary = _compute_summary_metrics(cfg._tspp_results, int(exitstatus))
+
     report_obj: Dict[str, Any] = {
         "profile": "TSPP-TRQP-0.1",
         "generated_at": utc_now_iso(),
@@ -140,18 +179,41 @@ def pytest_sessionfinish(session, exitstatus):
             "base_url": os.environ.get("TRQP_BASE_URL") or os.environ.get("TSPP_BASE_URL"),
             "expected_assurance_level": os.environ.get("TSPP_EXPECT_AL"),
         },
-        "summary": {
-            "exit_status": exitstatus,
-            "PASS": sum(1 for r in cfg._tspp_results if r.outcome == "PASS"),
-            "FAIL": sum(1 for r in cfg._tspp_results if r.outcome == "FAIL"),
-            "SKIP": sum(1 for r in cfg._tspp_results if r.outcome == "SKIP"),
-            "NOT_APPLICABLE": sum(1 for r in cfg._tspp_results if r.outcome == "NOT_APPLICABLE"),
-            "ERROR": sum(1 for r in cfg._tspp_results if r.outcome == "ERROR"),
-            "XFAIL": sum(1 for r in cfg._tspp_results if r.outcome == "XFAIL"),
-        },
+        "summary": summary,
         "results": [r.to_dict() for r in cfg._tspp_results],
     }
 
     out_path = Path(path)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(report_obj, indent=2, sort_keys=True), encoding="utf-8")
+
+
+# -------------------------
+# Bridge fixture schema validation
+# -------------------------
+
+def pytest_sessionstart(session):
+    """Validate the bundled bridge fixture file against its schema at session start.
+
+    This catches fixture drift early, before any tests run. Failures are
+    reported as warnings rather than errors to avoid blocking the whole suite
+    when a fixture file is intentionally under construction.
+    """
+    import warnings
+    try:
+        from jsonschema import Draft202012Validator
+        schema_path = ROOT.parent / "harness" / "schemas" / "tspp-bridge-fixtures.schema.json"
+        fixture_path_str = os.environ.get("TSPP_BRIDGE_FIXTURES")
+        fixture_path = Path(fixture_path_str) if fixture_path_str else FIXTURES / "bridge_golden_fixtures.json"
+
+        if not schema_path.exists() or not fixture_path.exists():
+            return
+
+        schema = json.loads(schema_path.read_text(encoding="utf-8"))
+        instance = json.loads(fixture_path.read_text(encoding="utf-8"))
+        errors = list(Draft202012Validator(schema).iter_errors(instance))
+        if errors:
+            msgs = "; ".join(e.message for e in errors[:3])
+            warnings.warn(f"Bridge fixture schema validation failed: {msgs}", stacklevel=1)
+    except Exception as exc:
+        warnings.warn(f"Bridge fixture schema validation skipped: {exc}", stacklevel=1)

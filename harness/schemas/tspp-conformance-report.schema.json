@@ -12,9 +12,76 @@
     "target_id": {"type": "string"},
     "assurance_level": {"type": "string", "enum": ["AL1", "AL2", "AL3", "AL4"]},
     "tool_version": {"type": "string"},
-    "tool": {"type": "object", "additionalProperties": false, "required": ["name", "version"], "properties": {"name": {"type": "string"}, "version": {"type": "string"}}},
-    "target": {"type": "object", "additionalProperties": true, "properties": {"base_url": {"type": ["string", "null"]}, "expected_assurance_level": {"type": ["string", "null"]}}},
-    "summary": {"type": "object", "additionalProperties": false, "required": ["exit_status", "PASS", "FAIL", "SKIP", "NOT_APPLICABLE", "ERROR", "XFAIL"], "properties": {"exit_status": {"type": "integer"}, "PASS": {"type": "integer"}, "FAIL": {"type": "integer"}, "SKIP": {"type": "integer"}, "NOT_APPLICABLE": {"type": "integer"}, "ERROR": {"type": "integer"}, "XFAIL": {"type": "integer"}}},
-    "results": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["nodeid", "name", "outcome", "duration_seconds", "requirement_ids"], "properties": {"nodeid": {"type": "string"}, "name": {"type": "string"}, "outcome": {"$ref": "../../schemas/core/test_outcome.schema.json"}, "duration_seconds": {"type": "number", "minimum": 0}, "requirement_ids": {"type": "array", "items": {"type": "string"}}, "notes": {"type": ["string", "null"]}}}}
+    "tool": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "version"],
+      "properties": {
+        "name": {"type": "string"},
+        "version": {"type": "string"}
+      }
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "base_url": {"type": ["string", "null"]},
+        "expected_assurance_level": {"type": ["string", "null"]}
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["exit_status", "PASS", "FAIL", "SKIP", "NOT_APPLICABLE", "ERROR", "XFAIL"],
+      "properties": {
+        "exit_status": {"type": "integer"},
+        "PASS": {"type": "integer"},
+        "FAIL": {"type": "integer"},
+        "SKIP": {"type": "integer"},
+        "NOT_APPLICABLE": {"type": "integer"},
+        "ERROR": {"type": "integer"},
+        "XFAIL": {"type": "integer"},
+        "posture_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Percentage of applicable checks that passed. Emitted by the TSPP harness and ingested by the Assurance Hub generate-manifest.py."
+        },
+        "coverage_index": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Percentage of applicable checks that were evaluated (not skipped or not-applicable)."
+        },
+        "control_satisfaction": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "applicable_checks": {"type": "integer"},
+            "evaluated_checks": {"type": "integer"},
+            "passed_checks": {"type": "integer"},
+            "failed_checks": {"type": "integer"},
+            "skipped_checks": {"type": "integer"},
+            "not_applicable_checks": {"type": "integer"}
+          }
+        }
+      }
+    },
+    "results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["nodeid", "name", "outcome", "duration_seconds", "requirement_ids"],
+        "properties": {
+          "nodeid": {"type": "string"},
+          "name": {"type": "string"},
+          "outcome": {"$ref": "../../schemas/core/test_outcome.schema.json"},
+          "duration_seconds": {"type": "number", "minimum": 0},
+          "requirement_ids": {"type": "array", "items": {"type": "string"}},
+          "notes": {"type": ["string", "null"]}
+        }
+      }
+    }
   }
 }

@@ -1,3 +1,15 @@
+## v0.9.0
+
+- Fix `harness/tests/conftest.py` `pytest_sessionfinish` to compute and emit `posture_score`, `coverage_index`, and `control_satisfaction` in the TSPP conformance report summary, matching the golden flow sample shape and enabling direct ingestion by the Assurance Hub `generate-manifest.py`.
+- Update `harness/schemas/tspp-conformance-report.schema.json` to include `posture_score`, `coverage_index`, and `control_satisfaction` as optional summary fields.
+- Promote bridge golden fixtures to run in CI by default: `test_07_bridge_equivalence.py` now uses `harness/fixtures/bridge_golden_fixtures.json` as the default fixture path when `TSPP_BRIDGE_FIXTURES` is not set.
+- Update `test_07_bridge_equivalence.py` to support both canonical (`query`/`expected`) and legacy (`trqp_query`/`expected_trqp_outcome`) fixture shapes for backwards compatibility.
+- Migrate `harness/fixtures/bridge_golden_fixtures.json` to include canonical `query` and `expected` fields alongside the legacy keys.
+- Add `harness/schemas/tspp-bridge-fixtures.schema.json`: JSON Schema for the bridge fixture file, validated at `pytest` session start via a new `pytest_sessionstart` hook.
+- Move `test_10_recognition_security.py` from repo root into `harness/tests/` where it belongs; fixes `python -m compileall` scope and removes adopter confusion.
+- Update CI to emit `TSPP_RUN_ID` and `TSPP_TARGET_ID` environment variables so conformance reports carry stable operational metadata without requiring post-processing.
+- Scope `python -m compileall` to `harness/ scripts/ examples/ schemas/` in the hygiene job.
+
 ## v0.8.0
 
 - Added Posture Report scoring, coverage, and control satisfaction metrics.

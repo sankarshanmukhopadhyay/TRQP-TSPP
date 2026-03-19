@@ -19,7 +19,21 @@
           "time_requested": "2026-01-15T00:00:00Z"
         }
       },
-      "expected_trqp_outcome": "true"
+      "expected_trqp_outcome": "true",
+      "query": {
+        "authority_id": "did:example:authority",
+        "entity_id": "did:example:entity",
+        "action": "https://example.org/vocab/action/issue-vc/v1",
+        "resource": "https://example.org/vocab/resource/driver-license/v1",
+        "context": {
+          "time_requested": "2026-01-15T00:00:00Z"
+        }
+      },
+      "expected": {
+        "decision": {
+          "authorized": "true"
+        }
+      }
     }
   ]
 }
