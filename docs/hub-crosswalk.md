@@ -1,6 +1,6 @@
 ---
 owner: maintainers
-last_reviewed: 2026-03-10
+last_reviewed: 2026-04-16
 tier: 1
 ---
 
@@ -52,9 +52,9 @@ This repo ships `al-contract.json` which references the canonical AL definitions
 
 ## Version pins
 
-- TRQP Assurance Hub: v1.1.0
-- TRQP Conformance Suite: v0.9.1
-- TRQP TSPP: v0.7.1
+- TRQP Assurance Hub: v1.5.0
+- TRQP Conformance Suite: v1.2.1
+- TRQP TSPP: v0.10.1
 
 ## UNTP DIA alignment
 
@@ -76,4 +76,4 @@ These artifacts are optional, but recommended for AL3+ deployments.
 
 ## Discovery surface
 
-TSPP posture reports are intended to be bound into the Combined Assurance Manifest and then published through the Assurance Hub Trust Registry reference service together with the selected machine-readable assurance profile.
+TSPP posture reports bound into a Combined Assurance Manifest MUST carry the same `run_id` and `target_id` as the paired CTS report for the Operational Stack baseline. The Assurance Hub v1.5.0 generator validates this before publication.

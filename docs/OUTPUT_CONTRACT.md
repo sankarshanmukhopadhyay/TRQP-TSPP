@@ -60,4 +60,4 @@ This CLI simply sets the standard environment variables and invokes pytest again
 
 ## Operational Stack fields
 
-When used with the Assurance Hub, operators SHOULD set `--run-id` and `--target-id` on the CLI so TSPP emits metadata that lines up cleanly with CTS output.
+When used with the Assurance Hub Operational Stack baseline, operators MUST set `--run-id` and `--target-id` so TSPP emits metadata that matches the paired CTS report. Assurance Hub v1.5.0 rejects Combined Assurance Manifest generation when these fields drift.

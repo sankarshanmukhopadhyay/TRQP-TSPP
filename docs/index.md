@@ -2,7 +2,7 @@
 layout: default
 title: TRQP TSPP
 owner: maintainers
-last_reviewed: 2026-03-10
+last_reviewed: 2026-04-16
 tier: 0
 ---
 
@@ -10,7 +10,7 @@ tier: 0
 
 This site publishes the documentation for the **TRQP TSPP** repository via **GitHub Pages**.
 
-**Current version:** v0.7.1 · [Assurance Hub](https://github.com/sankarshanmukhopadhyay/trqp-assurance-hub) · [Conformance Suite](https://github.com/sankarshanmukhopadhyay/trqp-conformance-suite)
+**Current version:** v0.10.1 · [Assurance Hub](https://github.com/sankarshanmukhopadhyay/trqp-assurance-hub) · [Conformance Suite](https://github.com/sankarshanmukhopadhyay/trqp-conformance-suite)
 
 ## Start here
 

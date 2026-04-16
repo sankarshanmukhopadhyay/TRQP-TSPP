@@ -1,3 +1,8 @@
+## v0.10.1
+
+- Refresh README and cross-repo docs for Assurance Hub v1.5.0 and Conformance Suite v1.2.1.
+- Make the Operational Stack identity contract explicit: TSPP reports participating in a Combined Assurance Manifest must share `run_id` and `target_id` with the paired CTS report.
+
 ## v0.10.0
 
 - Add `harness/tests/test_11_sci_controls.py`: supply chain integrity test module covering TSPP-SCI-01 (SBOM reference), TSPP-SCI-02 (release provenance), and TSPP-SCI-03 (signing key freshness). Advisory at AL1/AL2, required at AL3+.
