@@ -1,0 +1,13 @@
+{
+  "release": "v0.11.0",
+  "publication_controls": [
+    "TSPP-RP-01",
+    "TSPP-RP-02",
+    "TSPP-RP-03",
+    "TSPP-RP-04",
+    "TSPP-RP-05",
+    "TSPP-RP-06",
+    "TSPP-RP-07"
+  ],
+  "example": "examples/relying-party-publication/relying-party-publication.example.json"
+}

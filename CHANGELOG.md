@@ -1,3 +1,9 @@
+## v0.11.0
+
+- Add relying-party and consumer impact controls TSPP-RP-01 through TSPP-RP-07.
+- Add relying-party publication schema, example, and harness tests.
+- Refresh Hub/CTS cross-repo references for the coordinated adoption-readiness release.
+
 ## v0.10.1
 
 - Refresh README and cross-repo docs for Assurance Hub v1.5.0 and Conformance Suite v1.2.1.

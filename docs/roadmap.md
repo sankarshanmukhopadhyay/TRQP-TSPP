@@ -16,12 +16,12 @@ This roadmap tracks high-level increments for TSPP.
 - ✅ Harness CLI extended with `--run-id` and `--target-id` for integrated stack workflows.
 - ✅ Interop demo profile added (`docs/profiles/interop-demo.md`) for coordinated stack demonstrations.
 
-## Release readiness (v0.7.1)
+## Release readiness and adoption focus
 
 - CI executes AL1 through AL4 against the reference SUT.
 - TSPP reports carry shared `run_id`, `target_id`, `assurance_level`, and `tool_version` for Operational Stack integration.
 - Ayra Trust Network baseline profile published with control mapping and evidence guidance.
-- AL contract pinning verified against the canonical Assurance Hub snapshot (Hub v1.1.0).
+- AL contract pinning verified against the canonical Assurance Hub snapshot (Hub v1.6.0).
 - Harness documentation consolidated; quickstart available for new implementers.
 
 _Last updated: 2026-03-19_

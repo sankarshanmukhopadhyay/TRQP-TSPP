@@ -12,7 +12,7 @@ tier: 0
 
 📘 **Documentation site (GitHub Pages):** https://sankarshanmukhopadhyay.github.io/TRQP-TSPP/
 
-**Current version:** v0.10.1
+**Current version:** v0.11.0
 
 **Release line:** Operational Trust Stack v1
 
@@ -37,12 +37,12 @@ and a machine-readable **Posture Report** that downstream layers can consume wit
 | Conformance Suite | Protocol verification | Conformance Report |
 | Assurance Hub | Assurance orchestration and publication | Combined Assurance Manifest |
 
-## What is new in v0.10.1
+## What is new in v0.11.0
 
 - Stable Posture Report metrics: `posture_score`, `coverage_index`, and `control_satisfaction`
 - Golden flow example assets for cross-repo integration
 - Public-facing docs synchronized with the Operational Trust Stack v1 narrative
-- Cross-repo output contract refreshed for Assurance Hub v1.5.0 and Conformance Suite v1.2.1
+- Relying-party and consumer impact controls, publication metadata validation, and cross-repo output contract refreshed for Assurance Hub v1.6.0 and Conformance Suite v1.3.0
 - Operational Stack guidance now treats shared `run_id` and `target_id` as a required contract for combined assurance workflows
 
 ## Start here

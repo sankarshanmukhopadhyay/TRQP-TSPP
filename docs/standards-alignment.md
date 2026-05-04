@@ -84,3 +84,8 @@ TSPP's **Software Supply Chain Integrity** control family (TSPP-SCI-xx) aligns w
 
 Reference: `docs/reference/openssf-supply-chain.md`.
 
+
+
+## Relying-party and consumer impact controls
+
+TSPP-RP-01 through TSPP-RP-07 define publication controls for public assurance summaries, freshness windows, limitation disclosure, revocation guidance, redress metadata, consumer impact statements, and audit-ready publication records. These controls make consumer impact testable rather than rhetorical.

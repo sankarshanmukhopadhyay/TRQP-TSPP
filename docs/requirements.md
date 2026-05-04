@@ -147,3 +147,8 @@ Repositories **MUST** enforce baseline CI security controls (branch protection, 
 
 **Evidence:** Repository policy snapshot (or equivalent) and CI workflow configuration excerpts.
 
+
+
+## Relying-party and consumer impact controls
+
+TSPP-RP-01 through TSPP-RP-07 define publication controls for public assurance summaries, freshness windows, limitation disclosure, revocation guidance, redress metadata, consumer impact statements, and audit-ready publication records. These controls make consumer impact testable rather than rhetorical.

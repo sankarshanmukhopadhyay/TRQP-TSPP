@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/trqp-tspp/schemas/relying-party-publication.schema.json",
+  "title": "TSPP Relying-Party Publication",
+  "type": "object",
+  "required": ["target_id", "assurance_summary_url", "generated_at", "valid_until", "limitations", "revocation_guidance"],
+  "properties": {
+    "target_id": {"type": "string"},
+    "assurance_summary_url": {"type": "string"},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "valid_until": {"type": "string", "format": "date-time"},
+    "limitations": {"type": "array", "items": {"type": "string"}},
+    "revocation_guidance": {"type": "string"},
+    "redress_contact": {"type": "string"},
+    "consumer_impact_statement": {"type": "string"},
+    "audit_publication_record": {"type": "string"}
+  },
+  "additionalProperties": false
+}

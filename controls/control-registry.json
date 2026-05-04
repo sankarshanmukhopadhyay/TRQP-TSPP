@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "0.11.0",
   "controls": [
     {
       "id": "TSPP-AL2-01",
@@ -175,6 +175,62 @@
       "id": "TSPP-SCI-05",
       "category": "SCI",
       "title": "CI policy enforcement",
+      "normative_source": "docs/requirements.md"
+    },
+    {
+      "id": "TSPP-RP-01",
+      "category": "Relying Party Publication",
+      "title": "Public assurance summary discoverability",
+      "assurance_level": "AL1",
+      "description": "Registry metadata exposes where public assurance summaries can be found.",
+      "normative_source": "docs/requirements.md"
+    },
+    {
+      "id": "TSPP-RP-02",
+      "category": "Relying Party Publication",
+      "title": "Evidence freshness and validity window disclosure",
+      "assurance_level": "AL1",
+      "description": "Public summaries disclose generated_at and valid_until.",
+      "normative_source": "docs/requirements.md"
+    },
+    {
+      "id": "TSPP-RP-03",
+      "category": "Relying Party Publication",
+      "title": "Relying-party limitation disclosure",
+      "assurance_level": "AL2",
+      "description": "Limitations are explicit and machine-readable.",
+      "normative_source": "docs/requirements.md"
+    },
+    {
+      "id": "TSPP-RP-04",
+      "category": "Relying Party Publication",
+      "title": "Revocation and status-check guidance",
+      "assurance_level": "AL2",
+      "description": "Relying parties receive guidance for checking status and avoiding unsafe caching.",
+      "normative_source": "docs/requirements.md"
+    },
+    {
+      "id": "TSPP-RP-05",
+      "category": "Relying Party Publication",
+      "title": "Redress or contact channel metadata",
+      "assurance_level": "AL3",
+      "description": "A contact or redress channel is present for assurance concerns.",
+      "normative_source": "docs/requirements.md"
+    },
+    {
+      "id": "TSPP-RP-06",
+      "category": "Relying Party Publication",
+      "title": "Consumer-impact statement for high-reliance registries",
+      "assurance_level": "AL3",
+      "description": "High-reliance registries publish a consumer impact statement.",
+      "normative_source": "docs/requirements.md"
+    },
+    {
+      "id": "TSPP-RP-07",
+      "category": "Relying Party Publication",
+      "title": "Audit-ready publication record",
+      "assurance_level": "AL4",
+      "description": "Publication records are retained as audit evidence.",
       "normative_source": "docs/requirements.md"
     }
   ]

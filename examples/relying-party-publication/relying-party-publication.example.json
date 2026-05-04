@@ -1,0 +1,13 @@
+{
+  "target_id": "demo-directory",
+  "assurance_summary_url": "https://directory.example.org/.well-known/trqp/public-assurance-summary.json",
+  "generated_at": "2026-04-16T03:53:53Z",
+  "valid_until": "2026-05-16T03:53:53Z",
+  "limitations": [
+    "Assurance does not replace ecosystem-specific legal review."
+  ],
+  "revocation_guidance": "Relying parties SHOULD check status before each high-impact decision and MUST NOT rely on cached status beyond the published validity window.",
+  "redress_contact": "mailto:trust-ops@example.org",
+  "consumer_impact_statement": "Registry reliance is evidence-bound, freshness-aware, and subject to redress contact metadata.",
+  "audit_publication_record": "artifacts/release/v0.11.0/publication-record.json"
+}

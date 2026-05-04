@@ -79,9 +79,9 @@ The TRQP assurance toolchain is intentionally **decentralized** (not a monorepo)
 
 As of this release line:
 
-- Assurance Hub: **v1.1.0**
+- Assurance Hub: **v1.6.0**
 - Conformance Suite (CTS): **v0.9.1**
-- TSPP: **v0.7.1**
+- TSPP: **v0.11.0**
 
 For “known-good” pairings, see `docs/policies/compatibility.md`.
 

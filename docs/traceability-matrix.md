@@ -17,3 +17,8 @@ This matrix links **Requirements → Harness tests → Evidence** so that confor
 | TSPP-AL2-01 | Signed envelope in AL2 | `test_06_al2_signed_responses.py::test_al2_signed_response_envelope_shape` | Schema validation |
 | TSPP-AL2-02 | Signature verifies against JWKS | `test_06_al2_signed_responses.py::test_al2_signed_response_verifies_with_jwks` | JWS verification success |
 | TSPP-BRIDGE-01 | Bridge semantic equivalence fixtures | `test_07_bridge_equivalence.py::test_bridge_semantic_equivalence_fixtures` | Fixture pass/fail |
+
+
+## Relying-party and consumer impact controls
+
+TSPP-RP-01 through TSPP-RP-07 define publication controls for public assurance summaries, freshness windows, limitation disclosure, revocation guidance, redress metadata, consumer impact statements, and audit-ready publication records. These controls make consumer impact testable rather than rhetorical.
