@@ -1,6 +1,6 @@
 # Relying-Party and Consumer Impact Controls
 
-TSPP v0.11.0 adds controls that make public assurance useful beyond the operator. The controls require discoverability, freshness, limitation disclosure, revocation guidance, redress metadata, consumer impact statements, and audit-ready publication records.
+TSPP v0.11.1 adds controls that make public assurance useful beyond the operator. The controls require discoverability, freshness, limitation disclosure, revocation guidance, redress metadata, consumer impact statements, and audit-ready publication records.
 
 | Control | Purpose |
 |---|---|

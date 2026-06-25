@@ -318,6 +318,61 @@
         }
       }
     },
+    "lifecycle_publication": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "supported",
+        "status_feed_uri",
+        "states",
+        "revocation_supported",
+        "sla_seconds"
+      ],
+      "properties": {
+        "supported": {
+          "type": "boolean",
+          "description": "Whether the operator publishes lifecycle/status information for registry entries or trust services."
+        },
+        "status_feed_uri": {
+          "type": "string",
+          "format": "uri",
+          "description": "Stable URI for the machine-readable lifecycle/status feed."
+        },
+        "states": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "active",
+              "suspended",
+              "deprecated",
+              "revoked",
+              "retired"
+            ]
+          },
+          "description": "Lifecycle states the operator can publish and enforce."
+        },
+        "revocation_supported": {
+          "type": "boolean",
+          "description": "Whether revocation events are published as actionable lifecycle state changes."
+        },
+        "sla_seconds": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 31536000,
+          "description": "Maximum expected delay between a lifecycle decision and status feed publication."
+        },
+        "evidence_uri": {
+          "type": "string",
+          "format": "uri",
+          "description": "Optional evidence pointer for lifecycle governance, revocation handling, or publication controls."
+        }
+      },
+      "description": "Machine-readable lifecycle/status publication contract consumed by CTS and the Assurance Hub."
+    },
     "transparency": {
       "type": "object",
       "additionalProperties": false,

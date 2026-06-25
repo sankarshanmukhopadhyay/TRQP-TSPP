@@ -152,3 +152,13 @@ Repositories **MUST** enforce baseline CI security controls (branch protection, 
 ## Relying-party and consumer impact controls
 
 TSPP-RP-01 through TSPP-RP-07 define publication controls for public assurance summaries, freshness windows, limitation disclosure, revocation guidance, redress metadata, consumer impact statements, and audit-ready publication records. These controls make consumer impact testable rather than rhetorical.
+
+## Lifecycle Publication Controls
+
+Lifecycle controls make suspension, renewal, retirement, and revocation observable as executable governance rather than informal operator claims.
+
+- **TSPP-LIFE-01**: Metadata SHOULD declare `lifecycle_publication` with `supported`, `status_feed_uri`, supported `states`, `revocation_supported`, and `sla_seconds`.
+- **TSPP-LIFE-02**: Lifecycle publication metadata SHOULD include both `active` and `revoked` states when the registry exposes trust service or directory entry status.
+- **TSPP-LIFE-03**: `lifecycle_publication.status_feed_uri` SHOULD resolve to a machine-readable status feed containing `generated_at` and an `entries` array.
+
+**Evidence:** Harness `test_13_lifecycle_publication.py`, metadata schema validation, and the resolved lifecycle/status feed.

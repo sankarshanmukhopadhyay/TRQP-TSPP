@@ -21,7 +21,7 @@ This roadmap tracks high-level increments for TSPP.
 - CI executes AL1 through AL4 against the reference SUT.
 - TSPP reports carry shared `run_id`, `target_id`, `assurance_level`, and `tool_version` for Operational Stack integration.
 - Ayra Trust Network baseline profile published with control mapping and evidence guidance.
-- AL contract pinning verified against the canonical Assurance Hub snapshot (Hub v1.6.0).
+- AL contract pinning verified against the canonical Assurance Hub snapshot (Hub v1.6.1).
 - Harness documentation consolidated; quickstart available for new implementers.
 
 _Last updated: 2026-03-19_

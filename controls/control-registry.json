@@ -1,5 +1,5 @@
 {
-  "version": "0.11.0",
+  "version": "0.11.1",
   "controls": [
     {
       "id": "TSPP-AL2-01",
@@ -231,6 +231,30 @@
       "title": "Audit-ready publication record",
       "assurance_level": "AL4",
       "description": "Publication records are retained as audit evidence.",
+      "normative_source": "docs/requirements.md"
+    },
+    {
+      "id": "TSPP-LIFE-01",
+      "category": "Lifecycle Publication",
+      "title": "Lifecycle publication metadata",
+      "assurance_level": "AL2",
+      "description": "Registry metadata declares lifecycle status publication support, feed location, supported states, revocation support, and publication SLA.",
+      "normative_source": "docs/requirements.md"
+    },
+    {
+      "id": "TSPP-LIFE-02",
+      "category": "Lifecycle Publication",
+      "title": "Revocation-capable lifecycle state set",
+      "assurance_level": "AL2",
+      "description": "Lifecycle publication metadata includes active and revoked states for relying-party status evaluation.",
+      "normative_source": "docs/requirements.md"
+    },
+    {
+      "id": "TSPP-LIFE-03",
+      "category": "Lifecycle Publication",
+      "title": "Resolvable lifecycle status feed",
+      "assurance_level": "AL3",
+      "description": "Declared lifecycle status feed resolves to a machine-readable status publication.",
       "normative_source": "docs/requirements.md"
     }
   ]

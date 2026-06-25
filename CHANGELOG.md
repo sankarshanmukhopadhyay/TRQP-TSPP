@@ -1,3 +1,10 @@
+## v0.11.1
+
+- Add `lifecycle_publication` metadata to the TSPP TRQP metadata schema, including status feed URI, supported lifecycle states, revocation support, publication SLA, and optional evidence URI.
+- Add lifecycle publication harness checks (`TSPP-LIFE-01` through `TSPP-LIFE-03`) to validate metadata and resolvable status feed behavior.
+- Extend the reference SUT with `/.well-known/trqp-lifecycle` and lifecycle evidence endpoints for adoption testing.
+- Add lifecycle controls to the control registry and requirements documentation for CTS/Hub synchronization.
+
 ## v0.11.0
 
 - Add relying-party and consumer impact controls TSPP-RP-01 through TSPP-RP-07.

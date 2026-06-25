@@ -225,6 +225,14 @@ def get_metadata(request: Request):
             "transitive_default": False,
             "max_chain_depth": 1,
         },
+        "lifecycle_publication": {
+            "supported": True,
+            "status_feed_uri": _public_uri(base, "/.well-known/trqp-lifecycle"),
+            "states": ["active", "suspended", "revoked", "retired"],
+            "revocation_supported": True,
+            "sla_seconds": 86400,
+            "evidence_uri": _public_uri(base, "/.well-known/lifecycle/evidence"),
+        },
         "transparency": {
             "service_docs_uri": _public_uri(base, "/.well-known/service-docs"),
             "change_log_uri": _public_uri(base, "/.well-known/governance/change-control"),
@@ -262,6 +270,41 @@ def get_jwks():
     pub = jwk.JWK.from_json(_SIGNING_KEY.export_public())
     pub.kid = KID
     return {"keys": [json.loads(pub.export_public())]}
+
+
+@app.get("/.well-known/trqp-lifecycle")
+async def lifecycle_status_feed(req: Request):
+    base = str(req.base_url).rstrip("/")
+    now = _now()
+    return {
+        "feed_id": "tspp-reference-lifecycle",
+        "directory_id": "did:example:reference-registry",
+        "generated_at": _iso(now),
+        "published_by": "did:example:reference-registry",
+        "entries": [
+            {
+                "entry_id": "did:example:entity",
+                "state": "active",
+                "effective_at": _iso(now),
+                "reason": "reference fixture",
+                "evidence_refs": [_public_uri(base, "/.well-known/lifecycle/evidence")],
+            }
+        ],
+        "revocation": {
+            "supported": True,
+            "status_feed_uri": _public_uri(base, "/.well-known/trqp-lifecycle"),
+            "sla_seconds": 86400,
+        },
+    }
+
+
+@app.get("/.well-known/lifecycle/evidence")
+async def lifecycle_evidence():
+    return {
+        "kind": "lifecycle-publication-evidence",
+        "policy": "Reference operator publishes active, suspended, revoked, and retired states.",
+        "revocation_sla_seconds": 86400,
+    }
 
 
 @app.get("/{doc_path:path}")
