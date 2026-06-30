@@ -1,0 +1,19 @@
+review_id: portfolio-drift-20260629-tspp-v0-12-0
+source_repo: TRQP-TSPP
+source_release: v0.12.0
+change_type: posture_evidence_artifact_contract_alignment
+relationship_ids_reviewed:
+  - TRQP-TSPP-to-trqp-assurance-hub
+  - trust-infrastructure-schemas-to-TRQP-TSPP
+  - trust-systems-meta-model-to-TRQP-TSPP
+drift_classification: assurance_drift
+downstream_review_targets:
+  - trqp-assurance-hub
+  - trqp-conformance-suite
+evidence:
+  - path: docs/tis-posture-evidence-contract.md
+  - path: schemas/evidence/tspp_posture_bundle_descriptor.schema.json
+  - path: examples/golden-flow/tis-assurance-evidence.sample.json
+  - path: examples/golden-flow/tis-decision-receipt.sample.json
+result: downstream_updates_completed_in_coordinated_release
+follow_up_issue: null

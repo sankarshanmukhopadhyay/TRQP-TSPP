@@ -1,3 +1,11 @@
+## v0.12.0
+
+- Add `docs/tis-posture-evidence-contract.md` to map TSPP posture outputs to TIS v0.10.0 assurance, control, decision, and status artifact roles.
+- Extend posture evidence bundle descriptors with optional `tis_projection` metadata.
+- Add golden-flow TIS-compatible assurance evidence and decision receipt samples.
+- Add portfolio release-impact and drift-review records under `docs/governance/`.
+- Refresh README and cross-repo references for Hub v1.7.0 and CTS v1.4.0.
+
 ## v0.11.1
 
 - Add `lifecycle_publication` metadata to the TSPP TRQP metadata schema, including status feed URI, supported lifecycle states, revocation support, publication SLA, and optional evidence URI.

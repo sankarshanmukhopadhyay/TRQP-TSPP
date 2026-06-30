@@ -1,6 +1,16 @@
 {
   "profile": "TSPP-TRQP-0.1",
   "assurance_level": "AL2",
+  "run_id": "opstack-demo-001",
+  "target_id": "demo-directory",
+  "tool_version": "0.12.0",
+  "tis_projection": {
+    "tis_version": "v0.10.0",
+    "assurance_schema": "trust-infrastructure-schemas/assurance/assurance.schema.json",
+    "control_matrix_schema": "trust-infrastructure-schemas/controls/mappings/control-assurance-matrix.schema.json",
+    "decision_receipt_schema": "trust-infrastructure-schemas/decision/decision-receipt.schema.json",
+    "status_or_revocation_schema": "trust-infrastructure-schemas/profiles/vti/status-list-reference.schema.json"
+  },
   "summary": {
     "PASS": 9,
     "FAIL": 0,

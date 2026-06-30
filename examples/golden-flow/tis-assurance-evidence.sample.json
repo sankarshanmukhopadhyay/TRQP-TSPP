@@ -1,0 +1,32 @@
+{
+  "assurance_evidence_id": "urn:example:trqp:tspp:assurance-evidence:golden-flow",
+  "assurance_level": "AL2",
+  "generated_at": "2026-06-29T00:00:00Z",
+  "subject": {
+    "id": "demo-directory",
+    "type": "TRQP deployment",
+    "endpoint": "https://directory.example.org"
+  },
+  "run": {
+    "run_id": "opstack-demo-001",
+    "target_id": "demo-directory",
+    "tool": "TRQP-TSPP",
+    "tool_version": "0.12.0"
+  },
+  "control_satisfaction": {
+    "applicable_checks": 10,
+    "evaluated_checks": 9,
+    "passed_checks": 9,
+    "failed_checks": 0,
+    "skipped_checks": 1,
+    "not_applicable_checks": 0
+  },
+  "lifecycle_publication": {
+    "status_feed_uri": "https://directory.example.org/.well-known/trqp-lifecycle",
+    "revocation_supported": true,
+    "sla_seconds": 86400
+  },
+  "limitations": [
+    "This artifact records posture evidence only. It does not certify legal authority or ecosystem membership."
+  ]
+}

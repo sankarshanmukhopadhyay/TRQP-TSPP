@@ -15,14 +15,16 @@ This roadmap tracks high-level increments for TSPP.
 - ✅ Operational Stack metadata in TSPP JSON reports: `run_id`, `target_id`, `assurance_level`, `tool_version`.
 - ✅ Harness CLI extended with `--run-id` and `--target-id` for integrated stack workflows.
 - ✅ Interop demo profile added (`docs/profiles/interop-demo.md`) for coordinated stack demonstrations.
+- ✅ TIS posture evidence contract and optional posture bundle projection metadata for Hub v1.7.0 runtime assurance.
 
 ## Release readiness and adoption focus
 
 - CI executes AL1 through AL4 against the reference SUT.
 - TSPP reports carry shared `run_id`, `target_id`, `assurance_level`, and `tool_version` for Operational Stack integration.
 - Ayra Trust Network baseline profile published with control mapping and evidence guidance.
-- AL contract pinning verified against the canonical Assurance Hub snapshot (Hub v1.6.1).
+- AL contract pinning verified against the canonical Assurance Hub snapshot (Hub v1.7.0).
 - Harness documentation consolidated; quickstart available for new implementers.
+- TIS projection metadata allows TSPP posture evidence to be consumed by downstream assurance workflows without changing core harness behavior.
 
 _Last updated: 2026-03-19_
 

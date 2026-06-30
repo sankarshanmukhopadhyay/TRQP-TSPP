@@ -68,6 +68,50 @@
         },
         "additionalProperties": true
       }
+    },
+    "tis_projection": {
+      "type": "object",
+      "description": "Optional Trust Infrastructure Schemas projection metadata for downstream assurance workflows.",
+      "properties": {
+        "tis_version": {
+          "type": "string"
+        },
+        "assurance_schema": {
+          "type": "string"
+        },
+        "control_matrix_schema": {
+          "type": "string"
+        },
+        "decision_receipt_schema": {
+          "type": "string"
+        },
+        "status_or_revocation_schema": {
+          "type": "string"
+        },
+        "projected_artifacts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "source_artifact",
+              "tis_role"
+            ],
+            "properties": {
+              "source_artifact": {
+                "type": "string"
+              },
+              "tis_role": {
+                "type": "string"
+              },
+              "notes": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
     }
   },
   "additionalProperties": true

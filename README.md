@@ -12,7 +12,7 @@ tier: 0
 
 📘 **Documentation site (GitHub Pages):** https://sankarshanmukhopadhyay.github.io/TRQP-TSPP/
 
-**Current version:** v0.11.1
+**Current version:** v0.12.0
 
 **Release line:** Operational Trust Stack v1
 
@@ -37,17 +37,19 @@ and a machine-readable **Posture Report** that downstream layers can consume wit
 | Conformance Suite | Protocol verification | Conformance Report |
 | Assurance Hub | Assurance orchestration and publication | Combined Assurance Manifest |
 
-## What is new in v0.11.1
+## What is new in v0.12.0
 
-- `lifecycle_publication` metadata declares status feed location, lifecycle states, revocation support, publication SLA, and evidence URI.
-- New lifecycle publication checks validate metadata and resolvable status feeds as posture evidence.
-- The reference SUT exposes `/.well-known/trqp-lifecycle` for adoption testing.
-- Cross-repo release references align with Assurance Hub v1.6.1 and Conformance Suite v1.3.1.
+- Adds a TIS posture evidence contract that maps posture reports, control satisfaction, lifecycle publication, and relying-party publication evidence to TIS v0.10.0 artifact roles.
+- Extends posture evidence bundle descriptors with optional `tis_projection` metadata for Hub v1.7.0 ingestion.
+- Adds sample TIS-compatible assurance evidence and decision receipt artifacts for the golden flow.
+- Publishes portfolio release-impact and drift-review records for the coordinated Runtime Assurance Contract Pack.
+- Cross-repo release references align with Assurance Hub v1.7.0 and Conformance Suite v1.4.0.
 
 ## Start here
 
 - Operational stack overview: [`docs/operational-stack.md`](docs/operational-stack.md)
 - Output contract: [`docs/OUTPUT_CONTRACT.md`](docs/OUTPUT_CONTRACT.md)
+- TIS posture evidence contract: [`docs/tis-posture-evidence-contract.md`](docs/tis-posture-evidence-contract.md)
 - Quickstart: [`QUICKSTART.md`](QUICKSTART.md)
 - Hub repo: https://github.com/sankarshanmukhopadhyay/trqp-assurance-hub
 - Hub crosswalk for this repo: [`docs/hub-crosswalk.md`](docs/hub-crosswalk.md)

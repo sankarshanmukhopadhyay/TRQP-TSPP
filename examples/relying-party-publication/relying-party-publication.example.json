@@ -9,5 +9,5 @@
   "revocation_guidance": "Relying parties SHOULD check status before each high-impact decision and MUST NOT rely on cached status beyond the published validity window.",
   "redress_contact": "mailto:trust-ops@example.org",
   "consumer_impact_statement": "Registry reliance is evidence-bound, freshness-aware, and subject to redress contact metadata.",
-  "audit_publication_record": "artifacts/release/v0.11.1/publication-record.json"
+  "audit_publication_record": "artifacts/release/v0.12.0/publication-record.json"
 }

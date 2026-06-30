@@ -1,0 +1,31 @@
+{
+  "decision_receipt_id": "urn:example:trqp:tspp:decision-receipt:golden-flow",
+  "generated_at": "2026-06-29T00:00:00Z",
+  "decision": {
+    "type": "posture_assessment",
+    "outcome": "pass",
+    "effect": "posture evidence may be included in a Combined Assurance Manifest"
+  },
+  "subject": {
+    "id": "demo-directory",
+    "run_id": "opstack-demo-001",
+    "target_id": "demo-directory"
+  },
+  "policy_basis": {
+    "profile": "TSPP-TRQP-0.1",
+    "assurance_level": "AL2"
+  },
+  "evidence": [
+    {
+      "role": "posture-report",
+      "path": "posture-report.sample.json"
+    },
+    {
+      "role": "assurance-evidence",
+      "path": "tis-assurance-evidence.sample.json"
+    }
+  ],
+  "limitations": [
+    "Decision is bounded to posture computation and must be combined with CTS protocol evidence for full operational stack assurance."
+  ]
+}
