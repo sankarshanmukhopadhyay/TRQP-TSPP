@@ -1,6 +1,6 @@
 ---
 owner: maintainers
-last_reviewed: 2026-04-16
+last_reviewed: 2026-07-03
 tier: 1
 ---
 
@@ -52,9 +52,9 @@ This repo ships `al-contract.json` which references the canonical AL definitions
 
 ## Version pins
 
-- TRQP Assurance Hub: v1.7.0
-- TRQP Conformance Suite: v1.4.0
-- TRQP TSPP: v0.12.0
+- TRQP Assurance Hub: v1.8.0
+- TRQP Conformance Suite: v1.5.0
+- TRQP TSPP: v0.13.0
 
 ## UNTP DIA alignment
 
@@ -76,4 +76,4 @@ These artifacts are optional, but recommended for AL3+ deployments.
 
 ## Discovery surface
 
-TSPP posture reports bound into a Combined Assurance Manifest MUST carry the same `run_id` and `target_id` as the paired CTS report for the Operational Stack baseline. The Assurance Hub v1.7.0 generator validates this before publication and can include TSMM/TIS runtime assurance references.
+TSPP posture reports bound into a Combined Assurance Manifest MUST carry the same `run_id` and `target_id` as the paired CTS report for the Operational Stack baseline. The Assurance Hub v1.8.0 generator validates this before publication and can include TSMM/TIS runtime assurance references.

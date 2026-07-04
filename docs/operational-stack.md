@@ -1,6 +1,6 @@
 ---
 owner: maintainers
-last_reviewed: 2026-04-16
+last_reviewed: 2026-07-03
 tier: 0
 ---
 
@@ -12,12 +12,12 @@ This repository is the posture-computation layer in the Operational Trust Stack 
 
 TRQP-TSPP converts security, privacy, and control expectations into executable checks and a machine-readable Posture Report.
 
-## What is new in v0.10.1
+## Current maturity release
 
-- Posture Report now includes `posture_score` and `coverage_index`
-- Control satisfaction summary is emitted in the stable JSON output
-- Golden flow example assets are included for stack integration
-- Public documentation is synchronized with the cross-repo release narrative
+- TSPP v0.13.0 is part of the Hub v1.8.0 / CTS v1.5.0 / TSPP v0.13.0 maturity tuple.
+- Release governance now distinguishes patch, minor, maturity, and no-release changes.
+- Release validation is recorded in `docs/release-validation.md`.
+- The posture evidence contract remains compatible with Hub ingestion while future releases are gated on executable posture or evidence value.
 
 ## Golden flow
 

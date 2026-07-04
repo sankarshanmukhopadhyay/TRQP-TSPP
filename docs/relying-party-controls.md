@@ -1,6 +1,6 @@
 # Relying-Party and Consumer Impact Controls
 
-TSPP v0.12.0 carries forward the relying-party controls and aligns their evidence with the TSMM/TIS Runtime Assurance Contract Pack. The controls require discoverability, freshness, limitation disclosure, revocation guidance, redress metadata, consumer impact statements, and audit-ready publication records.
+TSPP v0.13.0 carries forward the relying-party controls and aligns their evidence with the TSMM/TIS Runtime Assurance Contract Pack. The controls require discoverability, freshness, limitation disclosure, revocation guidance, redress metadata, consumer impact statements, and audit-ready publication records.
 
 | Control | Purpose |
 |---|---|

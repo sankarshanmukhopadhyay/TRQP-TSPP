@@ -4,6 +4,8 @@ This roadmap tracks high-level increments for TSPP.
 
 ## Completed
 
+- ✅ Operational Trust Stack Maturity Release governance added (`docs/governance/release-policy.md`, `docs/governance/change-intake.md`, `docs/release-validation.md`).
+- ✅ Release archive hygiene tightened by excluding generated package metadata and OS artifacts.
 - ✅ Formalize AL dependency contract (`al-contract.json`) and clarify canonical AL source.
 - ✅ Add standards alignment annex (`docs/standards-alignment.md`).
 - ✅ Expand executable requirements coverage for AL3/AL4 governance + audit expectations (independent assessment, change control, rollback, policy, monitoring, and audit-log checks).
@@ -15,22 +17,23 @@ This roadmap tracks high-level increments for TSPP.
 - ✅ Operational Stack metadata in TSPP JSON reports: `run_id`, `target_id`, `assurance_level`, `tool_version`.
 - ✅ Harness CLI extended with `--run-id` and `--target-id` for integrated stack workflows.
 - ✅ Interop demo profile added (`docs/profiles/interop-demo.md`) for coordinated stack demonstrations.
-- ✅ TIS posture evidence contract and optional posture bundle projection metadata for Hub v1.7.0 runtime assurance.
+- ✅ TIS posture evidence contract and optional posture bundle projection metadata for Hub v1.8.0 runtime assurance.
 
 ## Release readiness and adoption focus
 
 - CI executes AL1 through AL4 against the reference SUT.
 - TSPP reports carry shared `run_id`, `target_id`, `assurance_level`, and `tool_version` for Operational Stack integration.
 - Ayra Trust Network baseline profile published with control mapping and evidence guidance.
-- AL contract pinning verified against the canonical Assurance Hub snapshot (Hub v1.7.0).
+- AL contract pinning verified against the canonical Assurance Hub snapshot (Hub v1.8.0).
 - Harness documentation consolidated; quickstart available for new implementers.
 - TIS projection metadata allows TSPP posture evidence to be consumed by downstream assurance workflows without changing core harness behavior.
+- Future releases follow the maturity release policy: small wording, link, and metadata edits are batched unless they correct a security, CI, schema, or adoption blocker.
 
-_Last updated: 2026-03-19_
+_Last updated: 2026-07-03_
 
 ## UNTP DIA / IDR alignment
 
-Add explicit guidance and examples for evaluating authoritative directories that use UNTP Digital Identity Anchor (DIA) and Identity Resolver (IDR) patterns (identity anchoring extension for SAD-1).
+Maturity backlog: add explicit guidance and examples for evaluating authoritative directories that use UNTP Digital Identity Anchor (DIA) and Identity Resolver (IDR) patterns when an adopter needs executable DIA/IDR posture checks.
 
 - Add TSPP evidence expectations for DIA `identityAnchor` and IDR `identityResolver` endpoints.
 - Provide example harness test stubs for DIA/IDR endpoint validation.

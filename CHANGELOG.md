@@ -1,3 +1,13 @@
+## v0.13.0
+
+- Publish the TSPP portion of the Operational Trust Stack Maturity Release for the coordinated Hub v1.8.0 / CTS v1.5.0 / TSPP v0.13.0 release tuple.
+- Add `docs/governance/release-policy.md` to define patch, minor, maturity, and no-release thresholds for posture-engine releases.
+- Add `docs/governance/change-intake.md` to require control impact, profile impact, evidence impact, validation impact, and cross-repo compatibility review.
+- Add `docs/release-validation.md` with maturity-release validation commands and acceptance criteria.
+- Remove generated Python package metadata and OS artifacts from the release archive.
+- Refresh README and roadmap language to emphasize high-value, evidence-producing TSPP commits.
+- Add a GitHub PR template aligned to control IDs, posture evidence, validation, and release classification.
+
 ## v0.12.0
 
 - Add `docs/tis-posture-evidence-contract.md` to map TSPP posture outputs to TIS v0.10.0 assurance, control, decision, and status artifact roles.
