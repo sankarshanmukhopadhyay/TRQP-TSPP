@@ -1,0 +1,22 @@
+schema_version: "1.0"
+repository: TRQP-TSPP
+portfolio_tier: flagship
+lifecycle: active
+role: security-profile-layer
+stability: beta
+current_version: "0.13.0"
+primary_output: Posture Report
+authority:
+  owns:
+    - TRQP security and privacy control profiles
+    - posture computation rules
+    - assurance-level control evidence
+  does_not_own:
+    - the TRQP protocol specification
+    - cross-stack assurance publication
+    - general protocol conformance verdicts
+validation_command: make validate
+documentation_url: https://sankarshanmukhopadhyay.github.io/TRQP-TSPP/
+release_policy: substantive
+last_portfolio_review: 2026-07-15
+next_portfolio_review: 2026-10-15

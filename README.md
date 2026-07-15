@@ -10,6 +10,20 @@ tier: 0
 
 # TRQP Security & Privacy Baseline (TSPP)
 
+> **Portfolio status:** Tier 1 flagship · Active · Beta
+
+| Attribute | Value |
+|---|---|
+| Portfolio tier | Flagship |
+| Lifecycle | Active |
+| Primary role | security profile layer |
+| Primary output | Posture Report |
+| Validation | `make validate` |
+| Evidence output | See repository-specific output contract and examples |
+| Governance authority | [`GOVERNANCE.md`](GOVERNANCE.md) |
+| Stack adoption path | [`docs/trqp-adoption-path.md`](docs/trqp-adoption-path.md) |
+
+
 📘 **Documentation site (GitHub Pages):** https://sankarshanmukhopadhyay.github.io/TRQP-TSPP/
 
 **Current version:** v0.13.0

@@ -67,6 +67,13 @@
 
 # Changelog
 
+## Unreleased
+
+### Changed
+
+- Establishes a Tier 1 flagship repository contract with explicit authority boundaries, machine-readable portfolio metadata, a common validation entry point, citation metadata, and a documented TRQP adoption path.
+- Adds CI enforcement for required governance, adoption, evidence, and documentation artifacts without creating a new release.
+
 ## v0.6.0 (2026-03-10)
 
 ### Fixed
