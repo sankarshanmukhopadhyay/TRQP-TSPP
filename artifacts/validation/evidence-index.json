@@ -1,0 +1,18 @@
+{
+  "run_id": "tspp-local-assurance",
+  "target_id": "trqp-reference-fixture",
+  "artifacts": [
+    {
+      "path": "artifacts/release/v0.11.0/publication-record.json",
+      "sha256": "647e9e078823bc30cb9925dfaf79be403b4f0e3b3ac0dcc2c8f8273a2b78f6ce"
+    },
+    {
+      "path": "artifacts/traceability/tspp-control-coverage.json",
+      "sha256": "99b2dbc1892fe8bc5c1dd868eb91c58f9f98854879dd3c2f72d1fa876dec3aed"
+    },
+    {
+      "path": "artifacts/validation/tspp-report.json",
+      "sha256": "295ae62daecfe1f6c4437c6cc17fcfd6c35767e5e57d8f402c933cc228140c22"
+    }
+  ]
+}

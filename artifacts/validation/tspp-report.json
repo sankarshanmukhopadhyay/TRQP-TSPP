@@ -1,0 +1,198 @@
+{
+  "schema_version": "1.0",
+  "profile": "local-governance-validation",
+  "generated_at": "2026-07-20T00:00:00Z",
+  "run_id": "ots-local-validation",
+  "target_id": "trqp-reference-fixture",
+  "assurance_level": "AL1",
+  "tool_version": "0.14.0",
+  "tool": "TRQP-TSPP",
+  "target": "fixture://trqp-reference-fixture",
+  "summary": {
+    "PASS": 36,
+    "FAIL": 0,
+    "NOT_TESTED": 0
+  },
+  "results": [
+    {
+      "control_id": "TSPP-AL2-01",
+      "status": "PASS",
+      "evidence": "control registry and schema validation"
+    },
+    {
+      "control_id": "TSPP-AL2-02",
+      "status": "PASS",
+      "evidence": "control registry and schema validation"
+    },
+    {
+      "control_id": "TSPP-AL3-01",
+      "status": "PASS",
+      "evidence": "control registry and schema validation"
+    },
+    {
+      "control_id": "TSPP-AL3-02",
+      "status": "PASS",
+      "evidence": "control registry and schema validation"
+    },
+    {
+      "control_id": "TSPP-AL3-03",
+      "status": "PASS",
+      "evidence": "control registry and schema validation"
+    },
+    {
+      "control_id": "TSPP-AL3-04",
+      "status": "PASS",
+      "evidence": "control registry and schema validation"
+    },
+    {
+      "control_id": "TSPP-AL4-02",
+      "status": "PASS",
+      "evidence": "control registry and schema validation"
+    },
+    {
+      "control_id": "TSPP-AL4-03",
+      "status": "PASS",
+      "evidence": "control registry and schema validation"
+    },
+    {
+      "control_id": "TSPP-AL4-04",
+      "status": "PASS",
+      "evidence": "control registry and schema validation"
+    },
+    {
+      "control_id": "TSPP-AL4-05",
+      "status": "PASS",
+      "evidence": "control registry and schema validation"
+    },
+    {
+      "control_id": "TSPP-BRIDGE-01",
+      "status": "PASS",
+      "evidence": "control registry and schema validation"
+    },
+    {
+      "control_id": "TSPP-CTX-01",
+      "status": "PASS",
+      "evidence": "control registry and schema validation"
+    },
+    {
+      "control_id": "TSPP-CTX-02",
+      "status": "PASS",
+      "evidence": "control registry and schema validation"
+    },
+    {
+      "control_id": "TSPP-ENUM-01",
+      "status": "PASS",
+      "evidence": "control registry and schema validation"
+    },
+    {
+      "control_id": "TSPP-ERR-01",
+      "status": "PASS",
+      "evidence": "control registry and schema validation"
+    },
+    {
+      "control_id": "TSPP-FRESH-01",
+      "status": "PASS",
+      "evidence": "control registry and schema validation"
+    },
+    {
+      "control_id": "TSPP-FRESH-02",
+      "status": "PASS",
+      "evidence": "control registry and schema validation"
+    },
+    {
+      "control_id": "TSPP-FRESH-03",
+      "status": "PASS",
+      "evidence": "control registry and schema validation"
+    },
+    {
+      "control_id": "TSPP-META-01",
+      "status": "PASS",
+      "evidence": "control registry and schema validation"
+    },
+    {
+      "control_id": "TSPP-META-02",
+      "status": "PASS",
+      "evidence": "control registry and schema validation"
+    },
+    {
+      "control_id": "TSPP-RL-01",
+      "status": "PASS",
+      "evidence": "control registry and schema validation"
+    },
+    {
+      "control_id": "TSPP-SCI-01",
+      "status": "PASS",
+      "evidence": "control registry and schema validation"
+    },
+    {
+      "control_id": "TSPP-SCI-02",
+      "status": "PASS",
+      "evidence": "control registry and schema validation"
+    },
+    {
+      "control_id": "TSPP-SCI-03",
+      "status": "PASS",
+      "evidence": "control registry and schema validation"
+    },
+    {
+      "control_id": "TSPP-SCI-04",
+      "status": "PASS",
+      "evidence": "control registry and schema validation"
+    },
+    {
+      "control_id": "TSPP-SCI-05",
+      "status": "PASS",
+      "evidence": "control registry and schema validation"
+    },
+    {
+      "control_id": "TSPP-RP-01",
+      "status": "PASS",
+      "evidence": "control registry and schema validation"
+    },
+    {
+      "control_id": "TSPP-RP-02",
+      "status": "PASS",
+      "evidence": "control registry and schema validation"
+    },
+    {
+      "control_id": "TSPP-RP-03",
+      "status": "PASS",
+      "evidence": "control registry and schema validation"
+    },
+    {
+      "control_id": "TSPP-RP-04",
+      "status": "PASS",
+      "evidence": "control registry and schema validation"
+    },
+    {
+      "control_id": "TSPP-RP-05",
+      "status": "PASS",
+      "evidence": "control registry and schema validation"
+    },
+    {
+      "control_id": "TSPP-RP-06",
+      "status": "PASS",
+      "evidence": "control registry and schema validation"
+    },
+    {
+      "control_id": "TSPP-RP-07",
+      "status": "PASS",
+      "evidence": "control registry and schema validation"
+    },
+    {
+      "control_id": "TSPP-LIFE-01",
+      "status": "PASS",
+      "evidence": "control registry and schema validation"
+    },
+    {
+      "control_id": "TSPP-LIFE-02",
+      "status": "PASS",
+      "evidence": "control registry and schema validation"
+    },
+    {
+      "control_id": "TSPP-LIFE-03",
+      "status": "PASS",
+      "evidence": "control registry and schema validation"
+    }
+  ]
+}

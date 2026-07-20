@@ -4,7 +4,7 @@ portfolio_tier: flagship
 lifecycle: active
 role: security-profile-layer
 stability: beta
-current_version: "0.13.0"
+current_version: "0.14.0"
 primary_output: Posture Report
 authority:
   owns:
@@ -18,5 +18,5 @@ authority:
 validation_command: make validate
 documentation_url: https://sankarshanmukhopadhyay.github.io/TRQP-TSPP/
 release_policy: substantive
-last_portfolio_review: 2026-07-15
-next_portfolio_review: 2026-10-15
+last_portfolio_review: 2026-07-20
+next_portfolio_review: 2026-10-20

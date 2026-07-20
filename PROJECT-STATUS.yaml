@@ -1,0 +1,47 @@
+schema_version: "1.0"
+project:
+  name: TRQP-TSPP
+  portfolio_disposition: included
+  strategic_tier: flagship
+  maturity: implementation-draft
+  lifecycle: active
+  operational_status: active-validation
+  specification_status: working-draft
+  provenance: original
+  intended_use:
+    - evaluation
+    - interoperability testing
+    - pilot preparation
+  not_asserted:
+    - production certification
+    - independent assurance
+    - ownership of the TRQP protocol specification
+authority:
+  normative_scope:
+    - TRQP security and privacy control profiles
+    - posture computation rules
+    - assurance-level control evidence
+  does_not_own:
+    - the TRQP protocol specification
+    - cross-stack assurance publication
+    - general protocol conformance verdicts
+  approval: Maintainers approve normative, status, and release changes through reviewed pull requests.
+  delegation: Delegation is limited to the artefact scope stated in GOVERNANCE.md and may be withdrawn by maintainers.
+  revocation_or_supersession: Releases, profiles, evidence, and status claims are superseded or revoked through versioned notices and machine-readable lifecycle records.
+evidence:
+  validation_commands:
+    - make validate
+    - make assurance-check
+  evidence_outputs:
+    - artifacts/validation/tspp-report.json
+    - artifacts/traceability/tspp-control-coverage.json
+  known_limitations:
+    - Example and self-generated evidence is not independent assurance.
+    - Supported cross-repository conclusions require a compatibility-registry release tuple.
+relationships:
+  - type: supports
+    target: TRQP operational trust stack
+    constraint: Participation does not transfer protocol or external certification authority.
+review:
+  last_review: 2026-07-20
+  next_review: 2026-10-20

@@ -229,3 +229,15 @@ TRQP-TSPP includes an **experimental** DeDi operator posture profile to align de
 ## Operational Stack integration
 
 TSPP reports now include shared `run_id`, `target_id`, `assurance_level`, and `tool_version` metadata so the Assurance Hub can assemble a combined manifest with less hand-waving and fewer brittle assumptions.
+
+
+## End-to-end assurance evidence chain
+
+This repository participates in the coordinated TRQP Operational Trust Stack. The supported execution path binds CTS conformance evidence and TSPP posture evidence to the same `run_id` and `target_id`, then composes them through the Assurance Hub.
+
+```bash
+make validate
+make assurance-check
+```
+
+The resulting artifacts are machine-readable and retain producer version, execution context, checksums, findings, and the repository authorised to remediate each finding. Example or self-generated evidence does not constitute independent certification. See [`PROJECT-STATUS.yaml`](PROJECT-STATUS.yaml) for maturity, authority, intended-use, and evidence declarations.
