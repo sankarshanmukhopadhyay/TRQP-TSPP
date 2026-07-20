@@ -1,3 +1,18 @@
+## v0.14.0
+
+### Added
+- Shared `PROJECT-STATUS.yaml` governance contract and schema validation.
+- Reproducible posture evidence generation with run and target binding.
+- Control-coverage traceability and evidence checksum index.
+- Cross-stack execution guidance for Hub v1.9.0 and CTS v1.6.0.
+
+### Changed
+- Added `make assurance-check` and `make evidence` as material validation entry points.
+- Updated current-version, compatibility, release-validation, and adoption documentation.
+
+### Assurance
+- Self-generated evidence is explicitly non-independent and non-certifying.
+
 ## v0.13.0
 
 ## 0.14.0 - 2026-07-20

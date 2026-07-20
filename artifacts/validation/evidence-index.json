@@ -1,5 +1,5 @@
 {
-  "run_id": "tspp-local-assurance",
+  "run_id": "ots-validation",
   "target_id": "trqp-reference-fixture",
   "artifacts": [
     {
@@ -12,7 +12,7 @@
     },
     {
       "path": "artifacts/validation/tspp-report.json",
-      "sha256": "295ae62daecfe1f6c4437c6cc17fcfd6c35767e5e57d8f402c933cc228140c22"
+      "sha256": "12f4de7f8083190c1b1d65903d82bec5a3b6c316d5f48522d884539bc7d518e0"
     }
   ]
 }

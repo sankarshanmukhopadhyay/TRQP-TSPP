@@ -81,7 +81,7 @@ As of this release line:
 
 - Assurance Hub: **v1.8.0**
 - Conformance Suite (CTS): **v1.5.0**
-- TSPP: **v0.13.0**
+- TSPP: **v0.14.0**
 
 For “known-good” pairings, see `docs/policies/compatibility.md`.
 

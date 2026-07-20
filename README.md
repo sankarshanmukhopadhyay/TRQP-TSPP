@@ -26,7 +26,7 @@ tier: 0
 
 📘 **Documentation site (GitHub Pages):** https://sankarshanmukhopadhyay.github.io/TRQP-TSPP/
 
-**Current version:** v0.13.0
+**Current version:** v0.14.0
 
 **Release line:** Operational Trust Stack v1
 
@@ -51,17 +51,17 @@ and a machine-readable **Posture Report** that downstream layers can consume wit
 | Conformance Suite | Protocol verification | Conformance Report |
 | Assurance Hub | Assurance orchestration and publication | Combined Assurance Manifest |
 
-## What is new in v0.13.0
+## What is new in v0.14.0
 
-v0.13.0 is the TSPP portion of the **Operational Trust Stack Maturity Release**. It keeps TSPP focused on security and privacy posture computation while adding the governance, validation, and repo hygiene expected of an adoption-ready posture engine.
+v0.14.0 introduces the TSPP evidence-producer portion of the **End-to-End Assurance Execution and Evidence Chain**. It keeps TSPP focused on security and privacy posture computation while adding the governance, validation, and repo hygiene expected of an adoption-ready posture engine.
 
 - Adds release governance that prevents low-signal posture releases for minor wording or reference churn.
 - Adds a release validation record covering harness tests, schema checks, documentation tests, and evidence contract review.
 - Adds change-intake criteria for control, profile, posture evidence, and cross-repo compatibility changes.
 - Cleans generated Python package metadata and OS artifacts from the release archive.
-- Refreshes cross-repo references for the Hub v1.8.0 / CTS v1.5.0 / TSPP v0.13.0 maturity tuple.
+- Refreshes cross-repo references for the Hub v1.9.0 / CTS v1.6.0 / TSPP v0.14.0 maturity tuple.
 
-## Prior release: v0.12.0
+## Prior release: v0.13.0
 
 - Adds a TIS posture evidence contract that maps posture reports, control satisfaction, lifecycle publication, and relying-party publication evidence to TIS v0.10.0 artifact roles.
 - Extends posture evidence bundle descriptors with optional `tis_projection` metadata for Hub v1.7.0 ingestion.
@@ -150,7 +150,7 @@ pytest -q
 
 ## Release posture
 
-v0.13.0 is additive and governance-focused. Existing v0.12.0 posture report consumers remain compatible. Future TSPP releases should be cut only for security fixes, broken validation, new executable posture coverage, control/evidence contract changes, or coordinated Operational Trust Stack maturity increments.
+v0.14.0 is additive and evidence-focused. Existing v0.13.0 posture report consumers remain compatible. Future TSPP releases should be cut only for security fixes, broken validation, new executable posture coverage, control/evidence contract changes, or coordinated Operational Trust Stack maturity increments.
 
 ## License
 

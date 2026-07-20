@@ -14,7 +14,7 @@ TRQP-TSPP converts security, privacy, and control expectations into executable c
 
 ## Current maturity release
 
-- TSPP v0.13.0 is part of the Hub v1.8.0 / CTS v1.5.0 / TSPP v0.13.0 maturity tuple.
+- TSPP v0.14.0 is part of the Hub v1.9.0 / CTS v1.6.0 / TSPP v0.14.0 maturity tuple.
 - Release governance now distinguishes patch, minor, maturity, and no-release changes.
 - Release validation is recorded in `docs/release-validation.md`.
 - The posture evidence contract remains compatible with Hub ingestion while future releases are gated on executable posture or evidence value.

@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "profile": "local-governance-validation",
   "generated_at": "2026-07-20T00:00:00Z",
-  "run_id": "ots-local-validation",
+  "run_id": "ots-validation",
   "target_id": "trqp-reference-fixture",
   "assurance_level": "AL1",
   "tool_version": "0.14.0",

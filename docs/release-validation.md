@@ -6,15 +6,15 @@ tier: 0
 
 # Release Validation
 
-This record defines the validation gate for TSPP v0.13.0 in the Operational Trust Stack Maturity Release.
+This record defines the validation gate for TSPP v0.14.0 in the Operational Trust Stack Maturity Release.
 
 ## Compatibility tuple
 
 | Repository | Version | Role |
 |---|---:|---|
-| TRQP-TSPP | v0.13.0 | Security and privacy posture evidence producer |
-| TRQP Conformance Suite | v1.5.0 | Protocol conformance evidence producer |
-| TRQP Assurance Hub | v1.8.0 | Combined assurance orchestration and publication |
+| TRQP-TSPP | v0.14.0 | Security and privacy posture evidence producer |
+| TRQP Conformance Suite | v1.6.0 | Protocol conformance evidence producer |
+| TRQP Assurance Hub | v1.9.0 | Combined assurance orchestration and publication |
 
 ## Required commands
 
@@ -31,7 +31,7 @@ pytest -q
 - JSON and YAML artifacts parse.
 - Schema checks complete without regression.
 - Harness tests complete against the reference SUT and configured fixtures.
-- Posture report semantics remain compatible with Hub v1.8.0 ingestion.
+- Posture report semantics remain compatible with Hub v1.9.0 ingestion.
 - Release archive contains no `.DS_Store`, generated egg-info, build, or dist artifacts.
 
 ## Local validation status
@@ -46,4 +46,4 @@ pytest -q
 
 ## Release decision
 
-TSPP v0.13.0 is release-worthy because it establishes the governance, validation, and archive hygiene threshold for future posture-engine releases while preserving compatibility with v0.12.0 posture report consumers.
+TSPP v0.14.0 is release-worthy because it establishes the governance, validation, and archive hygiene threshold for future posture-engine releases while preserving compatibility with v0.12.0 posture report consumers.

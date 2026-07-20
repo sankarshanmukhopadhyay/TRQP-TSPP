@@ -6,7 +6,7 @@ tier: 1
 
 # TIS Posture Evidence Contract
 
-TRQP-TSPP v0.13.0 maps security and privacy posture evidence to Trust Infrastructure Schemas v0.10.0 artifact roles without making TIS a runtime dependency.
+TRQP-TSPP v0.14.0 maps security and privacy posture evidence to Trust Infrastructure Schemas v0.10.0 artifact roles without making TIS a runtime dependency.
 
 TSPP remains responsible for posture computation. It evaluates metadata, freshness, context allowlisting, rate limits, signed responses, lifecycle publication, relying-party publication, supply chain integrity, and higher-assurance governance evidence. TIS provides portable artifact contracts for downstream assurance publication and audit.
 
