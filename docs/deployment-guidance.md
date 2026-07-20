@@ -1,3 +1,9 @@
+---
+layout: default
+title: "Deployment guidance (TSPP v0.1)"
+nav_exclude: true
+---
+
 # Deployment guidance (TSPP v0.1)
 
 This is operator-focused guidance for rolling out TRQP with the TSPP profile.

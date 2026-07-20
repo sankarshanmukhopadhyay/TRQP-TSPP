@@ -1,3 +1,9 @@
+---
+layout: default
+title: "Evidence Bundles"
+nav_exclude: true
+---
+
 # Evidence Bundles
 
 TSPP produces **posture evidence bundles**: portable artifacts that make TSPP results *auditable*, *replayable*, and easy to ingest into the **TRQP Assurance Hub** combined-assurance workflow.

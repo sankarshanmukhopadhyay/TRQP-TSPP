@@ -1,3 +1,9 @@
+---
+layout: default
+title: "Threat model (TSPP v0.1)"
+nav_exclude: true
+---
+
 # Threat model (TSPP v0.1)
 
 This threat model is intentionally adversarial: it treats TRQP as critical infrastructure.

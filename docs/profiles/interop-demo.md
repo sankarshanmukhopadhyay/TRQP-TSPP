@@ -1,3 +1,9 @@
+---
+layout: default
+title: "Interop demo profile"
+nav_exclude: true
+---
+
 # Interop demo profile
 
 The interop demo profile is a deliberately lightweight AL1-oriented posture path for workshops, onboarding, and Operational Stack demonstrations.

@@ -1,3 +1,9 @@
+---
+layout: default
+title: "TRQP Security & Privacy Profile (TSPP) v0.5.0"
+nav_exclude: true
+---
+
 # TRQP Security & Privacy Profile (TSPP) v0.5.0
 
 This document defines a practical security and privacy deployment profile for the Trust Over IP

@@ -1,3 +1,9 @@
+---
+layout: default
+title: "GRID interop notes (for TSPP implementers)"
+nav_exclude: true
+---
+
 # GRID interop notes (for TSPP implementers)
 
 This note explains how TSPP operators can consume GRID-style directory data as **trust claims** rather than as an unquestioned database.

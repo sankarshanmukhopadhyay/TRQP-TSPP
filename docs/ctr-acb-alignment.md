@@ -1,3 +1,9 @@
+---
+layout: default
+title: "CTR-ACB Alignment (Certification Baseline Compatibility)"
+nav_exclude: true
+---
+
 # CTR-ACB Alignment (Certification Baseline Compatibility)
 
 This document explains how **TRQP Security & Privacy Baseline (TSPP)** aligns with the *Candidate Trust Registry Assurance & Certification Baseline (CTR-ACB)* defined in the TRQP Assurance Hub.

@@ -1,3 +1,9 @@
+---
+layout: default
+title: "Schema layout"
+nav_exclude: true
+---
+
 # Schema layout
 
 This directory contains all JSON Schema definitions for the TRQP Security and Privacy

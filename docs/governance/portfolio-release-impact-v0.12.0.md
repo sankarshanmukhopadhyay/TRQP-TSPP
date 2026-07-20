@@ -1,3 +1,9 @@
+---
+layout: default
+title: "Portfolio Release Impact: TRQP-TSPP v0.12.0"
+nav_exclude: true
+---
+
 # Portfolio Release Impact: TRQP-TSPP v0.12.0
 
 | Field | Value |

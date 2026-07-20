@@ -1,3 +1,9 @@
+---
+layout: default
+title: "OpenSSF-aligned Supply Chain Integrity (Reference)"
+nav_exclude: true
+---
+
 # OpenSSF-aligned Supply Chain Integrity (Reference)
 
 This repo aligns parts of its **Software Supply Chain Integrity** requirements with guidance from the **OpenSSF** ecosystem.

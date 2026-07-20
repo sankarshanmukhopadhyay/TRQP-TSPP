@@ -1,3 +1,9 @@
+---
+layout: default
+title: "TSPP Requirements (Normative)"
+nav_exclude: true
+---
+
 # TSPP Requirements (Normative)
 
 This document enumerates the **testable, ship-stopping requirements** in the TRQP Security & Privacy Profile (TSPP).

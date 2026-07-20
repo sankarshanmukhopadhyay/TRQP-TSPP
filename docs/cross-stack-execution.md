@@ -1,3 +1,9 @@
+---
+layout: default
+title: "Cross-Stack Execution"
+nav_exclude: true
+---
+
 # Cross-Stack Execution
 
 This repository is an evidence producer in the TRQP Operational Trust Stack. Evidence intended for Hub composition MUST contain a stable `run_id`, `target_id`, producer version, execution timestamp, outcome summary, and artifact checksums. The Assurance Hub rejects evidence when producer reports refer to different targets or runs, use an unsupported release tuple, or fail schema and integrity validation.

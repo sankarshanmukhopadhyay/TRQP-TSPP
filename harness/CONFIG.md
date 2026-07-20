@@ -1,3 +1,9 @@
+---
+layout: default
+title: "Harness configuration"
+nav_exclude: true
+---
+
 # Harness configuration
 
 Use environment variables for secrets:

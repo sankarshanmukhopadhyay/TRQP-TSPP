@@ -1,3 +1,9 @@
+---
+layout: default
+title: "TRQP Assurance Program Playbook"
+nav_exclude: true
+---
+
 # TRQP Assurance Program Playbook
 
 This document explains **why the TRQP assurance toolchain exists**, who it is for, and how to adopt it without needing to become a protocol historian.

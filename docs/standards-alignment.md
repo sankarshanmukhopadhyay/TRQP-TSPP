@@ -1,3 +1,9 @@
+---
+layout: default
+title: "Standards alignment (informative)"
+nav_exclude: true
+---
+
 # Standards alignment (informative)
 
 This document provides an **informative mapping** from **TSPP Requirement IDs (Control IDs)** to widely-used security standards. It is designed to reduce adoption friction in mature security programs and speed up control reviews.

@@ -1,3 +1,9 @@
+---
+layout: default
+title: "Changelog"
+nav_exclude: true
+---
+
 ## v0.14.0
 
 ### Added

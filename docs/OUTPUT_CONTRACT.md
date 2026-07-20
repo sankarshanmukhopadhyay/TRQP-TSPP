@@ -1,3 +1,9 @@
+---
+layout: default
+title: "Output Contract: TSPP Harness Runs"
+nav_exclude: true
+---
+
 # Output Contract: TSPP Harness Runs
 
 This document defines the **stable output artifact** produced by the TSPP harness when `TSPP_REPORT_PATH` is set.

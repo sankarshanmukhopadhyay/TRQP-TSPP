@@ -1,3 +1,9 @@
+---
+layout: default
+title: "OWASP API Security Top 10"
+nav_exclude: true
+---
+
 # OWASP API Security Top 10
 
 > **Status:** informative (non-normative)

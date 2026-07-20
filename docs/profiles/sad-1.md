@@ -1,3 +1,9 @@
+---
+layout: default
+title: "SAD-1 security and privacy expectations (TSPP)"
+nav_exclude: true
+---
+
 # SAD-1 security and privacy expectations (TSPP)
 
 SAD-1 (Sovereign Authoritative Directory) is a **registry-agnostic profile** used by the TRQP ecosystem to evaluate

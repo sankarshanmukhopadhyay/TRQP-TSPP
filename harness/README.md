@@ -1,3 +1,9 @@
+---
+layout: default
+title: "TSPP TRQP Conformance Harness"
+nav_exclude: true
+---
+
 # TSPP TRQP Conformance Harness
 
 This harness runs HTTP-level and semantic conformance checks for a TRQP deployment against the TRQP Security & Privacy Profile (TSPP).

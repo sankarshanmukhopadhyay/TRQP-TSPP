@@ -1,3 +1,9 @@
+---
+layout: default
+title: "CIS Kubernetes Benchmark"
+nav_exclude: true
+---
+
 # CIS Kubernetes Benchmark
 
 > **Status:** informative (non-normative)

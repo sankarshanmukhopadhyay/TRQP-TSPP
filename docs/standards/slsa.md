@@ -1,3 +1,9 @@
+---
+layout: default
+title: "SLSA (Supply-chain Levels for Software Artifacts)"
+nav_exclude: true
+---
+
 # SLSA (Supply-chain Levels for Software Artifacts)
 
 > **Status:** informative (non-normative)

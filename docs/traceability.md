@@ -1,3 +1,9 @@
+---
+layout: default
+title: "Traceability"
+nav_exclude: true
+---
+
 # Traceability
 
 This repository ships a ready-to-use traceability **template**.

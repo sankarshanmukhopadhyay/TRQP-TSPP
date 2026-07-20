@@ -1,3 +1,9 @@
+---
+layout: default
+title: "At-scale standards (secure distributed services)"
+nav_exclude: true
+---
+
 # At-scale standards (secure distributed services)
 
 These references are **informative** guidance for operators running TRQP endpoints as internet-exposed, distributed services.

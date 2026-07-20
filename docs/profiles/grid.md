@@ -1,3 +1,9 @@
+---
+layout: default
+title: "GRID security and privacy expectations (TSPP)"
+nav_exclude: true
+---
+
 # GRID security and privacy expectations (TSPP)
 
 This document applies TSPP expectations to the **GRID instance profile**, which implements SAD-1.

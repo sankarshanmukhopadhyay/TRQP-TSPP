@@ -1,3 +1,9 @@
+---
+layout: default
+title: "Contributing"
+nav_exclude: true
+---
+
 # Contributing
 
 Thanks for helping improve TRQP-TSPP.

@@ -1,3 +1,9 @@
+---
+layout: default
+title: "OpenTelemetry (Service Telemetry)"
+nav_exclude: true
+---
+
 # OpenTelemetry (Service Telemetry)
 
 > **Status:** informative (non-normative)

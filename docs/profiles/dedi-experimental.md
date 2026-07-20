@@ -1,3 +1,9 @@
+---
+layout: default
+title: "DeDi Experimental Profile (Operator Requirements)"
+nav_exclude: true
+---
+
 # DeDi Experimental Profile (Operator Requirements)
 
 **Status:** Experimental (non-normative)

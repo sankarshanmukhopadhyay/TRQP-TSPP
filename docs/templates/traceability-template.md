@@ -1,3 +1,9 @@
+---
+layout: default
+title: "TEMPLATE — Traceability matrix (not normative)"
+nav_exclude: true
+---
+
 # TEMPLATE — Traceability matrix (not normative)
 
 This is a **template** intended to be copied and completed by implementers.

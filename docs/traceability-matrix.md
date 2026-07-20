@@ -1,3 +1,9 @@
+---
+layout: default
+title: "TSPP Traceability Matrix"
+nav_exclude: true
+---
+
 # TSPP Traceability Matrix
 
 This matrix links **Requirements → Harness tests → Evidence** so that conformance is auditable.

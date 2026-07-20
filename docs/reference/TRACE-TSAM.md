@@ -1,3 +1,9 @@
+---
+layout: default
+title: "TRACE ↔ TSAM Reference (Controls and Runtime Integrity)"
+nav_exclude: true
+---
+
 # TRACE ↔ TSAM Reference (Controls and Runtime Integrity)
 
 This repository provides security/privacy posture artifacts and control mappings within a broader assurance architecture.

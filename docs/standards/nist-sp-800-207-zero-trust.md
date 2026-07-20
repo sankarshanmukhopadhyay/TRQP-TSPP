@@ -1,3 +1,9 @@
+---
+layout: default
+title: "NIST SP 800-207 (Zero Trust Architecture)"
+nav_exclude: true
+---
+
 # NIST SP 800-207 (Zero Trust Architecture)
 
 > **Status:** informative (non-normative)
