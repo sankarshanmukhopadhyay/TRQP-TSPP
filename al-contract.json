@@ -1,10 +1,10 @@
 {
   "contract_version": "0.1.0",
-  "generated_at": "2026-07-03T00:00:00Z",
+  "generated_at": "2026-08-20T00:00:00Z",
   "canonical_source": {
     "repo": "trqp-assurance-hub",
     "canonical_doc": "docs/guides/assurance-levels.md",
-    "canonical_doc_sha256": "61c599c5fa06e0c9110f40ff71c0174db5502105b97f1391dbd9ae8548115f71"
+    "canonical_doc_sha256": "162c4888c9052284e4baacd2133deb1342129cb8ef7268403513a136ae3a0e86"
   },
   "local_usage": {
     "repo": "TRQP-TSPP",
@@ -12,6 +12,6 @@
   },
   "pinning": {
     "recommended": "Pin to a tagged release of trqp-assurance-hub for audit stability.",
-    "current": "Pinned to trqp-assurance-hub v1.8.0"
+    "current": "Pinned to trqp-assurance-hub v1.10.0"
   }
 }
