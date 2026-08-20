@@ -1,249 +1,170 @@
 ---
 owner: maintainers
-last_reviewed: 2026-07-03
+last_reviewed: 2026-08-20
 tier: 0
 ---
 
-## Documentation site
-
-The complete repository documentation is published through GitHub Pages using Just the Docs. Every public Markdown file is included in the generated documentation catalogue, and Mermaid fenced diagrams are rendered client-side. The Pages workflow performs a production build for pull requests and deploys from `main`.
-
-For repository administrators, enable **Settings → Pages → Source: GitHub Actions** once. No branch-specific generated site content is committed.
-
-## Documentation
-
-- Documentation governance: [`docs/governance/README.md`](docs/governance/README.md)
-
 # TRQP Security & Privacy Baseline (TSPP)
 
-> **Portfolio status:** Tier 1 flagship · Active · Beta
+TRQP-TSPP is the **security and privacy posture computation layer** in the TRQP Operational Trust Stack. It turns assurance-level requirements into executable controls, validates implementation evidence, and produces machine-readable posture and traceability artifacts for downstream conformance and assurance workflows.
+
+> **Current release:** v0.15.0  
+> **Lifecycle:** Active  
+> **Maturity:** Implementation draft  
+> **Operational status:** Active validation  
+> **Specification status:** Working draft
 
 | Attribute | Value |
 |---|---|
 | Portfolio tier | Flagship |
-| Lifecycle | Active |
-| Primary role | security profile layer |
-| Primary output | Posture Report |
+| Primary role | Security/privacy control profile and posture computation |
+| Portfolio contract role | `normative-protocol-profile` |
+| Primary output | Posture Report and control-coverage evidence |
 | Validation | `make validate` |
-| Evidence output | See repository-specific output contract and examples |
-| Governance authority | [`GOVERNANCE.md`](GOVERNANCE.md) |
-| Stack adoption path | [`docs/trqp-adoption-path.md`](docs/trqp-adoption-path.md) |
-
-
-📘 **Documentation site (GitHub Pages):** https://sankarshanmukhopadhyay.github.io/TRQP-TSPP/
-
-**Current version:** v0.14.0
-
-**Release line:** Operational Trust Stack v1
+| Assurance evidence | `make assurance-check` |
+| Evidence output | `artifacts/validation/tspp-report.json`, `artifacts/traceability/tspp-control-coverage.json` |
+| Governance authority | [`GOVERNANCE.md`](GOVERNANCE.md) and [`PROJECT-STATUS.yaml`](PROJECT-STATUS.yaml) |
+| Portfolio integration | [`portfolio/integration-contract.json`](portfolio/integration-contract.json) |
+| Documentation site | https://sankarshanmukhopadhyay.github.io/TRQP-TSPP/ |
 
 ![License](https://img.shields.io/github/license/sankarshanmukhopadhyay/TRQP-TSPP)
 ![Last Commit](https://img.shields.io/github/last-commit/sankarshanmukhopadhyay/TRQP-TSPP)
 ![Issues](https://img.shields.io/github/issues/sankarshanmukhopadhyay/TRQP-TSPP)
-![TRQP](https://img.shields.io/badge/TRQP-Protocol-blue)
-![Trust over IP](https://img.shields.io/badge/Trust%20over%20IP-Alignment-0A66C2)
-![Security Profile](https://img.shields.io/badge/Security-Profile-critical)
 ![Conformance](https://img.shields.io/badge/Conformance-Harness-brightgreen)
 ![Assurance Levels](https://img.shields.io/badge/Assurance-AL1%20%7C%20AL2%20%7C%20AL3%20%7C%20AL4-purple)
 
-TSPP is the **posture computation layer** in the three-repository Operational Trust Stack v1 release line.
-It converts TRQP security and privacy expectations into executable checks, control satisfaction evidence,
-and a machine-readable **Posture Report** that downstream layers can consume without reinterpretation.
+## What v0.15.0 establishes
+
+v0.15.0 connects TSPP to the current executable governance layer and makes cross-repository drift a testable condition.
+
+- Pins **Trust Systems Meta-Model (TSMM) v0.24.0** as semantic authority for the TRQP binding.
+- Pins **Trust Infrastructure Schemas (TIS) v0.14.1** as schema and portfolio-authority baseline.
+- Declares the Conformance Suite relationship as `tested-by` and the Assurance Hub relationship as `assured-by`.
+- Validates release pins, required local evidence, repository relationships, and integration invalidation conditions in CI.
+- Aligns the reference SUT and canonical metadata schema with AL3/AL4 supply-chain evidence requirements.
+- Includes freshness-relevant `time_requested` context in the reference SUT contract and signed-query binding.
+- Prevents the canonical `schemas/core/` metadata schema from silently drifting from its harness-side mirror.
+
+See [`RELEASE_NOTES_v0.15.0.md`](RELEASE_NOTES_v0.15.0.md) for the release record.
+
+## Authority and scope
+
+TSPP has repository-local authority over:
+
+- TRQP security and privacy control profiles;
+- posture computation rules;
+- assurance-level control evidence; and
+- the machine-readable artifacts it publishes from those rules.
+
+TSPP **does not** own the TRQP protocol specification, general protocol-conformance verdicts, cross-stack assurance publication, or external certification. Those boundaries are machine-declared in [`PROJECT-STATUS.yaml`](PROJECT-STATUS.yaml) and [`portfolio/integration-contract.json`](portfolio/integration-contract.json).
 
 ## Where this fits
 
 | Layer | Repository role | Primary output |
 |---|---|---|
-| TSPP | Posture computation | Posture Report |
-| Conformance Suite | Protocol verification | Conformance Report |
-| Assurance Hub | Assurance orchestration and publication | Combined Assurance Manifest |
+| TRQP-TSPP v0.15.0 | Security/privacy posture computation | Posture Report and control evidence |
+| TRQP Conformance Suite v1.7.0 | Executable protocol conformance | Conformance Report and evidence bundle |
+| TRQP Assurance Hub v1.10.0 | Evidence aggregation and assurance publication | Combined Assurance Manifest and assurance decision |
 
-## What is new in v0.14.0
+Shared authorities:
 
-v0.14.0 introduces the TSPP evidence-producer portion of the **End-to-End Assurance Execution and Evidence Chain**. It keeps TSPP focused on security and privacy posture computation while adding the governance, validation, and repo hygiene expected of an adoption-ready posture engine.
+| Authority | Version | Purpose |
+|---|---:|---|
+| Trust Systems Meta-Model | 0.24.0 | TRQP semantic binding and semantic concepts |
+| Trust Infrastructure Schemas | 0.14.1 | Portfolio relationships, repository authority and validation-result contracts |
 
-- Adds release governance that prevents low-signal posture releases for minor wording or reference churn.
-- Adds a release validation record covering harness tests, schema checks, documentation tests, and evidence contract review.
-- Adds change-intake criteria for control, profile, posture evidence, and cross-repo compatibility changes.
-- Cleans generated Python package metadata and OS artifacts from the release archive.
-- Refreshes cross-repo references for the Hub v1.9.0 / CTS v1.6.0 / TSPP v0.14.0 maturity tuple.
+A portfolio integration becomes invalid when required evidence is missing or the declared semantic/schema authority versions are incompatible.
 
-## Prior release: v0.13.0
+## Assurance levels
 
-- Adds a TIS posture evidence contract that maps posture reports, control satisfaction, lifecycle publication, and relying-party publication evidence to TIS v0.10.0 artifact roles.
-- Extends posture evidence bundle descriptors with optional `tis_projection` metadata for Hub v1.7.0 ingestion.
-- Adds sample TIS-compatible assurance evidence and decision receipt artifacts for the golden flow.
-- Publishes portfolio release-impact and drift-review records for the coordinated Runtime Assurance Contract Pack.
-- Cross-repo release references align with Assurance Hub v1.7.0 and Conformance Suite v1.4.0.
+TSPP supports four assurance levels. Profiles increase evidence and control expectations without changing the underlying TRQP protocol semantics.
+
+- **AL1** — baseline internet-safe posture and core metadata/freshness controls.
+- **AL2** — authenticated and signed-response controls for higher-assurance deployments.
+- **AL3** — stronger operational and software supply-chain evidence requirements.
+- **AL4** — highest bundled profile, including explicit SBOM/provenance evidence and the strongest reference-SUT control expectations.
+
+The executable AL contract is validated by `scripts/verify_al_contract.py` and exercised through the harness integration tests.
 
 ## Start here
 
-- Maturity release validation: [`docs/release-validation.md`](docs/release-validation.md)
-- Release policy: [`docs/governance/release-policy.md`](docs/governance/release-policy.md)
-- Change intake: [`docs/governance/change-intake.md`](docs/governance/change-intake.md)
-- Operational stack overview: [`docs/operational-stack.md`](docs/operational-stack.md)
-- Output contract: [`docs/OUTPUT_CONTRACT.md`](docs/OUTPUT_CONTRACT.md)
-- TIS posture evidence contract: [`docs/tis-posture-evidence-contract.md`](docs/tis-posture-evidence-contract.md)
-- Quickstart: [`QUICKSTART.md`](QUICKSTART.md)
-- Hub repo: https://github.com/sankarshanmukhopadhyay/trqp-assurance-hub
-- Hub crosswalk for this repo: [`docs/hub-crosswalk.md`](docs/hub-crosswalk.md)
+- [`QUICKSTART.md`](QUICKSTART.md) — run the reference harness.
+- [`docs/profile.md`](docs/profile.md) — profile and requirements overview.
+- [`docs/requirements.md`](docs/requirements.md) — stable TSPP Control IDs.
+- [`controls/control-registry.json`](controls/control-registry.json) — machine-readable control registry.
+- [`docs/threat-model.md`](docs/threat-model.md) — adversarial model and harms.
+- [`docs/deployment-guidance.md`](docs/deployment-guidance.md) — operator rollout guidance.
+- [`docs/OUTPUT_CONTRACT.md`](docs/OUTPUT_CONTRACT.md) — posture output contract.
+- [`docs/portfolio-integration.md`](docs/portfolio-integration.md) — synchronized TRQP portfolio integration.
+- [`docs/governance/release-policy.md`](docs/governance/release-policy.md) — release governance.
+- [`docs/governance/change-intake.md`](docs/governance/change-intake.md) — change intake criteria.
 
-## Why this exists
+## Quick validation
 
-If TRQP becomes the query plane for institutional trust, TSPP is the layer that keeps security and privacy from
-turning into hand-wavy prose. It makes requirements testable, produces portable evidence, and gives operators a way
-to show what was checked, what passed, and what remains outside scope.
+Run the repository-level governance and schema gate:
 
-- **JSON Schemas** (`schemas/`)
-  - `schemas/core/tspp-trqp-metadata.schema.json` — machine-readable declaration of a registry's posture and constraints
-  - `schemas/core/tspp-trqp-signed-response.schema.json` — AL2 signed response envelope schema
-  - `schemas/ayra/did_webvh_validator.py` — did:webvh format validator for Ayra deployments
+```bash
+make validate
+```
 
-- **Conformance harness** (`harness/`)
-  A pytest-based harness validating metadata, freshness, context allowlisting, rate limiting, anti-enumeration,
-  AL2 signed envelopes, bridge equivalence, and recognition endpoint security.
+Generate the repository assurance artifacts:
 
-- **Docs** (`docs/`)
-  - `profile.md` — the profile summary and requirements map
-  - `threat-model.md` — adversarial model of likely harms
-  - `deployment-guidance.md` — operator-focused rollout sequence
-  - `profiles/ayra-baseline.md` — Ayra Trust Network control mapping and evidence guide
+```bash
+make assurance-check
+```
 
-- **Examples** (`examples/`)
-  Sample queries and bridge golden fixtures.
+For live/reference-SUT conformance testing:
 
-## Quick start (run the harness)
-
-### 1) Install dependencies
 ```bash
 cd harness
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-```
-
-### 2) Configure environment
-```bash
 export TRQP_BASE_URL="https://your-registry.example"
-export TRQP_BEARER_TOKEN="..."   # if required by your deployment
-export TRQP_DPOP="..."           # optional (if using DPoP)
-export TSPP_EXPECT_AL="AL1"      # or AL2
-```
-
-### 3) Update fixtures
-Edit `harness/fixtures/queries.json` to replace example identifiers (`did:example:*`) and vocab URIs with
-values valid in your environment. For Ayra deployments, also add the three recognition fixtures listed above.
-
-### 4) Run tests
-```bash
+export TSPP_EXPECT_AL="AL1"   # AL1, AL2, AL3 or AL4 as supported by the SUT
 pytest -q
 ```
 
-## Conformance levels
+The harness can emit a machine-readable conformance report by setting `TSPP_REPORT_PATH`.
 
-- **AL1 (Baseline / Internet-safe)**
-  Minimum posture for internet exposure: freshness semantics, context allowlisting, rate limiting evidence,
-  and safe client semantics.
+## Repository map
 
-- **AL2 (High Assurance / Critical infrastructure)**
-  Tightened posture: authenticated access required, sender-constrained tokens for bulk clients, stronger
-  anti-enumeration expectations, and signed response envelopes.
+| Path | Purpose |
+|---|---|
+| `schemas/core/` | Canonical TSPP metadata and signed-response schemas |
+| `controls/` | Stable machine-readable control registry |
+| `harness/` | Executable conformance harness and fixtures |
+| `examples/` | Reference SUT and sample inputs |
+| `artifacts/validation/` | Validation evidence, including the TSPP report |
+| `artifacts/traceability/` | Control-coverage evidence |
+| `portfolio/` | Cross-repository integration contract |
+| `docs/` | Profiles, governance, threat model, deployment and integration guidance |
 
-## What this repo does *not* do
+## Evidence and auditability
 
-- It does not define governance frameworks.
-- It does not decide relying-party policy (fail-open vs fail-closed).
-- It does not magically eliminate network-layer correlation (architecture still matters).
+TSPP evidence is designed to answer four questions directly:
 
-## Release posture
+1. **What authority and profile were evaluated?**
+2. **Which controls were required and satisfied?**
+3. **Which evidence was produced, and by which version?**
+4. **What condition would invalidate or supersede the result?**
 
-v0.14.0 is additive and evidence-focused. Existing v0.13.0 posture report consumers remain compatible. Future TSPP releases should be cut only for security fixes, broken validation, new executable posture coverage, control/evidence contract changes, or coordinated Operational Trust Stack maturity increments.
+Artifacts retain producer/version context and are intended for machine consumption by CTS, the Assurance Hub, and other compatible assurance tooling. Example or self-generated evidence is not independent certification.
+
+## Related mappings
+
+- [`docs/ctr-acb-alignment.md`](docs/ctr-acb-alignment.md) — Candidate Trust Registry Assurance & Certification Baseline alignment.
+- [`docs/standards-alignment.md`](docs/standards-alignment.md) — informative OWASP, NIST and ISO/IEC mappings.
+- [`docs/profiles/ayra-baseline.md`](docs/profiles/ayra-baseline.md) — Ayra deployment profile.
+- [`docs/profiles/dedi-experimental.md`](docs/profiles/dedi-experimental.md) — experimental DeDi posture mapping.
+- [`docs/tis-posture-evidence-contract.md`](docs/tis-posture-evidence-contract.md) — TIS projection/evidence mapping.
+
+## Documentation site
+
+GitHub Pages uses Just the Docs and is deployed from `main` through GitHub Actions. Repository administrators should configure **Settings → Pages → Source: GitHub Actions**.
+
+Documentation governance: [`docs/governance/README.md`](docs/governance/README.md).
 
 ## License
 
-Apache 2.0 (see `LICENSE`).
-
-## Conformance report output
-
-The harness can emit a machine-readable conformance report artifact (JSON) suitable for CI pipelines.
-
-```bash
-cd harness
-export TRQP_BASE_URL="https://example.org"
-export TSPP_EXPECT_AL="AL1"   # or AL2
-export TSPP_REPORT_PATH="./tspp_conformance_report.json"
-pytest -q
-```
-
-Report schema: `harness/schemas/tspp-conformance-report.schema.json`.
-
-
-
-## Repo hygiene and assurance artifacts
-
-- Schema checks: `python scripts/schema_check.py`
-- Preflight (optional): `python scripts/preflight.py --base-url https://your-sut/ --endpoint /.well-known/jwks.json`
-- Traceability template: `docs/traceability.md`
-- Evidence bundle guidance: `docs/evidence_bundles.md`
-
-
-## Certification Baseline Compatibility (CTR-ACB)
-
-TSPP provides **security and privacy posture expectations** that can be used as evidence inputs to the *Candidate Trust Registry Assurance & Certification Baseline (CTR-ACB)* (defined in the TRQP Assurance Hub).
-
-- TSPP describes **what security posture looks like** (profiles, expectations, artifacts).
-- CTR-ACB describes **how that posture becomes certifiable** (controls, evaluation procedure, certification attestation).
-
-See: `docs/ctr-acb-alignment.md`.
-
-
-## Standards Alignment
-
-To reduce adoption friction in mature security programs, TSPP includes an **informative mapping** from TSPP Requirement IDs to common security frameworks:
-
-- OWASP API Security Top 10
-- NIST SP 800-53 / 800-63 / 800-218 (SSDF)
-- ISO/IEC 27001 / 27002 (and 27701 where relevant)
-
-See `docs/standards-alignment.md` and the at-scale notes in `docs/standards/README.md`.
-
-
-## Control IDs
-
-TSPP requirements are expressed as stable **Control IDs** (e.g., `TSPP-META-01`).
-
-- Normative list: `docs/requirements.md`
-- Machine-readable export: `controls/control-registry.json`
-
-## UNTP Digital Identity Anchor (DIA)
-
-SAD-1 includes an identity anchoring extension for directories that use UNTP DIA / Identity Resolver patterns.
-
-- DIA spec: https://untp.unece.org/docs/specification/DigitalIdentityAnchor/
-- DIA context (0.6.1): https://test.uncefact.org/vocabulary/untp/dia/0.6.1/context/
-
-## Experimental: DeDi posture mapping
-
-TRQP-TSPP includes an **experimental** DeDi operator posture profile to align decentralized directory deployments with Hub controls and evidence bundle patterns.
-
-- Profile: `docs/profiles/dedi-experimental.md`
-- Upstream: https://github.com/LF-Decentralized-Trust-labs/decentralized-directory-protocol
-
-- DeDi mapping matrix: `docs/reference/dedi-mapping-matrix.md`
-- Machine-readable matrix: `docs/reference/dedi-mapping-matrix.yaml`
-
-
-## Operational Stack integration
-
-TSPP reports now include shared `run_id`, `target_id`, `assurance_level`, and `tool_version` metadata so the Assurance Hub can assemble a combined manifest with less hand-waving and fewer brittle assumptions.
-
-
-## End-to-end assurance evidence chain
-
-This repository participates in the coordinated TRQP Operational Trust Stack. The supported execution path binds CTS conformance evidence and TSPP posture evidence to the same `run_id` and `target_id`, then composes them through the Assurance Hub.
-
-```bash
-make validate
-make assurance-check
-```
-
-The resulting artifacts are machine-readable and retain producer version, execution context, checksums, findings, and the repository authorised to remediate each finding. Example or self-generated evidence does not constitute independent certification. See [`PROJECT-STATUS.yaml`](PROJECT-STATUS.yaml) for maturity, authority, intended-use, and evidence declarations.
+Apache 2.0. See [`LICENSE`](LICENSE).
