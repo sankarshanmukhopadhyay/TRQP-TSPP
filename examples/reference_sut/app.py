@@ -12,7 +12,7 @@ from fastapi import FastAPI, Header, HTTPException, Request
 from fastapi.responses import JSONResponse
 from jwcrypto import jwk, jws
 
-APP_VERSION = "0.2.0"
+APP_VERSION = "0.2.1"
 
 ASSURANCE_LEVEL = os.environ.get("TSPP_REF_AL", os.environ.get("TSPP_EXPECT_AL", "AL1"))
 BEARER_TOKEN = os.environ.get("TSPP_REF_BEARER_TOKEN", "dev-token")
@@ -21,6 +21,7 @@ RATE_LIMIT_WINDOW_SECONDS = int(os.environ.get("TSPP_REF_RL_WINDOW", "60"))
 
 JWKS_PATH = "/.well-known/jwks.json"
 KID = "ref-kid-1"
+CONTEXT_ALLOWLIST = ["purpose", "audience", "locale", "time_requested"]
 
 app = FastAPI(title="TSPP TRQP Reference SUT", version=APP_VERSION)
 
@@ -66,6 +67,25 @@ PUBLIC_DOCS = {
         "control_id": "key-protection-001",
         "protection": "KMS",
         "evidence": "Example control evidence for key protection posture.",
+    },
+    "/.well-known/supply-chain/sbom": {
+        "bomFormat": "CycloneDX",
+        "specVersion": "1.6",
+        "serialNumber": "urn:uuid:11111111-2222-3333-4444-555555555555",
+        "version": 1,
+        "metadata": {
+            "component": {
+                "type": "application",
+                "name": "TRQP Reference SUT",
+                "version": APP_VERSION,
+            }
+        },
+    },
+    "/.well-known/supply-chain/provenance": {
+        "predicateType": "https://slsa.dev/provenance/v1",
+        "subject": [{"name": "TRQP Reference SUT", "digest": {"sha256": "reference-fixture"}}],
+        "buildDefinition": {"buildType": "https://example.org/trqp/reference-sut"},
+        "runDetails": {"builder": {"id": "https://github.com/sankarshanmukhopadhyay/TRQP-TSPP"}},
     },
     "/.well-known/service-docs": {
         "service": "TRQP Reference SUT",
@@ -173,7 +193,7 @@ def _should_sign_success(accept_signature: Optional[str]) -> bool:
 @app.get("/.well-known/trqp-metadata")
 def get_metadata(request: Request):
     base = str(request.base_url).rstrip("/")
-    allowlist = ["purpose", "audience", "locale"]
+    allowlist = CONTEXT_ALLOWLIST
     metadata = {
         "profile": "TSPP-TRQP-0.1",
         "assurance_level": ASSURANCE_LEVEL,
@@ -251,6 +271,10 @@ def get_metadata(request: Request):
             "change_control_uri": _public_uri(base, "/.well-known/governance/change-control"),
             "rollback_uri": _public_uri(base, "/.well-known/governance/rollback"),
         }
+        metadata["supply_chain"] = {
+            "sbom_uri": _public_uri(base, "/.well-known/supply-chain/sbom"),
+            "provenance_uri": _public_uri(base, "/.well-known/supply-chain/provenance"),
+        }
     if ASSURANCE_LEVEL == "AL4":
         metadata["key_protection"] = {
             "protection": "KMS",
@@ -324,7 +348,7 @@ async def post_authorization(req: Request, authorization: Optional[str] = Header
     _require_auth(authorization)
 
     body = await req.json()
-    allowlist = ["purpose", "audience", "locale"]
+    allowlist = CONTEXT_ALLOWLIST
     ctx = _strip_unknown_context(body.get("context"), allowlist)
     if isinstance(body, dict):
         body["context"] = ctx
@@ -354,7 +378,7 @@ async def post_authorization(req: Request, authorization: Optional[str] = Header
 async def post_recognition(req: Request, authorization: Optional[str] = Header(default=None), accept_signature: Optional[str] = Header(default="none", alias="Accept-Signature")):
     _require_auth(authorization)
     body = await req.json()
-    allowlist = ["purpose", "audience", "locale"]
+    allowlist = CONTEXT_ALLOWLIST
     raw_ctx = body.get("context") if isinstance(body, dict) else None
     if isinstance(raw_ctx, dict):
         unknown_keys = [k for k in raw_ctx if k not in allowlist]
