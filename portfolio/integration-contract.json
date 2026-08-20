@@ -1,0 +1,52 @@
+{
+  "contractVersion": "1.0",
+  "repository": "sankarshanmukhopadhyay/TRQP-TSPP",
+  "release": "0.15.0",
+  "role": "normative-protocol-profile",
+  "authority": {
+    "semanticAuthority": {
+      "repository": "sankarshanmukhopadhyay/trust-systems-meta-model",
+      "version": "0.24.0",
+      "artifacts": [
+        "bindings/trqp/tsmm-trqp-binding.json",
+        "model/semantic-concepts.json",
+        "schemas/semantic-projection.schema.json"
+      ]
+    },
+    "schemaAuthority": {
+      "repository": "sankarshanmukhopadhyay/trust-infrastructure-schemas",
+      "version": "0.14.1",
+      "artifacts": [
+        "portfolio/portfolio-relationship.schema.json",
+        "portfolio/repository-authority.schema.json",
+        "portfolio/portfolio-validation-result.schema.json"
+      ]
+    }
+  },
+  "provides": [
+    "TRQP protocol requirements and assurance-level semantics",
+    "control-to-requirement traceability",
+    "protocol validation evidence"
+  ],
+  "consumes": [
+    "TSMM TRQP semantic binding and semantic concept authority",
+    "TIS portfolio relationship and repository authority contracts"
+  ],
+  "evidence": [
+    {"path": "artifacts/traceability/tspp-control-coverage.json", "purpose": "normative control coverage"},
+    {"path": "artifacts/validation/evidence-index.json", "purpose": "validation evidence inventory"},
+    {"path": "artifacts/validation/tspp-report.json", "purpose": "protocol validation result"}
+  ],
+  "relationships": [
+    {"repository": "sankarshanmukhopadhyay/trqp-conformance-suite", "relation": "tested-by"},
+    {"repository": "sankarshanmukhopadhyay/trqp-assurance-hub", "relation": "assured-by"}
+  ],
+  "revocation": {
+    "triggers": [
+      "semantic-authority-version-incompatible",
+      "schema-authority-version-incompatible",
+      "required-evidence-missing"
+    ],
+    "effect": "integration-status-invalid"
+  }
+}
