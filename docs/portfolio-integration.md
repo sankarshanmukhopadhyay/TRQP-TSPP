@@ -1,3 +1,10 @@
+---
+layout: default
+title: "Portfolio Integration"
+nav_exclude: true
+permalink: /docs/portfolio-integration/
+---
+
 # Portfolio Integration
 
 TRQP-TSPP participates in the coordinated TRQP repository set through `portfolio/integration-contract.json`.
