@@ -1,3 +1,10 @@
+---
+layout: default
+title: "TRQP-TSPP v0.15.0"
+nav_exclude: true
+permalink: /RELEASE_NOTES_v0.15.0/
+---
+
 # TRQP-TSPP v0.15.0
 
 ## Portfolio integration release
