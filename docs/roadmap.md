@@ -4,52 +4,70 @@ title: "Roadmap"
 nav_exclude: true
 ---
 
-# Roadmap
+# TRQP-TSPP Roadmap
 
-This roadmap tracks high-level increments for TSPP.
+**Last reviewed:** 2026-08-28
 
-## Completed
+This roadmap records TSPP-owned delivery priorities and its contribution to coordinated TRQP Stack releases. TSPP retains authority over security/privacy controls and posture semantics; coordinated Stack planning does not transfer that authority to the Assurance Hub.
 
-- ✅ Operational Trust Stack Maturity Release governance added (`docs/governance/release-policy.md`, `docs/governance/change-intake.md`, `docs/release-validation.md`).
-- ✅ Release archive hygiene tightened by excluding generated package metadata and OS artifacts.
-- ✅ Formalize AL dependency contract (`al-contract.json`) and clarify canonical AL source.
-- ✅ Add standards alignment annex (`docs/standards-alignment.md`).
-- ✅ Expand executable requirements coverage for AL3/AL4 governance + audit expectations (independent assessment, change control, rollback, policy, monitoring, and audit-log checks).
-- ✅ Consolidate harness documentation into `harness/README.md` with full AL coverage table.
-- ✅ Add `QUICKSTART.md` for fast onboarding.
-- ✅ Update AL3/AL4 harness test cross-links to canonical Assurance Hub AL definitions.
-- ✅ Ayra Trust Network baseline profile: control applicability table and evidence artifact mapping (`docs/profiles/ayra-baseline.md`).
-- ✅ `schemas/README.md`: canonical vs alias schema layout documented, `$ref` wrapper pattern explained.
-- ✅ Operational Stack metadata in TSPP JSON reports: `run_id`, `target_id`, `assurance_level`, `tool_version`.
-- ✅ Harness CLI extended with `--run-id` and `--target-id` for integrated stack workflows.
-- ✅ Interop demo profile added (`docs/profiles/interop-demo.md`) for coordinated stack demonstrations.
-- ✅ TIS posture evidence contract and optional posture bundle projection metadata for Hub v1.9.0 runtime assurance.
+## Current coordinated baseline
 
-## Release readiness and adoption focus
+TRQP Stack 2026.1 — Coconut validates TSPP `v0.15.0` with CTS `v1.8.0` and Assurance Hub `v1.11.0`.
 
-- CI executes AL1 through AL4 against the reference SUT.
-- TSPP reports carry shared `run_id`, `target_id`, `assurance_level`, and `tool_version` for Operational Stack integration.
-- Ayra Trust Network baseline profile published with control mapping and evidence guidance.
-- AL contract pinning verified against the canonical Assurance Hub snapshot (Hub v1.9.0).
-- Harness documentation consolidated; quickstart available for new implementers.
-- TIS projection metadata allows TSPP posture evidence to be consumed by downstream assurance workflows without changing core harness behavior.
-- Future releases follow the maturity release policy: small wording, link, and metadata edits are batched unless they correct a security, CI, schema, or adoption blocker.
+## September 2026 priority: assurance validity under change
 
-_Last updated: 2026-07-03_
+**Coordinating issue:** https://github.com/sankarshanmukhopadhyay/trqp-assurance-hub/issues/39  
+**TSPP issue:** https://github.com/sankarshanmukhopadhyay/TRQP-TSPP/issues/69  
+**Target coordinated release:** TRQP Stack 2026.2 by 30 September 2026, subject to evidence readiness.
 
-## UNTP DIA / IDR alignment
+### TSPP proposition
 
-Maturity backlog: add explicit guidance and examples for evaluating authoritative directories that use UNTP Digital Identity Anchor (DIA) and Identity Resolver (IDR) patterns when an adopter needs executable DIA/IDR posture checks.
+> TSPP posture evidence MUST NOT remain reusable when a material change invalidates the target, control applicability, security/privacy posture, evidence freshness, producer identity, or another declared validity condition.
 
-- Add TSPP evidence expectations for DIA `identityAnchor` and IDR `identityResolver` endpoints.
-- Provide example harness test stubs for DIA/IDR endpoint validation.
-- Cross-link to `docs/reference/untp-digital-identity-anchor.md` in the Assurance Hub.
+### Required capability
 
-### Supply chain integrity
+TSPP should produce machine-verifiable evidence sufficient to distinguish at least:
 
-- ✅ `harness/tests/test_11_sci_controls.py`: TSPP-SCI-01 (SBOM), TSPP-SCI-02 (provenance), TSPP-SCI-03 (key freshness). Advisory at AL1/AL2, required at AL3+.
-- ✅ SCI requirement IDs added to `docs/standards-alignment.md` with OWASP/NIST/ISO mappings.
+- unchanged/reusable posture evidence;
+- reassessment required;
+- invalid/non-reusable posture evidence.
 
-### Schema contract guidance
+Unknown impact must not be interpreted as reusable evidence.
 
-- ✅ `schemas/CONTRACT.md`: stability tiers (Stable / Extensible / Experimental), per-schema field contract, and AL contract pin upgrade checklist.
+### Required pressure tests
+
+Material cases include weakened/removed controls, target-identity change, evidence expiry/unavailability, assurance/deployment-profile change, producer/provenance discontinuity, and material supply-chain evidence change.
+
+A legitimate counter-case must also be executable: documentation-only or equivalent non-material metadata change should not force reassessment when non-impact is supported by evidence.
+
+### Acceptance evidence
+
+- material and non-material change fixtures;
+- fail-safe unknown-impact behavior;
+- machine-readable evidence-reuse decision;
+- preserved run/target/provenance correlation;
+- AL1–AL4 regression coverage;
+- negative tests rejecting stale/invalid posture evidence;
+- synchronized producer contract and adopter documentation.
+
+## Candidate release decision
+
+`v0.16.0` is a candidate only if the material invalidation capability lands. Routine documentation/dependency changes do not justify a Stack-driven TSPP version bump.
+
+## Timing
+
+| Target | Outcome |
+|---|---|
+| 6 Sep | validity/change contract aligned with Stack work |
+| 11 Sep | TSPP invalidation capability and pressure tests ready |
+| 20–25 Sep | participate in coordinated adversarial suite |
+| 26 Sep | candidate tag/version decision frozen |
+| 27–28 Sep | coordinated eligibility replay |
+
+## Visible judgment
+
+The implementation history must preserve which changes are treated as material, legitimate counter-cases, uncertainty boundaries, and why the selected classification is safe. Green execution alone is not sufficient evidence of the release judgment.
+
+## Continuing backlog
+
+Existing TSPP roadmap items, including UNTP DIA/IDR guidance, supply-chain integrity, schema-contract guidance, assurance-level coverage, and adoption improvements continue as normal backlog. They are not Stack 2026.2 release blockers unless they materially intersect the governing proposition above.
