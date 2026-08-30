@@ -1,0 +1,20 @@
+{
+  "event_id": "tspp-lifecycle-unknown-001",
+  "event_type": "change_detected",
+  "observed_at": "2026-08-30T04:46:00Z",
+  "target": {"id": "demo-directory", "type": "trqp-service", "version": "post-change"},
+  "previous_state_refs": ["https://github.com/sankarshanmukhopadhyay/TRQP-TSPP/blob/main/examples/golden-flow/posture-report.sample.json"],
+  "changed_dimensions": ["other"],
+  "impact": "unknown",
+  "affected_refs": ["https://github.com/sankarshanmukhopadhyay/TRQP-TSPP/blob/main/examples/golden-flow/posture-report.sample.json"],
+  "disposition": "indeterminate",
+  "reassessment_scope": ["determine-change-impact", "security-posture", "privacy-posture"],
+  "authority": {
+    "actor": "TRQP-TSPP",
+    "scope": "security/privacy posture materiality and affected controls",
+    "policy_ref": "https://github.com/sankarshanmukhopadhyay/TRQP-TSPP/issues/69",
+    "evidence_ref": "https://github.com/sankarshanmukhopadhyay/TRQP-TSPP/blob/main/examples/golden-flow/posture-report.sample.json"
+  },
+  "rationale": "The effect of the detected change on security and privacy posture is not established; fail-safe handling forbids treating prior assurance as current.",
+  "provenance": {"producer": "TRQP-TSPP", "run_id": "opstack-demo-001"}
+}
