@@ -1,7 +1,7 @@
 {
   "contractVersion": "1.0",
   "repository": "sankarshanmukhopadhyay/TRQP-TSPP",
-  "release": "0.15.0",
+  "release": "0.16.0",
   "role": "normative-protocol-profile",
   "authority": {
     "semanticAuthority": {
@@ -15,22 +15,24 @@
     },
     "schemaAuthority": {
       "repository": "sankarshanmukhopadhyay/trust-infrastructure-schemas",
-      "version": "0.14.1",
+      "version": "0.15.0",
       "artifacts": [
         "portfolio/portfolio-relationship.schema.json",
         "portfolio/repository-authority.schema.json",
-        "portfolio/portfolio-validation-result.schema.json"
+        "portfolio/portfolio-validation-result.schema.json",
+        "assurance/assurance-lifecycle-event.schema.json"
       ]
     }
   },
   "provides": [
     "TRQP protocol requirements and assurance-level semantics",
     "control-to-requirement traceability",
-    "protocol validation evidence"
+    "protocol validation evidence",
+    "security/privacy posture lifecycle materiality evidence"
   ],
   "consumes": [
     "TSMM TRQP semantic binding and semantic concept authority",
-    "TIS portfolio relationship and repository authority contracts"
+    "TIS portfolio relationship, repository authority, and assurance lifecycle contracts"
   ],
   "evidence": [
     {"path": "artifacts/traceability/tspp-control-coverage.json", "purpose": "normative control coverage"},
