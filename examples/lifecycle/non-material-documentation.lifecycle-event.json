@@ -1,0 +1,20 @@
+{
+  "event_id": "tspp-lifecycle-non-material-001",
+  "event_type": "change_detected",
+  "observed_at": "2026-08-30T04:47:00Z",
+  "target": {"id": "demo-directory", "type": "trqp-service", "version": "documentation-update"},
+  "previous_state_refs": ["https://github.com/sankarshanmukhopadhyay/TRQP-TSPP/blob/main/examples/golden-flow/posture-report.sample.json"],
+  "current_state_refs": ["https://github.com/sankarshanmukhopadhyay/TRQP-TSPP/blob/main/examples/golden-flow/posture-report.sample.json"],
+  "changed_dimensions": ["documentation"],
+  "impact": "non_material",
+  "affected_refs": ["https://github.com/sankarshanmukhopadhyay/TRQP-TSPP/blob/main/examples/golden-flow/posture-report.sample.json"],
+  "disposition": "current",
+  "authority": {
+    "actor": "TRQP-TSPP",
+    "scope": "security/privacy posture materiality and affected controls",
+    "policy_ref": "https://github.com/sankarshanmukhopadhyay/TRQP-TSPP/issues/69",
+    "evidence_ref": "https://github.com/sankarshanmukhopadhyay/TRQP-TSPP/blob/main/examples/golden-flow/posture-report.sample.json"
+  },
+  "rationale": "Only documentation changed; target identity, controls, security/privacy posture, evidence, authority, dependencies, and freshness remain unchanged.",
+  "provenance": {"producer": "TRQP-TSPP", "run_id": "opstack-demo-001"}
+}
