@@ -31,9 +31,13 @@ jobs:
         run: |
           python scripts/verify_al_contract.py
 
+      - name: Validate lifecycle change-impact fixtures
+        run: |
+          python tools/validate_lifecycle_events.py
+
       - name: Python syntax smoke check
         run: |
-          python -m compileall -q harness/ scripts/ examples/ schemas/
+          python -m compileall -q harness/ scripts/ examples/ schemas/ tools/
 
   integration:
     runs-on: ubuntu-latest
