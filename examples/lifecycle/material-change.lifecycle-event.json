@@ -1,0 +1,20 @@
+{
+  "event_id": "tspp-lifecycle-material-001",
+  "event_type": "change_detected",
+  "observed_at": "2026-08-30T04:45:00Z",
+  "target": {"id": "demo-directory", "type": "trqp-service", "version": "post-change"},
+  "previous_state_refs": ["https://github.com/sankarshanmukhopadhyay/TRQP-TSPP/blob/main/examples/golden-flow/posture-report.sample.json"],
+  "changed_dimensions": ["security_posture"],
+  "impact": "material",
+  "affected_refs": ["https://github.com/sankarshanmukhopadhyay/TRQP-TSPP/blob/main/examples/golden-flow/posture-report.sample.json"],
+  "disposition": "reassessment_required",
+  "reassessment_scope": ["security-posture", "affected-controls"],
+  "authority": {
+    "actor": "TRQP-TSPP",
+    "scope": "security/privacy posture materiality and affected controls",
+    "policy_ref": "https://github.com/sankarshanmukhopadhyay/TRQP-TSPP/issues/69",
+    "evidence_ref": "https://github.com/sankarshanmukhopadhyay/TRQP-TSPP/blob/main/examples/golden-flow/posture-report.sample.json"
+  },
+  "rationale": "A security-posture dimension changed materially, so the previous posture result cannot remain current without bounded reassessment.",
+  "provenance": {"producer": "TRQP-TSPP", "run_id": "opstack-demo-001"}
+}
