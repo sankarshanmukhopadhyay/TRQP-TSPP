@@ -1,3 +1,9 @@
+---
+layout: default
+title: "Support"
+nav_exclude: true
+---
+
 # Support
 
 ## Questions and implementation help
