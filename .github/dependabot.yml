@@ -6,15 +6,29 @@ updates:
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 10
+    groups:
+      github-actions:
+        patterns:
+          - "*"
 
   - package-ecosystem: "pip"
     directory: "/harness"
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 10
+    groups:
+      python-minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"
 
   - package-ecosystem: "pip"
     directory: "/examples/reference_sut"
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 10
+    groups:
+      python-minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"
