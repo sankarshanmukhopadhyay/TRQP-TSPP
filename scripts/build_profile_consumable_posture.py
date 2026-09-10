@@ -18,6 +18,18 @@ def revision(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def effective_reassessment(base_state: str, profile_context: dict | None) -> tuple[str, str | None]:
+    if base_state in {"REASSESS_REQUIRED", "INVALID"}:
+        return base_state, None
+    if not profile_context or not profile_context.get("source_changed"):
+        return base_state, None
+    if profile_context.get("posture_relevant") is True:
+        return "REASSESS_REQUIRED", "profile-posture-obligation-changed"
+    if profile_context.get("posture_relevant") is False:
+        return "CURRENT", "profile-change-posture-non-material"
+    return "REASSESS_REQUIRED", "profile-change-posture-impact-unknown"
+
+
 def build(report: dict, *, tspp_version: str, control_set_id: str,
           control_set_revision: str, reassessment_state: str = "CURRENT",
           profile_context: dict | None = None) -> dict:
@@ -43,6 +55,11 @@ def build(report: dict, *, tspp_version: str, control_set_id: str,
     else:
         posture_result = "PASS"
 
+    state, rationale = effective_reassessment(reassessment_state, profile_context)
+    reassessment = {"state": state}
+    if rationale:
+        reassessment["rationale_code"] = rationale
+
     evidence = {
         "schema_version": "1.0",
         "producer": "TRQP-TSPP",
@@ -52,7 +69,7 @@ def build(report: dict, *, tspp_version: str, control_set_id: str,
         "assurance_level": report["assurance_level"],
         "control_set": {"id": control_set_id, "revision": control_set_revision},
         "posture": {"result": posture_result, "controls": controls},
-        "reassessment": {"state": reassessment_state},
+        "reassessment": reassessment,
     }
     if profile_context:
         evidence["profile_context"] = dict(profile_context)
