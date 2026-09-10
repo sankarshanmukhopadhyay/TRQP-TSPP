@@ -1,3 +1,10 @@
+---
+layout: default
+title: WP8 independent evidence validation
+owner: maintainers
+last_reviewed: 2026-09-10
+---
+
 # WP8 independent evidence validation
 
 Status: **experimental TSPP-side assurance evidence**
