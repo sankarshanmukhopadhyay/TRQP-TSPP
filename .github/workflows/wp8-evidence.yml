@@ -1,0 +1,31 @@
+name: WP8 independent evidence
+
+on:
+  push:
+    branches:
+      - feat/wp8-independent-evidence
+    paths:
+      - 'scripts/wp8_evidence_validator.py'
+      - 'scripts/test_wp8_evidence_validator.py'
+      - 'docs/wp8-evidence-validation.md'
+      - '.github/workflows/wp8-evidence.yml'
+  pull_request:
+    paths:
+      - 'scripts/wp8_evidence_validator.py'
+      - 'scripts/test_wp8_evidence_validator.py'
+      - 'docs/wp8-evidence-validation.md'
+      - '.github/workflows/wp8-evidence.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  evidence:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Execute TSPP independent evidence matrix
+        run: python scripts/test_wp8_evidence_validator.py
