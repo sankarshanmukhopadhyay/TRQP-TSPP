@@ -1,6 +1,6 @@
 ---
 owner: maintainers
-last_reviewed: 2026-08-30
+last_reviewed: 2026-09-10
 tier: 0
 ---
 
@@ -25,6 +25,7 @@ TRQP-TSPP is the **security and privacy posture computation layer** in the TRQP 
 | Evidence output | `artifacts/validation/tspp-report.json`, `artifacts/traceability/tspp-control-coverage.json` |
 | Governance authority | [`GOVERNANCE.md`](GOVERNANCE.md) and [`PROJECT-STATUS.yaml`](PROJECT-STATUS.yaml) |
 | Producer contract | [`portfolio/stack-producer-contract.json`](portfolio/stack-producer-contract.json) |
+| Profile-consumable posture schema | [`schemas/evidence/profile-consumable-posture.schema.json`](schemas/evidence/profile-consumable-posture.schema.json) |
 | Portfolio integration | [`docs/portfolio-integration.md`](docs/portfolio-integration.md) |
 | Documentation site | https://sankarshanmukhopadhyay.github.io/TRQP-TSPP/ |
 
@@ -45,9 +46,40 @@ The v0.16 line adds portable lifecycle materiality evidence for material, unknow
 
 TSPP remains authoritative for security/privacy posture materiality and affected controls. TIS owns portable lifecycle serialization, CTS owns conformance/replay reassessment consequence, and the Assurance Hub owns combined current-assurance recomposition.
 
+## Profile-aware posture producer boundary
+
+TSPP may expose posture evidence for use by a named profile-aware consumer such as the TRQP Assurance Hub. This does **not** make TSPP an ecosystem-profile policy engine.
+
+The profile-consumable posture contract preserves:
+
+- exact TSPP version;
+- target and run identity;
+- assurance level;
+- control-set identity and revision;
+- control-level posture results and evidence references; and
+- current/reassessment/invalid lifecycle state.
+
+Optional `profile_context` is applicability/correlation metadata only. It cannot override a TSPP posture result or change a control conclusion. The same current posture evidence may be correlated to multiple profiles when the underlying control applicability is unchanged.
+
+The responsibility boundary is:
+
+| Observation | Authority |
+|---|---|
+| Security/privacy controls and posture semantics | TSPP |
+| TRQP core/binding conformance and deterministic replay | CTS |
+| Ecosystem-profile narrowing and extensions | Profile authority + Assurance Hub projection |
+| Governance legitimacy and external authority facts | Applicable external authority/evidence source |
+| Composition of independent evidence into profile assurance | TRQP Assurance Hub |
+
+Profile changes are evaluated through the existing TSPP lifecycle model. A profile revision that changes posture-relevant obligations produces `REASSESS_REQUIRED`. If the posture impact of a changed profile is unknown, it also fails safe to `REASSESS_REQUIRED`. A demonstrably posture-irrelevant profile metadata change may preserve `CURRENT`, but only with an explicit machine-readable rationale.
+
+Missing or untested signing, TLS, or other applicable control evidence remains `INDETERMINATE`; profile metadata cannot promote it to `PASS`.
+
+The export helper is `scripts/build_profile_consumable_posture.py`; the machine-readable contract is `schemas/evidence/profile-consumable-posture.schema.json`.
+
 ## Authority and scope
 
-TSPP is authoritative for TRQP security and privacy control profiles, posture computation rules, assurance-level control evidence, and its machine-readable outputs. It is **not** authoritative for the upstream TRQP protocol specification, general protocol-conformance verdicts, CTS replay-comparison semantics, cross-stack assurance publication, or external certification.
+TSPP is authoritative for TRQP security and privacy control profiles, posture computation rules, assurance-level control evidence, and its machine-readable outputs. It is **not** authoritative for the upstream TRQP protocol specification, general protocol-conformance verdicts, CTS replay-comparison semantics, ecosystem-profile policy, cross-stack assurance publication, governance legitimacy, or external certification.
 
 ## Assurance levels
 
@@ -55,7 +87,7 @@ TSPP supports four assurance levels without changing underlying protocol semanti
 
 ## Evidence and auditability
 
-The producer boundary is declared in [`portfolio/stack-producer-contract.json`](portfolio/stack-producer-contract.json). Primary evidence outputs are `artifacts/validation/tspp-report.json` and `artifacts/traceability/tspp-control-coverage.json`. Example or self-generated evidence is not independent certification.
+The producer boundary is declared in [`portfolio/stack-producer-contract.json`](portfolio/stack-producer-contract.json). Primary evidence outputs are `artifacts/validation/tspp-report.json` and `artifacts/traceability/tspp-control-coverage.json`; profile-aware consumers may additionally consume the version-bound posture projection. Example or self-generated evidence is not independent certification.
 
 ## Quick validation
 
