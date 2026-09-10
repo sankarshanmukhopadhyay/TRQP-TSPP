@@ -10,8 +10,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = ROOT / "portfolio" / "integration-contract.json"
 VERSION = ROOT / "VERSION"
-EXPECTED_SEMANTIC = ("sankarshanmukhopadhyay/trust-systems-meta-model", "0.24.0")
-EXPECTED_SCHEMA = ("sankarshanmukhopadhyay/trust-infrastructure-schemas", "0.15.0")
+EXPECTED_SEMANTIC = ("qbf-consulting/trust-systems-meta-model", "0.24.0")
+EXPECTED_SCHEMA = ("qbf-consulting/trust-infrastructure-schemas", "0.15.0")
 REQUIRED_KEYS = {
     "contractVersion", "repository", "release", "role", "authority",
     "provides", "consumes", "evidence", "relationships", "revocation",
@@ -35,8 +35,8 @@ def main() -> int:
     authority = data.get("authority", {})
     semantic = authority.get("semanticAuthority", {})
     schema = authority.get("schemaAuthority", {})
-    checks.append(check("semantic-authority", (semantic.get("repository"), semantic.get("version")) == EXPECTED_SEMANTIC and bool(semantic.get("artifacts")), "TSMM authority must be pinned to 0.24.0 with declared artifacts"))
-    checks.append(check("schema-authority", (schema.get("repository"), schema.get("version")) == EXPECTED_SCHEMA and bool(schema.get("artifacts")), "TIS authority must be pinned to 0.15.0 with declared artifacts"))
+    checks.append(check("semantic-authority", (semantic.get("repository"), semantic.get("version")) == EXPECTED_SEMANTIC and bool(semantic.get("artifacts")), "QBF TSMM authority must be pinned to 0.24.0 with declared artifacts"))
+    checks.append(check("schema-authority", (schema.get("repository"), schema.get("version")) == EXPECTED_SCHEMA and bool(schema.get("artifacts")), "QBF TIS authority must be pinned to 0.15.0 with declared artifacts"))
     missing_evidence = [e.get("path") for e in data.get("evidence", []) if not (ROOT / e.get("path", "")).is_file()]
     checks.append(check("evidence-exists", not missing_evidence, f"missing evidence: {missing_evidence}" if missing_evidence else "all declared evidence exists"))
     peers = {r.get("repository") for r in data.get("relationships", [])}
