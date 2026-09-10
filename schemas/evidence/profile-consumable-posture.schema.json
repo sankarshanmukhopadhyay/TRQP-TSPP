@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.trqp.example/evidence/profile-consumable-posture.schema.json",
+  "title": "TRQP-TSPP Profile-Consumable Posture Evidence",
+  "type": "object",
+  "required": ["schema_version", "producer", "tspp_version", "target", "run", "assurance_level", "control_set", "posture", "reassessment"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "producer": {"const": "TRQP-TSPP"},
+    "tspp_version": {"type": "string", "minLength": 1},
+    "target": {"type": "object", "required": ["id"], "properties": {"id": {"type": "string", "minLength": 1}}, "additionalProperties": false},
+    "run": {"type": "object", "required": ["id", "generated_at"], "properties": {"id": {"type": "string", "minLength": 1}, "generated_at": {"type": "string", "format": "date-time"}}, "additionalProperties": false},
+    "assurance_level": {"enum": ["AL1", "AL2", "AL3", "AL4"]},
+    "control_set": {"type": "object", "required": ["id", "revision"], "properties": {"id": {"type": "string", "minLength": 1}, "revision": {"type": "string", "minLength": 1}}, "additionalProperties": false},
+    "profile_context": {
+      "type": "object",
+      "description": "Applicability/correlation context only; it MUST NOT override TSPP posture conclusions.",
+      "properties": {"id": {"type": "string"}, "version": {"type": "string"}, "source_revision": {"type": "string"}, "posture_relevant": {"type": "boolean"}},
+      "additionalProperties": false
+    },
+    "posture": {
+      "type": "object",
+      "required": ["result", "controls"],
+      "properties": {
+        "result": {"enum": ["PASS", "FAIL", "INDETERMINATE"]},
+        "controls": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["control_id", "result"],
+            "properties": {
+              "control_id": {"type": "string", "minLength": 1},
+              "result": {"enum": ["PASS", "FAIL", "INDETERMINATE", "NOT_APPLICABLE"]},
+              "evidence_ref": {"type": "string"},
+              "reason": {"type": "string"}
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "reassessment": {
+      "type": "object",
+      "required": ["state"],
+      "properties": {
+        "state": {"enum": ["CURRENT", "REASSESS_REQUIRED", "INVALID"]},
+        "rationale_code": {"type": "string"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
