@@ -1,0 +1,41 @@
+name: Profile Posture Contract
+
+on:
+  pull_request:
+    branches: ["main"]
+  push:
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+jobs:
+  profile-posture:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Falsify profile-posture producer boundaries
+        run: python scripts/test_profile_consumable_posture.py
+
+      - name: Export profile-consumable posture evidence
+        run: |
+          python scripts/build_profile_consumable_posture.py \
+            --report artifacts/validation/tspp-report.json \
+            --out artifacts/validation/profile-consumable-posture.json
+
+      - name: Verify evidence artifact exists
+        run: test -s artifacts/validation/profile-consumable-posture.json
+
+      - name: Upload profile-consumable posture evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: trqp-tspp-profile-consumable-posture
+          path: artifacts/validation/profile-consumable-posture.json
+          if-no-files-found: error

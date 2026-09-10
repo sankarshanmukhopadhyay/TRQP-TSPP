@@ -1,5 +1,5 @@
 {
-  "contract_version": "1.0",
+  "contract_version": "1.1",
   "producer": {
     "repository": "sankarshanmukhopadhyay/TRQP-TSPP",
     "role": "security-privacy-posture-producer"
@@ -14,21 +14,32 @@
     {
       "type": "control-evidence",
       "requirement": "Machine-readable evidence supporting evaluated TSPP controls"
+    },
+    {
+      "type": "profile-consumable-posture-evidence",
+      "requirement": "Version-bound TSPP posture evidence suitable for profile-aware Hub composition without profile override"
     }
   ],
   "integrity": {
     "version_or_commit_provenance_required": true,
-    "artifact_hashing_required_by_stack_release": true
+    "artifact_hashing_required_by_stack_release": true,
+    "profile_consumption_requires_control_set_revision": true,
+    "profile_metadata_must_not_override_posture": true
   },
   "invalidation_conditions": [
     "missing required output",
     "run_id mismatch",
     "target_id mismatch",
     "schema-invalid evidence",
+    "control-set or assurance-level mismatch",
+    "posture-relevant profile revision change",
+    "unknown profile change impact",
+    "expired or unavailable posture evidence",
+    "reassessment-required or invalid evidence presented as current",
     "unsupported semantic or schema authority"
   ],
   "authority_boundary": {
-    "owns": ["TSPP control definitions", "posture evaluation semantics", "TSPP evidence generation"],
-    "does_not_own": ["CTS conformance semantics", "combined assurance decision", "coordinated stack release declaration"]
+    "owns": ["TSPP control definitions", "posture evaluation semantics", "TSPP evidence generation", "profile-consumable projection of TSPP-owned posture evidence"],
+    "does_not_own": ["ecosystem profile policy", "CTS conformance semantics", "combined assurance decision", "governance legitimacy", "coordinated stack release declaration"]
   }
 }
