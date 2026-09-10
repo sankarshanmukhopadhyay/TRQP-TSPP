@@ -15,7 +15,13 @@
     "profile_context": {
       "type": "object",
       "description": "Applicability/correlation context only; it MUST NOT override TSPP posture conclusions.",
-      "properties": {"id": {"type": "string"}, "version": {"type": "string"}, "source_revision": {"type": "string"}, "posture_relevant": {"type": "boolean"}},
+      "properties": {
+        "id": {"type": "string"},
+        "version": {"type": "string"},
+        "source_revision": {"type": "string"},
+        "source_changed": {"type": "boolean"},
+        "posture_relevant": {"type": "boolean"}
+      },
       "additionalProperties": false
     },
     "posture": {
