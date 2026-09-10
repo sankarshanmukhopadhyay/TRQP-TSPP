@@ -1,0 +1,48 @@
+# TRQP-TSPP v0.17.0 — Profile-Aware Posture Evidence
+
+v0.17.0 publishes the TSPP side of the profile-aware compositional assurance contract planned for TRQP Stack 2026.3 — Banyan.
+
+## Added
+
+- Profile-consumable posture evidence schema and deterministic exporter.
+- Exact TSPP version, target/run, assurance-level, control-set revision and lifecycle provenance.
+- Falsification coverage for producer-result immutability, profile-change reassessment, cross-profile reuse and missing evidence.
+- CI generation and upload of profile-consumable posture evidence.
+
+## Corrected
+
+The Ayra guidance is aligned to Ayra TRQP Profile v0.6.0-draft. DID methods are registry/authority-specific rather than universally `did:webvh`; response signing remains an Ayra SHOULD while TSPP AL2+ signing controls independently provide stronger posture evidence.
+
+## Assurance impact
+
+TSPP remains authoritative for security/privacy controls, posture computation and posture lifecycle semantics. Profile context is correlation/applicability metadata and cannot override a control result. Posture-relevant profile drift and unknown impact fail safe to `REASSESS_REQUIRED`; missing applicable evidence remains `INDETERMINATE`.
+
+## Evidence impact
+
+New/updated surfaces include:
+
+- `schemas/evidence/profile-consumable-posture.schema.json`;
+- `scripts/build_profile_consumable_posture.py`;
+- `artifacts/validation/profile-consumable-posture.json` in CI;
+- Stack producer contract v1.1; and
+- profile-posture falsification coverage.
+
+## Compatibility tuple
+
+Candidate coordinated tuple:
+
+- TSPP `v0.17.0`;
+- CTS `v1.10.0`;
+- TRQP Assurance Hub `v1.13.0`.
+
+TRQP Stack 2026.2 — Ashoka remains the current coordinated release until the 2026.3 eligibility and human release judgment gates pass.
+
+## Upgrade note
+
+Existing posture report consumers remain supported. Profile-aware consumers should use the new producer artifact for producer-owned posture observations and preserve its lifecycle state. Ayra profile metadata must not strengthen or weaken TSPP conclusions, and TSPP evidence must not rewrite Ayra normative strength.
+
+## Validation
+
+Release preparation requires green TSPP CI, Profile Posture Contract, Portfolio Integration Contract, GitHub Pages, and applicable lifecycle-evidence checks. Coordinated publication additionally requires the Hub `stack-release-eligibility` gate over the frozen 2026.3 tuple.
+
+This release is project assurance tooling, not independent certification.
