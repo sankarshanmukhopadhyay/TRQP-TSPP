@@ -9,8 +9,8 @@ tier: 0
 TRQP-TSPP is the **security and privacy posture computation layer** in the TRQP Operational Trust Stack. It turns assurance-level requirements into executable controls, validates implementation evidence, and produces machine-readable posture and traceability artifacts for downstream conformance and assurance workflows.
 
 > **Current component release:** v0.17.0  
-> **Current coordinated stack:** TRQP Stack 2026.2 — Ashoka  
-> **Coordinated release candidate:** TRQP Stack 2026.3 — Banyan  
+> **Current coordinated stack:** TRQP Stack 2026.3 — Banyan  
+> **Previous coordinated stack:** TRQP Stack 2026.2 — Ashoka  
 > **Lifecycle:** Active  
 > **Maturity:** Implementation draft  
 > **Operational status:** Active validation
@@ -32,7 +32,7 @@ TRQP-TSPP is the **security and privacy posture computation layer** in the TRQP 
 
 ## Start here
 
-For the validated multi-repository adoption path, start with the coordinated TRQP Stack release in the TRQP Assurance Hub. If you are implementing or evaluating TSPP directly, use:
+For the validated multi-repository adoption path, start with **TRQP Stack 2026.3 — Banyan** in the TRQP Assurance Hub. If you are implementing or evaluating TSPP directly, use:
 
 - [`QUICKSTART.md`](QUICKSTART.md) — run the reference harness;
 - [`docs/profile.md`](docs/profile.md) — profile and requirements overview;
@@ -49,7 +49,7 @@ Profile context is applicability/correlation metadata only. It cannot change TSP
 
 This release also corrects the Ayra integration guide to the current Ayra v0.6.0-draft authority: DID methods are not universally restricted to `did:webvh`, and response signing remains an Ayra `SHOULD`. TSPP AL2+ signing controls provide posture evidence without strengthening the Ayra normative requirement.
 
-The candidate coordinated compatibility tuple is **TSPP v0.17.0 / CTS v1.10.0 / Assurance Hub v1.13.0**. Until Stack 2026.3 passes its coordinated release gate, **TRQP Stack 2026.2 — Ashoka remains the current coordinated Stack release**.
+The published coordinated compatibility tuple is **TSPP v0.17.0 / CTS v1.10.0 / Assurance Hub v1.13.0**, released as **TRQP Stack 2026.3 — Banyan**. Stack 2026.2 — Ashoka remains an immutable historical baseline, not the current coordinated release.
 
 ## Profile-aware posture producer boundary
 
