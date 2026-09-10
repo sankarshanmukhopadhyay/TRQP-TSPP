@@ -8,8 +8,9 @@ tier: 0
 
 TRQP-TSPP is the **security and privacy posture computation layer** in the TRQP Operational Trust Stack. It turns assurance-level requirements into executable controls, validates implementation evidence, and produces machine-readable posture and traceability artifacts for downstream conformance and assurance workflows.
 
-> **Current component release:** v0.16.1  
-> **Current coordinated stack:** TRQP Stack 2026.1 — Coconut  
+> **Current component release:** v0.17.0  
+> **Current coordinated stack:** TRQP Stack 2026.2 — Ashoka  
+> **Coordinated release candidate:** TRQP Stack 2026.3 — Banyan  
 > **Lifecycle:** Active  
 > **Maturity:** Implementation draft  
 > **Operational status:** Active validation
@@ -40,11 +41,15 @@ For the validated multi-repository adoption path, start with the coordinated TRQ
 - [`docs/OUTPUT_CONTRACT.md`](docs/OUTPUT_CONTRACT.md) — posture output contract; and
 - [`docs/portfolio-integration.md`](docs/portfolio-integration.md) — coordinated Stack relationship.
 
-## v0.16.x lifecycle capability
+## v0.17.0 profile-aware posture producer
 
-The v0.16 line adds portable lifecycle materiality evidence for material, unknown, and demonstrably non-material change. Negative tests prevent material or unknown change from silently preserving current assurance. v0.16.1 is a patch release that repairs the repository-status contract exposed by clean-room Stack execution; it does not change lifecycle semantics.
+v0.17.0 makes profile-consumable security/privacy posture evidence an explicit TSPP producer contract. The exported artifact binds posture observations to exact TSPP version, target/run identity, assurance level, control-set identity/revision, individual control evidence, and lifecycle/reassessment state.
 
-TSPP remains authoritative for security/privacy posture materiality and affected controls. TIS owns portable lifecycle serialization, CTS owns conformance/replay reassessment consequence, and the Assurance Hub owns combined current-assurance recomposition.
+Profile context is applicability/correlation metadata only. It cannot change TSPP control conclusions. Posture-relevant profile change or unknown profile impact requires reassessment; demonstrably posture-irrelevant change may preserve current evidence only with explicit rationale. Missing applicable evidence remains `INDETERMINATE`.
+
+This release also corrects the Ayra integration guide to the current Ayra v0.6.0-draft authority: DID methods are not universally restricted to `did:webvh`, and response signing remains an Ayra `SHOULD`. TSPP AL2+ signing controls provide posture evidence without strengthening the Ayra normative requirement.
+
+The candidate coordinated compatibility tuple is **TSPP v0.17.0 / CTS v1.10.0 / Assurance Hub v1.13.0**. Until Stack 2026.3 passes its coordinated release gate, **TRQP Stack 2026.2 — Ashoka remains the current coordinated Stack release**.
 
 ## Profile-aware posture producer boundary
 
