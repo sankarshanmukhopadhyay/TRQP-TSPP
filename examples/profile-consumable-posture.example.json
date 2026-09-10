@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0",
+  "producer": "TRQP-TSPP",
+  "tspp_version": "0.16.1",
+  "target": {"id": "example-registry"},
+  "run": {"id": "example-run", "generated_at": "2026-09-10T00:00:00Z"},
+  "assurance_level": "AL2",
+  "control_set": {"id": "tspp-control-registry", "revision": "example-revision"},
+  "profile_context": {
+    "id": "ayra-trqp",
+    "version": "0.6.0-draft",
+    "source_revision": "ec7768572592b50ba3f4102c026c2449148b5e11",
+    "source_changed": false,
+    "posture_relevant": true
+  },
+  "posture": {
+    "result": "PASS",
+    "controls": [
+      {
+        "control_id": "TSPP-AL2-01",
+        "result": "PASS",
+        "evidence_ref": "tspp-report.json#control_id=TSPP-AL2-01"
+      }
+    ]
+  },
+  "reassessment": {"state": "CURRENT"}
+}
