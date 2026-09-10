@@ -68,6 +68,7 @@ Every public Markdown document in the repository is rendered by Jekyll and index
 - [TSPP Traceability Matrix]({{ '/docs/traceability-matrix/' | relative_url }})  `/docs/traceability-matrix.md`
 - [Traceability]({{ '/docs/traceability/' | relative_url }})  `/docs/traceability.md`
 - [TRQP Adoption Path]({{ '/docs/trqp-adoption-path/' | relative_url }})  `/docs/trqp-adoption-path.md`
+- [WP8 independent evidence validation]({{ '/docs/wp8-evidence-validation/' | relative_url }})  `/docs/wp8-evidence-validation.md`
 
 ## harness
 
