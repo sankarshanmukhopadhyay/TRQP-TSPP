@@ -1,144 +1,113 @@
 ---
 owner: maintainers
-last_reviewed: 2026-07-03
+last_reviewed: 2026-09-10
 tier: 1
 ---
 
 # TSPP Ayra Trust Network Baseline Profile
 
-This document describes which TSPP controls are applicable to registries operating
-within the [Ayra Trust Network](https://ayra.forum), and what evidence artifacts
-satisfy each Ayra conformance tier.
+This document describes how TSPP security/privacy posture evidence can support assessment of registries operating under the **Ayra TRQP Profile v0.6.0-draft**. Ayra remains authoritative for Ayra profile requirements; TSPP remains authoritative for its own control definitions and posture semantics. A TSPP control MUST NOT silently strengthen, weaken, or replace an Ayra normative requirement.
 
-Reference: [Ayra TRQP Profile v0.5.0-draft](https://ayraforum.github.io/ayra-trust-registry-resources/) |
-[Ayra Implementers Guide](https://ayraforum.github.io/ayra-trust-registry-resources/guides/)
+Reference: [Ayra TRQP Profile v0.6.0-draft](https://ayraforum.github.io/ayra-trust-registry-resources/) and the [Ayra Implementers Guide](https://ayraforum.github.io/ayra-trust-registry-resources/guides/).
 
----
+## Identifier requirements
 
-## Identifier requirements (normative — all tiers)
+The current Ayra profile requires Ayra `_id` values to be DIDs represented as DID URI strings. It does **not** require `did:webvh` universally. Supported DID methods are defined by the relevant registry or authority and may be exposed through the optional `/lookups/didMethods` endpoint. `did:webvh` is preferred and may be required by higher-assurance or authority-specific policy.
 
-The Ayra Profile mandates `did:webvh` as the identifier method for all ecosystem,
-trust registry, and cluster identifiers. This is a MUST, not a recommendation.
+TSPP therefore treats DID-method restrictions as profile/authority applicability information, not as a universal TSPP control. Full DID resolution, controller evidence, service discovery and governance legitimacy remain separate assurance concerns.
 
-| Role | Format | Ayra service profile URL |
+A lightweight `did:webvh` format validator exists at `schemas/ayra/did_webvh_validator.py`; its presence does not make `did:webvh` mandatory for every Ayra deployment.
+
+## Response signing
+
+Ayra v0.6.0-draft says registries **SHOULD** sign TRQP responses with JWS where supported. The signing mechanism remains under active discussion, and unsigned `application/json` responses remain conformant to the current Ayra profile API.
+
+TSPP independently defines stronger signing posture at applicable assurance levels. In the current control registry:
+
+| TSPP control | TSPP meaning | Relationship to Ayra v0.6.0-draft |
 |---|---|---|
-| Ecosystem DID | `did:webvh` | EGF: `https://ayra.forum/profiles/trqp/egfURI/v1`; TR: `https://ayra.forum/profiles/trqp/tr/v2` |
-| Trust Registry DID | `did:webvh` | `https://ayra.forum/profiles/trqp/tr/v2` |
-| Cluster DID | `did:webvh` | Trust metaregistry endpoint |
+| `TSPP-AL2-01` | Signed envelope in AL2 | Producer-owned evidence that can support the Ayra signing SHOULD; does not turn the SHOULD into a MUST |
+| `TSPP-AL2-02` | Verifiable signature via declared JWKS | Additional TSPP posture evidence where applicable |
+| `TSPP-AL3-01` | Default signing at AL3 | Stronger TSPP posture expectation at AL3/AL4, independent of Ayra normative strength |
 
-A lightweight format validator is available at `schemas/ayra/did_webvh_validator.py`.
-Full DID document resolution and service endpoint verification are currently manual checks.
+The Assurance Hub may compose these TSPP observations into an Ayra assurance result while preserving both authorities: Ayra owns the requirement strength; TSPP owns the posture evidence.
 
----
+## Current TSPP evidence relevant to Ayra
 
-## JWS response signing (normative — all Ayra tiers)
+The following current controls can provide supporting posture evidence where their applicability has been established. They are not a restatement of Ayra's normative requirements.
 
-Unlike standalone TSPP deployments where JWS signing is an AL2 upgrade, the Ayra
-Profile requires JWS-signed responses for **all trust registries at all tiers**.
-The JWS MUST be derived from the controller key of the Trust Registry's DID document.
+| TSPP control | Evidence concern | Ayra relationship |
+|---|---|---|
+| `TSPP-AL2-01`, `TSPP-AL2-02` | Response signing and verification | Supports Ayra signing SHOULD when applicable |
+| `TSPP-RL-01` | Rate-limit signals on HTTP 429 | Supports Ayra's conditional 429 behaviour when rate limiting is exercised |
+| `TSPP-CTX-01`, `TSPP-CTX-02` | Context handling | Supports posture around declared/unknown context handling |
+| `TSPP-ENUM-01`, `TSPP-ERR-01` | Enumeration/error surface | Security/privacy posture evidence; does not replace TRQP/Ayra HTTP semantics |
+| `TSPP-FRESH-01`, `TSPP-FRESH-02`, `TSPP-FRESH-03` | Response freshness | Supporting operational/posture evidence where applicable |
+| `TSPP-META-01`, `TSPP-META-02` | Metadata publication/schema | Relevant only when the optional Ayra metadata extension is implemented/applicable |
+| `TSPP-LIFE-01`, `TSPP-LIFE-02`, `TSPP-LIFE-03` | Lifecycle publication | TSPP lifecycle/posture evidence; not an Ayra profile requirement unless separately established |
 
-This means `test_06_al2_signed_responses.py` is a **required** test even for Ayra
-Basic tier registries operating at AL1 in the TSPP sense.
+Ayra's optional extension endpoints remain optional. TSPP MUST NOT convert an unimplemented optional Ayra extension into a failure merely because a related TSPP control exists outside the selected posture profile.
 
----
+## Profile-consumable posture evidence
 
-## Applicable TSPP controls per Ayra tier
+TSPP exposes a profile-consumable producer artifact using `schemas/evidence/profile-consumable-posture.schema.json`. The artifact binds posture observations to exact target, run, assurance level, control-set revision and reassessment state.
 
-| TSPP Control | Description | Ayra Basic | Ayra Cross-Ecosystem | Ayra Sovereign |
-|---|---|---|---|---|
-| TSPP-META-01 | Metadata endpoint present and valid | Required | Required | Required |
-| TSPP-META-02 | Assurance level declared in metadata | Required | Required | Required |
-| TSPP-FRESH-01 | Freshness: `time_evaluated` + `expires_at` on auth responses | Required | Required | Required |
-| TSPP-FRESH-03 | Freshness: `time_evaluated` + `expires_at` on recognition responses | Required | Required | Required |
-| TSPP-AUTH-01 | Bearer token authentication enforced | Recommended | Required | Required |
-| TSPP-RATE-01 | Rate limiting headers present (auth + recognition) | Required | Required | Required |
-| TSPP-CTX-01 | Context allowlist enforced on both endpoints | Required | Required | Required |
-| TSPP-ENUM-01 | Anti-enumeration: uniform not-found on both endpoints | Required | Required | Required |
-| TSPP-SIGN-01 | JWS-signed responses (Ayra MUST at all tiers) | **Required** | Required | Required |
-| TSPP-SIGN-02 | DPoP sender-constrained tokens for bulk clients | Not required | Recommended | Required |
-| TSPP-RECOG-01 | Recognition freshness fields | Required | Required | Required |
-| TSPP-RECOG-02 | Recognition anti-enumeration | Required | Required | Required |
-| TSPP-RECOG-03 | Recognition context allowlist | Required | Required | Required |
-| TSPP-RECOG-04 | Recognition rate limit headers | Recommended | Required | Required |
-| TSPP-RECOG-05 | Ayra ATN recognition query shape (flat response) | Required | Required | Required |
+Profile context is applicability/correlation metadata only. It cannot override TSPP control conclusions. Conversely, TSPP evidence cannot rewrite Ayra normative strength.
 
----
+Lifecycle consequences remain fail-safe:
 
-## Running the TSPP harness for Ayra
+```text
+posture-relevant profile change
+    -> REASSESS_REQUIRED
+
+profile-change impact unknown
+    -> REASSESS_REQUIRED
+
+explicitly posture-irrelevant change
+    -> CURRENT only with machine-verifiable rationale
+```
+
+Missing applicable evidence remains `INDETERMINATE`; it does not become PASS.
+
+## Running TSPP for an Ayra deployment
+
+Choose the TSPP assurance level required by the deployment's own security/privacy posture policy rather than inferring one from Ayra alone. For example:
 
 ```bash
 export TRQP_BASE_URL="https://your-registry.example"
-export TSPP_EXPECT_AL="AL2"           # AL2 required for JWS; use AL1 for initial baseline run
+export TSPP_EXPECT_AL="AL2"
 export TSPP_REPORT_PATH="./tspp_conformance_report.json"
 pytest harness/ -q
 ```
 
-For Ayra Cross-Ecosystem and Sovereign tiers, also set:
+Selecting AL2 means the TSPP AL2 controls apply. It does not mean Ayra itself requires AL2 or makes JWS mandatory.
 
-```bash
-export TSPP_EXPECT_AL="AL2"
-pytest harness/ -q -k "not al3 and not al4"
+## Evidence and combined assurance
+
+TSPP posture evidence should be composed with CTS protocol-conformance evidence and profile-owned/authority evidence by the Assurance Hub:
+
+```text
+CTS core conformance evidence
+        +
+TSPP posture evidence
+        +
+Ayra profile-owned constraints
+        +
+external authority evidence
+        -> Assurance Hub composition
 ```
 
-For Sovereign tier:
+A complete result preserves the producer and normative source for each material proposition. A TSPP PASS does not establish governance legitimacy, and a profile-local PASS cannot override a TSPP FAIL or non-current lifecycle state.
 
-```bash
-export TSPP_EXPECT_AL="AL3"
-pytest harness/ -q
-```
+## Known boundaries
 
----
+TSPP does not by itself establish:
 
-## Evidence artifacts
+- which DID methods an Ayra authority permits for a particular deployment;
+- DID resolution or controller legitimacy;
+- ecosystem governance-framework authority;
+- Ayra network registration or governance approval;
+- transitive recognition semantics;
+- that the current Ayra signing SHOULD has become a MUST.
 
-The `tspp_conformance_report.json` artifact maps directly to Ayra conformance requirements:
-
-| Ayra Conformance Requirement | TSPP Evidence |
-|---|---|
-| Registry security posture | Full TSPP report (all controls) |
-| Freshness compliance (auth + recognition) | `test_02_freshness.py` + `test_10_recognition_security.py` |
-| Recognition security controls | `test_10_recognition_security.py` (NEW) |
-| Signed responses (MUST) | `test_06_al2_signed_responses.py` |
-| Rate limiting (both endpoints) | `test_05_ratelimits.py` |
-| Context enforcement (both endpoints) | `test_03_context_allowlist.py` + `test_10_recognition_security.py` |
-| Metadata declaration | `test_01_metadata.py` |
-| Ayra ATN recognition shape | `test_10_recognition_security.py::test_ayra_recognition_query_shape` |
-
----
-
-## Required query fixtures
-
-Add these to `harness/fixtures/queries.json` for full Ayra coverage:
-
-| Fixture key | Required for |
-|---|---|
-| `recognition_valid` | TSPP-FRESH-03, TSPP-RECOG-01, TSPP-RECOG-03, TSPP-RECOG-04 |
-| `recognition_unknown_ecosystem` | TSPP-RECOG-02 (anti-enumeration) |
-| `recognition_ayra_atn` | TSPP-RECOG-05 (Ayra ATN query shape); set `authority_id` to `did:webvh:ayra.forum` |
-
----
-
-## Combined assurance
-
-For a complete Ayra submission, combine TSPP evidence with CTS evidence using the
-Assurance Hub manifest generator:
-
-```bash
-python tools/generate-manifest.py \
-  --cts-bundle reports/ayra-run/ \
-  --tspp-report tspp_conformance_report.json \
-  --out combined-assurance-manifest.json
-```
-
-See the Assurance Hub `tools/ayra-mapping.md` for the full submission checklist.
-
----
-
-## Known gaps
-
-The following Ayra requirements are not yet validated by automated controls:
-
-- `did:webvh` format validation on `entity_id` and `authority_id` in request/response bodies
-- EGF service endpoint presence in ecosystem DID document
-- Recognition chain depth (transitive recognition across Ayra clusters)
-- Ayra network registration (governance review, DID submission — out of scope)
+Those claims require the applicable profile, protocol, governance or external evidence authority. This document should be reassessed when the referenced Ayra profile revision changes.
