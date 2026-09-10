@@ -4,6 +4,24 @@ title: "Changelog"
 nav_exclude: true
 ---
 
+## v0.17.0 — 2026-09-10
+
+### Added
+- Added a profile-consumable posture evidence schema and deterministic exporter for downstream profile-aware assurance composition.
+- Added exact TSPP version, assurance-level, control-set revision, target/run, evidence-reference, and lifecycle provenance.
+- Added producer-contract falsification tests and CI evidence generation.
+
+### Changed
+- Extended the Stack producer contract to v1.1 with profile-aware posture output and invalidation conditions.
+- Corrected the Ayra guidance to v0.6.0-draft: DID methods are not universally `did:webvh`, and response signing remains an Ayra `SHOULD`.
+- Documented that TSPP AL2+ signing controls provide posture evidence without changing Ayra normative strength.
+- Declared the candidate coordinated tuple TSPP v0.17.0 / CTS v1.10.0 / Assurance Hub v1.13.0 while retaining Stack 2026.2 — Ashoka as the current published Stack.
+
+### Assurance
+- Posture-relevant profile drift and unknown profile impact require reassessment.
+- Missing applicable posture evidence remains `INDETERMINATE` and cannot become PASS through profile metadata.
+- TSPP remains authoritative for security/privacy posture semantics; ecosystem-profile authority remains external to TSPP.
+
 ## v0.14.0
 
 ### Added
