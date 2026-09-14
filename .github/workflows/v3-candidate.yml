@@ -1,0 +1,27 @@
+name: Experimental TRQP v3 candidate
+
+on:
+  push:
+    branches:
+      - experiment/trqp-v3-candidate
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  candidate-profile-evidence:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+      - name: Existing independent WP8 lifecycle/evidence tests
+        run: python scripts/test_wp8_evidence_validator.py
+      - name: Validate pinned v3 protocol/profile contract
+        run: python scripts/v3_profile_validator.py
+      - name: Candidate profile regression tests
+        run: python scripts/test_v3_profile_validator.py
