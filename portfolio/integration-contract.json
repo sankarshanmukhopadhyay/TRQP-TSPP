@@ -1,7 +1,7 @@
 {
   "contractVersion": "1.0",
   "repository": "sankarshanmukhopadhyay/TRQP-TSPP",
-  "release": "0.18.0",
+  "release": "0.18.1",
   "role": "normative-protocol-profile",
   "authority": {
     "semanticAuthority": {
