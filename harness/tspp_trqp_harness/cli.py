@@ -25,6 +25,7 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--report-path", default="", help="Path for JSON report output (optional)")
     p.add_argument("--run-id", default="", help="Optional shared run identifier for Operational Stack workflows")
     p.add_argument("--target-id", default="", help="Optional stable target identifier for Operational Stack workflows")
+    p.add_argument("--target-state-file", default="", help="File snapshot of deployed target state to hash into posture evidence")
     p.add_argument("--tests", default=DEFAULT_TEST_PATH, help="Path to harness tests")
     p.add_argument("--pytest-args", nargs=argparse.REMAINDER, default=[], help="Additional args passed to pytest")
     args = p.parse_args(argv)
@@ -38,6 +39,8 @@ def main(argv: list[str] | None = None) -> int:
         os.environ["TSPP_RUN_ID"] = args.run_id
     if args.target_id:
         os.environ["TSPP_TARGET_ID"] = args.target_id
+    if args.target_state_file:
+        os.environ["TSPP_TARGET_STATE_FILE"] = args.target_state_file
 
     cmd = [sys.executable, "-m", "pytest", args.tests] + args.pytest_args
     return subprocess.call(cmd)

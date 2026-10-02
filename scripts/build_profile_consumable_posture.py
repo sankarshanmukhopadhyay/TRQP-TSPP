@@ -32,7 +32,8 @@ def effective_reassessment(base_state: str, profile_context: dict | None) -> tup
 
 def build(report: dict, *, tspp_version: str, control_set_id: str,
           control_set_revision: str, reassessment_state: str = "CURRENT",
-          profile_context: dict | None = None) -> dict:
+          profile_context: dict | None = None,
+          previous_target_state_digest: str | None = None) -> dict:
     controls = []
     for item in report.get("results", []):
         raw = item.get("status")
@@ -55,7 +56,13 @@ def build(report: dict, *, tspp_version: str, control_set_id: str,
     else:
         posture_result = "PASS"
 
-    state, rationale = effective_reassessment(reassessment_state, profile_context)
+    target_state = report.get("target_state")
+    if not target_state or target_state.get("status") != "verified" or not target_state.get("digest"):
+        state, rationale = "REASSESS_REQUIRED", "target-state-unverified"
+    elif previous_target_state_digest and previous_target_state_digest != target_state.get("digest"):
+        state, rationale = "REASSESS_REQUIRED", "target-state-changed"
+    else:
+        state, rationale = effective_reassessment(reassessment_state, profile_context)
     reassessment = {"state": state}
     if rationale:
         reassessment["rationale_code"] = rationale
@@ -65,6 +72,7 @@ def build(report: dict, *, tspp_version: str, control_set_id: str,
         "producer": "TRQP-TSPP",
         "tspp_version": tspp_version,
         "target": {"id": report["target_id"]},
+        "target_state": dict(target_state) if target_state else {"status": "unverified"},
         "run": {"id": report["run_id"], "generated_at": report["generated_at"]},
         "assurance_level": report["assurance_level"],
         "control_set": {"id": control_set_id, "revision": control_set_revision},
@@ -83,6 +91,7 @@ def main() -> int:
     parser.add_argument("--control-set", type=Path, default=Path("controls/control-registry.json"))
     parser.add_argument("--control-set-id", default="tspp-control-registry")
     parser.add_argument("--reassessment-state", choices=["CURRENT", "REASSESS_REQUIRED", "INVALID"], default="CURRENT")
+    parser.add_argument("--previous-target-state-digest", default=None)
     args = parser.parse_args()
 
     report = json.loads(args.report.read_text(encoding="utf-8"))
@@ -93,6 +102,7 @@ def main() -> int:
         control_set_id=args.control_set_id,
         control_set_revision=revision(args.control_set),
         reassessment_state=args.reassessment_state,
+        previous_target_state_digest=args.previous_target_state_digest,
     )
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(json.dumps(evidence, indent=2, sort_keys=True) + "\n", encoding="utf-8")

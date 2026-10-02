@@ -3,42 +3,149 @@
   "$id": "https://schemas.trqp.example/evidence/profile-consumable-posture.schema.json",
   "title": "TRQP-TSPP Profile-Consumable Posture Evidence",
   "type": "object",
-  "required": ["schema_version", "producer", "tspp_version", "target", "run", "assurance_level", "control_set", "posture", "reassessment"],
+  "required": [
+    "schema_version",
+    "producer",
+    "tspp_version",
+    "target",
+    "run",
+    "target_state",
+    "assurance_level",
+    "control_set",
+    "posture",
+    "reassessment"
+  ],
   "properties": {
-    "schema_version": {"const": "1.0"},
-    "producer": {"const": "TRQP-TSPP"},
-    "tspp_version": {"type": "string", "minLength": 1},
-    "target": {"type": "object", "required": ["id"], "properties": {"id": {"type": "string", "minLength": 1}}, "additionalProperties": false},
-    "run": {"type": "object", "required": ["id", "generated_at"], "properties": {"id": {"type": "string", "minLength": 1}, "generated_at": {"type": "string", "format": "date-time"}}, "additionalProperties": false},
-    "assurance_level": {"enum": ["AL1", "AL2", "AL3", "AL4"]},
-    "control_set": {"type": "object", "required": ["id", "revision"], "properties": {"id": {"type": "string", "minLength": 1}, "revision": {"type": "string", "minLength": 1}}, "additionalProperties": false},
+    "schema_version": {
+      "const": "1.0"
+    },
+    "producer": {
+      "const": "TRQP-TSPP"
+    },
+    "tspp_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "target": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "run": {
+      "type": "object",
+      "required": [
+        "id",
+        "generated_at"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "generated_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": false
+    },
+    "assurance_level": {
+      "enum": [
+        "AL1",
+        "AL2",
+        "AL3",
+        "AL4"
+      ]
+    },
+    "control_set": {
+      "type": "object",
+      "required": [
+        "id",
+        "revision"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
     "profile_context": {
       "type": "object",
       "description": "Applicability/correlation context only; it MUST NOT override TSPP posture conclusions.",
       "properties": {
-        "id": {"type": "string"},
-        "version": {"type": "string"},
-        "source_revision": {"type": "string"},
-        "source_changed": {"type": "boolean"},
-        "posture_relevant": {"type": "boolean"}
+        "id": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "source_revision": {
+          "type": "string"
+        },
+        "source_changed": {
+          "type": "boolean"
+        },
+        "posture_relevant": {
+          "type": "boolean"
+        }
       },
       "additionalProperties": false
     },
     "posture": {
       "type": "object",
-      "required": ["result", "controls"],
+      "required": [
+        "result",
+        "controls"
+      ],
       "properties": {
-        "result": {"enum": ["PASS", "FAIL", "INDETERMINATE"]},
+        "result": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "INDETERMINATE"
+          ]
+        },
         "controls": {
           "type": "array",
           "items": {
             "type": "object",
-            "required": ["control_id", "result"],
+            "required": [
+              "control_id",
+              "result"
+            ],
             "properties": {
-              "control_id": {"type": "string", "minLength": 1},
-              "result": {"enum": ["PASS", "FAIL", "INDETERMINATE", "NOT_APPLICABLE"]},
-              "evidence_ref": {"type": "string"},
-              "reason": {"type": "string"}
+              "control_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "result": {
+                "enum": [
+                  "PASS",
+                  "FAIL",
+                  "INDETERMINATE",
+                  "NOT_APPLICABLE"
+                ]
+              },
+              "evidence_ref": {
+                "type": "string"
+              },
+              "reason": {
+                "type": "string"
+              }
             },
             "additionalProperties": false
           }
@@ -48,10 +155,51 @@
     },
     "reassessment": {
       "type": "object",
-      "required": ["state"],
+      "required": [
+        "state"
+      ],
       "properties": {
-        "state": {"enum": ["CURRENT", "REASSESS_REQUIRED", "INVALID"]},
-        "rationale_code": {"type": "string"}
+        "state": {
+          "enum": [
+            "CURRENT",
+            "REASSESS_REQUIRED",
+            "INVALID"
+          ]
+        },
+        "rationale_code": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "target_state": {
+      "type": "object",
+      "required": [
+        "algorithm",
+        "digest",
+        "identity",
+        "source",
+        "status"
+      ],
+      "properties": {
+        "algorithm": {
+          "const": "sha256"
+        },
+        "digest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "identity": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "const": "verified"
+        }
       },
       "additionalProperties": false
     }
