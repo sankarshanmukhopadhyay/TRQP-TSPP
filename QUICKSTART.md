@@ -40,6 +40,7 @@ The SUT will listen on `http://127.0.0.1:8000`.
 ```bash
 export TRQP_BASE_URL="http://127.0.0.1:8000"
 export TSPP_EXPECT_AL="AL1"
+export TSPP_TARGET_STATE_FILE="../examples/state-snapshot.json"
 ```
 
 For a full list of configuration variables see `harness/README.md`.
@@ -51,7 +52,7 @@ cd harness
 pytest -q
 ```
 
-To capture a JSON conformance report:
+State-bound posture evidence requires an explicit target-state snapshot. The harness hashes the supplied file with SHA-256 and includes that identity in the posture report. To capture a JSON conformance report:
 
 ```bash
 export TSPP_REPORT_PATH=./tspp_report.json
