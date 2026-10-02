@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0",
-  "release": "0.18.0",
-  "tag": "v0.18.0",
-  "title": "TRQP-TSPP v0.18.0 — State-Bound Posture Evidence",
-  "notes": "RELEASE_NOTES_v0.18.0.txt",
+  "release": "0.18.1",
+  "tag": "v0.18.1",
+  "title": "TRQP-TSPP v0.18.1 — State-Bound Generator Fix",
+  "notes": "RELEASE_NOTES_v0.18.1.txt",
   "status": "pending-publication"
 }
