@@ -1,0 +1,21 @@
+TRQP-TSPP v0.18.1 — State-Bound Generator Fix
+
+Summary
+-------
+Patch release correcting the Stack-facing assurance artifact generator introduced alongside v0.18.0.
+
+Fix
+---
+make assurance-check now independently hashes an explicit target-state snapshot and emits verified target_state evidence in the generated TSPP posture report and evidence index.
+
+Assurance
+---------
+CI now executes the Stack-facing assurance artifact generator and verifies that the resulting posture report contains a verified SHA-256 target_state. This closes the gap between the harness/report path and the artifact-generation path consumed by the Assurance Hub.
+
+Compatibility
+-------------
+No TRQP protocol semantics change. TRQP Stack 2026.3 — Banyan remains the current coordinated Stack baseline. State-bound Hub integration should consume v0.18.1 rather than v0.18.0.
+
+Upgrade
+-------
+Consumers using v0.18.0 for state-bound Stack composition should move to v0.18.1. The v0.18.0 tag remains immutable historical evidence.

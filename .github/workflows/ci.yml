@@ -24,7 +24,7 @@ jobs:
       - name: Install tooling deps
         run: |
           python -m pip install --upgrade pip
-          pip install jsonschema
+          pip install jsonschema pyyaml
 
       - name: Schema hygiene checks
         run: |
@@ -37,6 +37,21 @@ jobs:
       - name: Validate lifecycle change-impact fixtures
         run: |
           python tools/validate_lifecycle_events.py
+
+      - name: Validate Stack-facing assurance artifact generator
+        env:
+          TRQP_RUN_ID: ci-assurance-generator
+          TRQP_TARGET_ID: trqp-reference-fixture
+          TRQP_TARGET_STATE_FILE: examples/state-snapshot.json
+        run: |
+          make assurance-check
+          python - <<'PY'
+          import json
+          r=json.load(open('artifacts/validation/tspp-report.json'))
+          assert r['target_state']['status']=='verified'
+          assert r['target_state']['algorithm']=='sha256'
+          assert len(r['target_state']['digest'])==64
+          PY
 
       - name: Python syntax smoke check
         run: |
