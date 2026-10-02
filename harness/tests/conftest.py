@@ -1,6 +1,7 @@
 import os
 import json
 import uuid
+import hashlib
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
@@ -167,11 +168,27 @@ def pytest_sessionfinish(session, exitstatus):
     cfg = session.config
     summary = _compute_summary_metrics(cfg._tspp_results, int(exitstatus))
 
+    state_path = os.environ.get("TSPP_TARGET_STATE_FILE")
+    if not state_path:
+        raise RuntimeError("State-bound posture evidence requires TSPP_TARGET_STATE_FILE")
+    state_file = Path(state_path)
+    if not state_file.exists() or not state_file.is_file():
+        raise RuntimeError(f"Target-state snapshot is unavailable: {state_file}")
+    state_digest = hashlib.sha256(state_file.read_bytes()).hexdigest()
+    target_state = {
+        "algorithm": "sha256",
+        "digest": state_digest,
+        "identity": f"sha256:{state_digest}",
+        "source": str(state_file),
+        "status": "verified",
+    }
+
     report_obj: Dict[str, Any] = {
         "profile": "TSPP-TRQP-0.1",
         "generated_at": utc_now_iso(),
         "run_id": os.environ.get("TSPP_RUN_ID") or str(uuid.uuid4()),
         "target_id": os.environ.get("TSPP_TARGET_ID") or (os.environ.get("TRQP_BASE_URL") or os.environ.get("TSPP_BASE_URL")),
+        "target_state": target_state,
         "assurance_level": os.environ.get("TSPP_EXPECT_AL"),
         "tool_version": VERSION,
         "tool": {"name": "trqp-tspp", "version": VERSION},
