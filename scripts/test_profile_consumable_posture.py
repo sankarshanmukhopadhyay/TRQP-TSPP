@@ -7,6 +7,7 @@ BASE_REPORT = {
     "run_id": "run-1",
     "target_id": "registry-1",
     "generated_at": "2026-09-10T00:00:00Z",
+    "target_state": {"algorithm": "sha256", "digest": "a"*64, "identity": "sha256:" + "a"*64, "source": "fixture.json", "status": "verified"},
     "assurance_level": "AL2",
     "summary": {"PASS": 1, "FAIL": 0, "NOT_TESTED": 0},
     "results": [{"control_id": "TSPP-AL2-01", "status": "PASS", "evidence": "fixture"}],
@@ -32,6 +33,7 @@ class ProfileConsumablePostureTests(unittest.TestCase):
         self.assertEqual(evidence["run"]["id"], "run-1")
         self.assertEqual(evidence["control_set"]["revision"], "abc123")
         self.assertEqual(evidence["assurance_level"], "AL2")
+        self.assertEqual(evidence["target_state"]["digest"], "a"*64)
 
     def test_profile_metadata_cannot_override_posture(self):
         a = make()
@@ -71,3 +73,16 @@ class ProfileConsumablePostureTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+    def test_changed_target_state_requires_reassessment(self):
+        evidence = make(previous_target_state_digest="b"*64)
+        self.assertEqual(evidence["reassessment"]["state"], "REASSESS_REQUIRED")
+        self.assertEqual(evidence["reassessment"]["rationale_code"], "target-state-changed")
+
+    def test_missing_target_state_requires_reassessment(self):
+        report = dict(BASE_REPORT)
+        report.pop("target_state")
+        evidence = make(report=report)
+        self.assertEqual(evidence["reassessment"]["state"], "REASSESS_REQUIRED")
+        self.assertEqual(evidence["reassessment"]["rationale_code"], "target-state-unverified")
