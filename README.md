@@ -8,7 +8,7 @@ tier: 0
 
 TRQP-TSPP is the **security and privacy posture computation layer** in the TRQP Operational Trust Stack. It turns assurance-level requirements into executable controls, validates implementation evidence, and produces machine-readable posture and traceability artifacts for downstream conformance and assurance workflows.
 
-> **Current component release:** v0.18.0  
+> **Current component release:** v0.18.1  
 > **Current coordinated stack:** TRQP Stack 2026.3 — Banyan  
 > **Previous coordinated stack:** TRQP Stack 2026.2 — Ashoka  
 > **Lifecycle:** Active  
