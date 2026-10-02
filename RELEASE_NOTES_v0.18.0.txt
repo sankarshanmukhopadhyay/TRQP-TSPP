@@ -1,0 +1,37 @@
+TRQP-TSPP v0.18.0 — State-Bound Posture Evidence
+
+Summary
+-------
+This minor release binds security/privacy posture evidence to the exact deployed-state snapshot assessed. TSPP independently computes a SHA-256 target-state identity and carries it through raw and profile-consumable posture evidence.
+
+Control / profile impact
+------------------------
+No TRQP protocol semantics are changed. No existing TSPP control is weakened or reinterpreted. Target-state change is integrated into the existing lifecycle model: changed or unverifiable state requires reassessment instead of allowing evidence reuse.
+
+Evidence artifact impact
+------------------------
+- TSPP conformance/posture reports include verified target_state evidence.
+- profile-consumable posture evidence requires target_state.
+- changed target_state.digest produces REASSESS_REQUIRED.
+- missing/unverified target state produces REASSESS_REQUIRED.
+- producer contract v1.2 requires run_id, target_id, and target_state.digest.
+
+Validation
+----------
+PR #104 passed:
+- TSPP CI
+- Profile Posture Contract
+- Portfolio Integration Contract
+- documentation build
+
+Negative tests cover changed-state and missing-state reassessment.
+
+Compatibility
+-------------
+TRQP Stack 2026.3 — Banyan remains the current coordinated release and retains TSPP v0.17.0 / CTS v1.10.0 / Assurance Hub v1.13.0 as its immutable tuple.
+
+TSPP v0.18.0 is intended for the state-bound assurance integration line with CTS v1.11.0 and the corresponding Assurance Hub component update after that integration passes its own gates. This component release does not declare a new coordinated Stack release.
+
+Upgrade guidance
+----------------
+Operators producing posture evidence must supply a target-state snapshot via TSPP_TARGET_STATE_FILE or the harness CLI. Downstream consumers should require the verified target_state.digest when composing posture with other producer evidence. State mismatch requires reassessment rather than silent evidence reuse.
