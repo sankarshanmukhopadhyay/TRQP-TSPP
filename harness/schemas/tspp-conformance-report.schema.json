@@ -4,43 +4,112 @@
   "title": "TSPP Conformance Report",
   "type": "object",
   "additionalProperties": false,
-  "required": ["profile", "generated_at", "run_id", "target_id", "assurance_level", "tool_version", "tool", "target", "summary", "results"],
+  "required": [
+    "profile",
+    "generated_at",
+    "run_id",
+    "target_id",
+    "target_state",
+    "assurance_level",
+    "tool_version",
+    "tool",
+    "target",
+    "summary",
+    "results"
+  ],
   "properties": {
-    "profile": {"type": "string"},
-    "generated_at": {"type": "string"},
-    "run_id": {"type": "string"},
-    "target_id": {"type": "string"},
-    "assurance_level": {"type": "string", "enum": ["AL1", "AL2", "AL3", "AL4"]},
-    "tool_version": {"type": "string"},
+    "profile": {
+      "type": "string"
+    },
+    "generated_at": {
+      "type": "string"
+    },
+    "run_id": {
+      "type": "string"
+    },
+    "target_id": {
+      "type": "string"
+    },
+    "assurance_level": {
+      "type": "string",
+      "enum": [
+        "AL1",
+        "AL2",
+        "AL3",
+        "AL4"
+      ]
+    },
+    "tool_version": {
+      "type": "string"
+    },
     "tool": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["name", "version"],
+      "required": [
+        "name",
+        "version"
+      ],
       "properties": {
-        "name": {"type": "string"},
-        "version": {"type": "string"}
+        "name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
       }
     },
     "target": {
       "type": "object",
       "additionalProperties": true,
       "properties": {
-        "base_url": {"type": ["string", "null"]},
-        "expected_assurance_level": {"type": ["string", "null"]}
+        "base_url": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "expected_assurance_level": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
       }
     },
     "summary": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["exit_status", "PASS", "FAIL", "SKIP", "NOT_APPLICABLE", "ERROR", "XFAIL"],
+      "required": [
+        "exit_status",
+        "PASS",
+        "FAIL",
+        "SKIP",
+        "NOT_APPLICABLE",
+        "ERROR",
+        "XFAIL"
+      ],
       "properties": {
-        "exit_status": {"type": "integer"},
-        "PASS": {"type": "integer"},
-        "FAIL": {"type": "integer"},
-        "SKIP": {"type": "integer"},
-        "NOT_APPLICABLE": {"type": "integer"},
-        "ERROR": {"type": "integer"},
-        "XFAIL": {"type": "integer"},
+        "exit_status": {
+          "type": "integer"
+        },
+        "PASS": {
+          "type": "integer"
+        },
+        "FAIL": {
+          "type": "integer"
+        },
+        "SKIP": {
+          "type": "integer"
+        },
+        "NOT_APPLICABLE": {
+          "type": "integer"
+        },
+        "ERROR": {
+          "type": "integer"
+        },
+        "XFAIL": {
+          "type": "integer"
+        },
         "posture_score": {
           "type": "number",
           "minimum": 0,
@@ -57,12 +126,24 @@
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "applicable_checks": {"type": "integer"},
-            "evaluated_checks": {"type": "integer"},
-            "passed_checks": {"type": "integer"},
-            "failed_checks": {"type": "integer"},
-            "skipped_checks": {"type": "integer"},
-            "not_applicable_checks": {"type": "integer"}
+            "applicable_checks": {
+              "type": "integer"
+            },
+            "evaluated_checks": {
+              "type": "integer"
+            },
+            "passed_checks": {
+              "type": "integer"
+            },
+            "failed_checks": {
+              "type": "integer"
+            },
+            "skipped_checks": {
+              "type": "integer"
+            },
+            "not_applicable_checks": {
+              "type": "integer"
+            }
           }
         }
       }
@@ -72,14 +153,70 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["nodeid", "name", "outcome", "duration_seconds", "requirement_ids"],
+        "required": [
+          "nodeid",
+          "name",
+          "outcome",
+          "duration_seconds",
+          "requirement_ids"
+        ],
         "properties": {
-          "nodeid": {"type": "string"},
-          "name": {"type": "string"},
-          "outcome": {"$ref": "../../schemas/core/test_outcome.schema.json"},
-          "duration_seconds": {"type": "number", "minimum": 0},
-          "requirement_ids": {"type": "array", "items": {"type": "string"}},
-          "notes": {"type": ["string", "null"]}
+          "nodeid": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "outcome": {
+            "$ref": "../../schemas/core/test_outcome.schema.json"
+          },
+          "duration_seconds": {
+            "type": "number",
+            "minimum": 0
+          },
+          "requirement_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "target_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "digest",
+        "identity",
+        "source",
+        "status"
+      ],
+      "properties": {
+        "algorithm": {
+          "const": "sha256"
+        },
+        "digest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "identity": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "const": "verified"
         }
       }
     }
