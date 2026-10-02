@@ -4,6 +4,24 @@ title: "Changelog"
 nav_exclude: true
 ---
 
+## v0.18.0 — 2026-10-02
+
+### Added
+- Added verified SHA-256 target-state identity to TSPP posture reports.
+- Added target-state identity to profile-consumable posture evidence.
+- Added state-change and missing-state reassessment tests.
+
+### Changed
+- Stack producer contract advanced to v1.2 and now requires `run_id`, `target_id`, and `target_state.digest`.
+- A changed target-state digest produces `REASSESS_REQUIRED`.
+- Missing or unverifiable target-state evidence produces `REASSESS_REQUIRED` rather than reusable current posture.
+
+### Assurance
+- Posture evidence is now bound to the deployed state assessed, not merely the logical service identity.
+- State change remains a lifecycle/reassessment condition, not an automatic negative security determination.
+- TSPP remains authoritative for posture/state-reassessment semantics; the Assurance Hub owns cross-producer correlation only.
+- TRQP Stack 2026.3 — Banyan remains the current coordinated Stack baseline.
+
 ## v0.17.0 — 2026-09-10
 
 ### Added

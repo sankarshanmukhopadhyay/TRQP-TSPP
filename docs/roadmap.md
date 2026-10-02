@@ -6,13 +6,19 @@ nav_exclude: true
 
 # TRQP-TSPP Roadmap
 
-**Last reviewed:** 2026-08-28
+**Last reviewed:** 2026-10-02
 
 This roadmap records TSPP-owned delivery priorities and its contribution to coordinated TRQP Stack releases. TSPP retains authority over security/privacy controls and posture semantics; coordinated Stack planning does not transfer that authority to the Assurance Hub.
 
 ## Current coordinated baseline
 
-TRQP Stack 2026.1 — Coconut validates TSPP `v0.15.0` with CTS `v1.8.0` and Assurance Hub `v1.11.0`.
+TRQP Stack 2026.3 — Banyan remains the current coordinated baseline: TSPP `v0.17.0`, CTS `v1.10.0`, and Assurance Hub `v1.13.0`. TSPP component development continues independently.
+
+## October 2026 capability: state-bound posture evidence
+
+TSPP v0.18.0 binds posture evidence to an independently verified SHA-256 target-state identity. A changed or unverifiable state is now an explicit reassessment condition, strengthening the existing lifecycle model and the supply-chain/provenance boundary.
+
+The capability is coordinated with Assurance Hub issue #99 and CTS state-bound conformance work, but it is protocol-version neutral and does not depend on downstream candidate TRQP work. Publication of v0.18.0 does not itself advance the coordinated Stack release.
 
 ## September 2026 priority: assurance validity under change
 

@@ -1,6 +1,6 @@
 ---
 owner: maintainers
-last_reviewed: 2026-09-10
+last_reviewed: 2026-10-02
 tier: 0
 ---
 
@@ -8,7 +8,7 @@ tier: 0
 
 TRQP-TSPP is the **security and privacy posture computation layer** in the TRQP Operational Trust Stack. It turns assurance-level requirements into executable controls, validates implementation evidence, and produces machine-readable posture and traceability artifacts for downstream conformance and assurance workflows.
 
-> **Current component release:** v0.17.0  
+> **Current component release:** v0.18.0  
 > **Current coordinated stack:** TRQP Stack 2026.3 — Banyan  
 > **Previous coordinated stack:** TRQP Stack 2026.2 — Ashoka  
 > **Lifecycle:** Active  
@@ -40,6 +40,14 @@ For the validated multi-repository adoption path, start with **TRQP Stack 2026.3
 - [`controls/control-registry.json`](controls/control-registry.json) — machine-readable control registry;
 - [`docs/OUTPUT_CONTRACT.md`](docs/OUTPUT_CONTRACT.md) — posture output contract; and
 - [`docs/portfolio-integration.md`](docs/portfolio-integration.md) — coordinated Stack relationship.
+
+## v0.18.0 state-bound posture producer
+
+v0.18.0 binds TSPP security/privacy posture evidence to a verified SHA-256 identity for the deployed target state. The harness independently hashes the supplied state snapshot and carries that identity into raw and profile-consumable posture evidence.
+
+A changed target-state digest now produces `REASSESS_REQUIRED`; absent or unverifiable target-state evidence likewise cannot be represented as reusable current posture. This extends the existing TSPP lifecycle/invalidation model rather than introducing a parallel authority mechanism.
+
+The current coordinated Stack remains **TRQP Stack 2026.3 — Banyan**. v0.18.0 is an independently versioned component release and does not itself create or update a coordinated Stack release.
 
 ## v0.17.0 profile-aware posture producer
 
