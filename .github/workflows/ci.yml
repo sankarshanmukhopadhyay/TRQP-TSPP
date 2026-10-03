@@ -105,3 +105,14 @@ jobs:
           name: tspp-conformance-report-${{ matrix.expected_al }}
           path: reports/tspp_conformance_${{ matrix.expected_al }}.json
           if-no-files-found: error
+
+  validate:
+    name: validate
+    runs-on: ubuntu-latest
+    needs: [hygiene, integration]
+    if: ${{ always() }}
+    steps:
+      - name: Require upstream CI to pass
+        run: |
+          test "${{ needs.hygiene.result }}" = "success"
+          test "${{ needs.integration.result }}" = "success"
