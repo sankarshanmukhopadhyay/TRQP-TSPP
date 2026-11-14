@@ -61,6 +61,24 @@ class ProfileConsumablePostureTests(unittest.TestCase):
         self.assertEqual(evidence["posture"]["result"], "INDETERMINATE")
         self.assertEqual(evidence["posture"]["controls"][0]["result"], "INDETERMINATE")
 
+    def test_summary_false_pass_with_failed_detail_is_rejected(self):
+        report = dict(BASE_REPORT)
+        report["results"] = [{"control_id": "TSPP-AL2-01", "status": "FAIL"}]
+        with self.assertRaisesRegex(ValueError, "summary/detail mismatch"):
+            make(report=report)
+
+    def test_unknown_result_category_rejected(self):
+        report = dict(BASE_REPORT)
+        report["results"] = [{"control_id": "TSPP-AL2-01", "status": "TIMEOUT"}]
+        with self.assertRaisesRegex(ValueError, "unsupported TSPP status"):
+            make(report=report)
+
+    def test_summary_without_control_rows_rejected(self):
+        report = dict(BASE_REPORT)
+        report["results"] = []
+        with self.assertRaisesRegex(ValueError, "control evidence missing"):
+            make(report=report)
+
     def test_same_posture_can_be_correlated_to_multiple_profiles(self):
         a = make(profile_context={"id": "ayra-trqp"})
         b = make(profile_context={"id": "other-profile"})

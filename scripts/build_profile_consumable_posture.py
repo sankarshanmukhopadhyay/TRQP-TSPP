@@ -48,13 +48,29 @@ def build(report: dict, *, tspp_version: str, control_set_id: str,
             out["reason"] = item["evidence"]
         controls.append(out)
 
-    summary = report.get("summary", {})
-    if summary.get("FAIL", 0) > 0:
+    summary = report.get("summary")
+    if not isinstance(summary, dict):
+        raise ValueError("TSPP summary missing")
+    observed = {key: 0 for key in STATUS_MAP}
+    for item in report.get("results", []):
+        observed[item["status"]] += 1
+    if not report.get("results"):
+        raise ValueError("TSPP control evidence missing")
+    for key in observed:
+        value = summary.get(key, 0)
+        if type(value) is not int or value < 0 or value != observed[key]:
+            raise ValueError(f"TSPP summary/detail mismatch: {key}")
+    if any(key not in {*observed, "exit_status", "posture_score",
+                       "coverage_index", "control_satisfaction"} for key in summary):
+        raise ValueError("TSPP summary contains unsupported outcome category")
+    if observed["FAIL"] > 0:
         posture_result = "FAIL"
-    elif summary.get("NOT_TESTED", 0) > 0:
+    elif observed["NOT_TESTED"] > 0 or (summary.get("exit_status") not in (None, 0)):
         posture_result = "INDETERMINATE"
-    else:
+    elif observed["PASS"] > 0:
         posture_result = "PASS"
+    else:
+        posture_result = "INDETERMINATE"
 
     target_state = report.get("target_state")
     if not target_state or target_state.get("status") != "verified" or not target_state.get("digest"):
