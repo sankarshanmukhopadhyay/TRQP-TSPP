@@ -11,13 +11,13 @@ TRQP-TSPP participates in the coordinated TRQP Operational Trust Stack through `
 
 ## Current coordinated release
 
-**TRQP Stack 2026.3 — Banyan** validates the following adopter-facing tuple:
+**TRQP Stack 2026.4 — Lotus** validates the following adopter-facing tuple:
 
 | Layer | Release |
 |---|---:|
-| TRQP-TSPP | v0.17.0 |
-| TRQP Conformance Suite | v1.10.0 |
-| TRQP Assurance Hub | v1.13.0 |
+| TRQP-TSPP | v0.18.1 |
+| TRQP Conformance Suite | v1.11.1 |
+| TRQP Assurance Hub | v1.14.0 |
 | TSMM | 0.24.0 |
 | TIS | 0.15.0 |
 
@@ -25,9 +25,13 @@ The Assurance Hub is the coordinated-release authority and adopter front door. A
 
 The coordinated release does **not** replace TSPP's independent versioning or authority. TSPP remains authoritative for its security/privacy controls, assurance-level profiles, posture computation, and producer-issued profile-consumable posture evidence.
 
+## Deployment-state provenance
+
+The Lotus release binds TSPP evidence to a verified SHA-256 identity for the supplied state snapshot. Equality of producer digest identities does not independently prove the snapshot corresponds to the current running deployment. Reuse and reliance require separate deployment provenance, freshness and effective verification-material authority. An unresolved operational state must not become Hub PASS.
+
 ## Consumer value
 
-An adopter who selects a coordinated Stack release does not need to determine compatible TSPP, CTS, Hub, TSMM, and TIS versions independently. The release manifest provides the validated tuple and evidence provenance; TSPP v0.17.0 supplies posture/control evidence with explicit profile-correlation context and lifecycle/reassessment state for consumption by the rest of the declared stack.
+An adopter who selects a coordinated Stack release does not need to determine compatible TSPP, CTS, Hub, TSMM, and TIS versions independently. The release manifest provides the validated tuple and evidence provenance; TSPP v0.18.1 supplies posture/control evidence with explicit profile-correlation context and lifecycle/reassessment state for consumption by the rest of the declared stack.
 
 ## Repository responsibilities
 
@@ -43,6 +47,6 @@ A missing required artifact, incompatible authority version, producer-contract v
 
 ## Release record
 
-The canonical coordinated release record is maintained by the TRQP Assurance Hub under `stack/releases/2026.3/` and as the GitHub release tag `trqp-stack-2026.3`. Component releases continue to be published independently using repository-local semantic versioning.
+The canonical coordinated release record is maintained by the TRQP Assurance Hub under `stack/releases/2026.4/` and as the GitHub release tag `trqp-stack-2026.4`. Component releases continue to be published independently using repository-local semantic versioning.
 
-Historical Stack 2026.1 and 2026.2 records remain immutable evidence of their tested tuples and are not rewritten when a newer coordinated release becomes current.
+Historical Stack 2026.1, 2026.2 and 2026.3 records remain immutable evidence of their tested tuples and are not rewritten when a newer coordinated release becomes current.
