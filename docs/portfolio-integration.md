@@ -50,3 +50,7 @@ A missing required artifact, incompatible authority version, producer-contract v
 The canonical coordinated release record is maintained by the TRQP Assurance Hub under `stack/releases/2026.4/` and as the GitHub release tag `trqp-stack-2026.4`. Component releases continue to be published independently using repository-local semantic versioning.
 
 Historical Stack 2026.1, 2026.2 and 2026.3 records remain immutable evidence of their tested tuples and are not rewritten when a newer coordinated release becomes current.
+
+## Verified component publication
+
+The independently published component [v0.18.1](https://github.com/sankarshanmukhopadhyay/TRQP-TSPP/releases/tag/v0.18.1) dates to 2026-10-02 and resolves to immutable source commit `c1735099cf4bca98c3b4e4f67c151e5508687851`. `release-publication.json` now records that existing publication as terminal, avoiding contradictory pending metadata and duplicate releases. Hardening subsequently merged on `main` is not retroactively represented as part of the tagged component.
