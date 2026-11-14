@@ -2,78 +2,43 @@
 layout: default
 title: "Roadmap"
 nav_exclude: true
+owner: maintainers
+last_reviewed: 2026-11-14
+tier: 1
 ---
 
 # TRQP-TSPP Roadmap
 
-**Last reviewed:** 2026-10-02
+This roadmap records TSPP-owned security/privacy posture work and its relationship to coordinated TRQP Stack releases. TSPP remains authoritative for controls, assurance-level requirements, posture evaluation and producer evidence. The Assurance Hub independently owns coordinated Stack eligibility and publication; neither component changes the upstream TRQP protocol.
 
-This roadmap records TSPP-owned delivery priorities and its contribution to coordinated TRQP Stack releases. TSPP retains authority over security/privacy controls and posture semantics; coordinated Stack planning does not transfer that authority to the Assurance Hub.
+## Published baseline
 
-## Current coordinated baseline
+**TRQP Stack 2026.4, Lotus**, is the current published coordinated release. Its immutable tuple is TSPP `v0.18.1`, CTS `v1.11.1`, and Assurance Hub `v1.14.0`, with TSMM `0.24.0` and TIS `0.15.0` as reference authorities. The canonical tuple and release evidence are maintained in the [Hub Lotus release](https://github.com/sankarshanmukhopadhyay/trqp-assurance-hub/releases/tag/trqp-stack-2026.4); local integration details are in [Portfolio Integration](portfolio-integration.md).
 
-TRQP Stack 2026.3 — Banyan remains the current coordinated baseline: TSPP `v0.17.0`, CTS `v1.10.0`, and Assurance Hub `v1.13.0`. TSPP component development continues independently.
+The current independent TSPP component release is `v0.18.1`. Changes subsequently merged to `main`, including the November adversarial posture-evidence checks, are not part of that immutable component tag or the Lotus release.
 
-## October 2026 capability: state-bound posture evidence
+## Delivered capabilities and historical milestones
 
-TSPP v0.18.0 binds posture evidence to an independently verified SHA-256 target-state identity. A changed or unverifiable state is now an explicit reassessment condition, strengthening the existing lifecycle model and the supply-chain/provenance boundary.
+### September 2026: assurance validity under change
 
-The capability is coordinated with Assurance Hub issue #99 and CTS state-bound conformance work, but it is protocol-version neutral and does not depend on downstream candidate TRQP work. Publication of v0.18.0 does not itself advance the coordinated Stack release.
+The Stack 2026.2 work introduced machine-verifiable posture evidence reuse, invalidation and reassessment after material changes. The governing [TSPP issue #69](https://github.com/sankarshanmukhopadhyay/TRQP-TSPP/issues/69) is closed; the associated coordination belonged to [Hub issue #39](https://github.com/sankarshanmukhopadhyay/trqp-assurance-hub/issues/39). Material change or unknown impact cannot silently preserve an earlier positive posture conclusion. Proven non-material changes may permit continued reuse under the producer's evidence and rationale contract.
 
-## September 2026 priority: assurance validity under change
+This is **historical delivered work**, not a pending `v0.16.0` candidate or an outstanding September release schedule. The specific evidence and validity semantics are defined by the TSPP producer contract and implementation, not by this roadmap.
 
-**Coordinating issue:** https://github.com/sankarshanmukhopadhyay/trqp-assurance-hub/issues/39  
-**TSPP issue:** https://github.com/sankarshanmukhopadhyay/TRQP-TSPP/issues/69  
-**Target coordinated release:** TRQP Stack 2026.2 by 30 September 2026, subject to evidence readiness.
+### October 2026: state-bound posture evidence
 
-### TSPP proposition
+TSPP `v0.18.0` introduced SHA-256 identity binding for the supplied target-state snapshot. The corrected independent `v0.18.1` component is included in Lotus. Unverifiable or changed supplied state requires appropriate reassessment; a matching snapshot digest does **not** independently prove correspondence to a running deployment, continuing verification-material authority or current authorization. See [Evidence Bundles](evidence_bundles.md) for this boundary.
 
-> TSPP posture evidence MUST NOT remain reusable when a material change invalidates the target, control applicability, security/privacy posture, evidence freshness, producer identity, or another declared validity condition.
+### November 2026: assurance-integrity hardening on maintained `main`
 
-### Required capability
+The TSPP [adversarial posture correction](https://github.com/sankarshanmukhopadhyay/TRQP-TSPP/pull/124) rejects contradictory detailed control results and summary counts, missing control observations and unsupported outcome categories. The [component publication reconciliation](https://github.com/sankarshanmukhopadhyay/TRQP-TSPP/pull/125) records the already published `v0.18.1` tag as terminal. These are maintained-code changes and must not be retroactively attributed to the October component tag.
 
-TSPP should produce machine-verifiable evidence sufficient to distinguish at least:
+## Next release and work intake
 
-- unchanged/reusable posture evidence;
-- reassessment required;
-- invalid/non-reusable posture evidence.
+The next coordinated Stack release is **not scheduled or authorized by this roadmap**. [Hub issue #128](https://github.com/sankarshanmukhopadhyay/trqp-assurance-hub/issues/128) records the successor's explicit publication and consumer-verification obligations. TSPP must independently determine whether its post-tag evidence-acceptance changes require a new component version and compatibility guidance before inclusion in a newly pinned tuple.
 
-Unknown impact must not be interpreted as reusable evidence.
+Further security/privacy controls, supply-chain evidence, profile-specific coverage, adoption and schema-contract improvements should be undertaken only against a concrete TSPP-owned requirement or demonstrated deficiency. A dependency update, roadmap revision or passing CI run alone does not establish a material release event.
 
-### Required pressure tests
+## Release judgment
 
-Material cases include weakened/removed controls, target-identity change, evidence expiry/unavailability, assurance/deployment-profile change, producer/provenance discontinuity, and material supply-chain evidence change.
-
-A legitimate counter-case must also be executable: documentation-only or equivalent non-material metadata change should not force reassessment when non-impact is supported by evidence.
-
-### Acceptance evidence
-
-- material and non-material change fixtures;
-- fail-safe unknown-impact behavior;
-- machine-readable evidence-reuse decision;
-- preserved run/target/provenance correlation;
-- AL1–AL4 regression coverage;
-- negative tests rejecting stale/invalid posture evidence;
-- synchronized producer contract and adopter documentation.
-
-## Candidate release decision
-
-`v0.16.0` is a candidate only if the material invalidation capability lands. Routine documentation/dependency changes do not justify a Stack-driven TSPP version bump.
-
-## Timing
-
-| Target | Outcome |
-|---|---|
-| 6 Sep | validity/change contract aligned with Stack work |
-| 11 Sep | TSPP invalidation capability and pressure tests ready |
-| 20–25 Sep | participate in coordinated adversarial suite |
-| 26 Sep | candidate tag/version decision frozen |
-| 27–28 Sep | coordinated eligibility replay |
-
-## Visible judgment
-
-The implementation history must preserve which changes are treated as material, legitimate counter-cases, uncertainty boundaries, and why the selected classification is safe. Green execution alone is not sufficient evidence of the release judgment.
-
-## Continuing backlog
-
-Existing TSPP roadmap items, including UNTP DIA/IDR guidance, supply-chain integrity, schema-contract guidance, assurance-level coverage, and adoption improvements continue as normal backlog. They are not Stack 2026.2 release blockers unless they materially intersect the governing proposition above.
+Any new TSPP release requires evidence of changed behavior or a meaningful fix, relevant AL1–AL4 validation, documented evidence/schema compatibility and maintainer approval under [Release Policy](governance/release-policy.md). Where changed controls or evidence affect prior conclusions, reassessment and supersession boundaries must remain explicit. An internally generated test report is not independent certification.
