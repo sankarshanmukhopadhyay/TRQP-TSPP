@@ -4,5 +4,8 @@
   "tag": "v0.18.1",
   "title": "TRQP-TSPP v0.18.1 — State-Bound Generator Fix",
   "notes": "RELEASE_NOTES_v0.18.1.txt",
-  "status": "pending-publication"
+  "status": "published",
+  "published_release_id": 401468402,
+  "published_at": "2026-10-02T01:11:11Z",
+  "published_target_commit": "c1735099cf4bca98c3b4e4f67c151e5508687851"
 }
