@@ -57,3 +57,7 @@ These artifacts support TSPP-SCI-01..05 and are consumed by the Assurance Hub cr
 ## State-bound posture and verification-material provenance
 
 TSPP v0.18.1 binds posture evidence to the SHA-256 identity of the supplied target-state snapshot. This validates snapshot identity, not independent correspondence to the live deployment or continued authorization of signing/verification material. A passing signature-verification control must not automatically establish principal authority, delegated action, effective revocation or governance legitimacy. Operators and relying parties require independent key-lifecycle, deployment-provenance and freshness evidence where material. The [Lotus coordinated release](https://github.com/sankarshanmukhopadhyay/trqp-assurance-hub/releases/tag/trqp-stack-2026.4) validates compatibility and correlation, not independent certification.
+
+## Adversarial posture-evidence integrity
+
+The profile-consumable producer rejects mismatches between TSPP control-level outcomes and its summary counters, missing control rows, and unsupported outcome categories. Operationally incomplete control evidence is not a positive posture conclusion. The source snapshot digest verifies supplied-state identity only. Signature validity is not equivalent to ongoing principal authorization or delegation, and operational deployment authenticity still requires evidence from the appropriate authority.
