@@ -53,3 +53,7 @@ Where available, evidence bundles SHOULD include supply chain integrity artifact
 
 These artifacts support TSPP-SCI-01..05 and are consumed by the Assurance Hub crosswalk.
 
+
+## State-bound posture and verification-material provenance
+
+TSPP v0.18.1 binds posture evidence to the SHA-256 identity of the supplied target-state snapshot. This validates snapshot identity, not independent correspondence to the live deployment or continued authorization of signing/verification material. A passing signature-verification control must not automatically establish principal authority, delegated action, effective revocation or governance legitimacy. Operators and relying parties require independent key-lifecycle, deployment-provenance and freshness evidence where material. The [Lotus coordinated release](https://github.com/sankarshanmukhopadhyay/trqp-assurance-hub/releases/tag/trqp-stack-2026.4) validates compatibility and correlation, not independent certification.

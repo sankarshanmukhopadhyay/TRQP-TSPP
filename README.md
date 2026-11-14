@@ -1,6 +1,6 @@
 ---
 owner: maintainers
-last_reviewed: 2026-10-02
+last_reviewed: 2026-11-14
 tier: 0
 ---
 
@@ -9,8 +9,8 @@ tier: 0
 TRQP-TSPP is the **security and privacy posture computation layer** in the TRQP Operational Trust Stack. It turns assurance-level requirements into executable controls, validates implementation evidence, and produces machine-readable posture and traceability artifacts for downstream conformance and assurance workflows.
 
 > **Current component release:** v0.18.1  
-> **Current coordinated stack:** TRQP Stack 2026.3 — Banyan  
-> **Previous coordinated stack:** TRQP Stack 2026.2 — Ashoka  
+> **Current coordinated stack:** TRQP Stack 2026.4 — Lotus  
+> **Previous coordinated stack:** TRQP Stack 2026.3 — Banyan  
 > **Lifecycle:** Active  
 > **Maturity:** Implementation draft  
 > **Operational status:** Active validation
@@ -32,7 +32,7 @@ TRQP-TSPP is the **security and privacy posture computation layer** in the TRQP 
 
 ## Start here
 
-For the validated multi-repository adoption path, start with **TRQP Stack 2026.3 — Banyan** in the TRQP Assurance Hub. If you are implementing or evaluating TSPP directly, use:
+For the validated multi-repository adoption path, start with **[TRQP Stack 2026.4 — Lotus](https://github.com/sankarshanmukhopadhyay/trqp-assurance-hub/releases/tag/trqp-stack-2026.4)** in the TRQP Assurance Hub. If you are implementing or evaluating TSPP directly, use:
 
 - [`QUICKSTART.md`](QUICKSTART.md) — run the reference harness;
 - [`docs/profile.md`](docs/profile.md) — profile and requirements overview;
@@ -47,7 +47,7 @@ v0.18.0 binds TSPP security/privacy posture evidence to a verified SHA-256 ident
 
 A changed target-state digest now produces `REASSESS_REQUIRED`; absent or unverifiable target-state evidence likewise cannot be represented as reusable current posture. This extends the existing TSPP lifecycle/invalidation model rather than introducing a parallel authority mechanism.
 
-The current coordinated Stack remains **TRQP Stack 2026.3 — Banyan**. v0.18.0 is an independently versioned component release and does not itself create or update a coordinated Stack release.
+The independently published v0.18.0 component preceded the coordinated Lotus release. **TRQP Stack 2026.4 — Lotus** now includes the corrected TSPP v0.18.1 component in its immutable validated tuple.
 
 ## v0.17.0 profile-aware posture producer
 
@@ -57,7 +57,13 @@ Profile context is applicability/correlation metadata only. It cannot change TSP
 
 This release also corrects the Ayra integration guide to the current Ayra v0.6.0-draft authority: DID methods are not universally restricted to `did:webvh`, and response signing remains an Ayra `SHOULD`. TSPP AL2+ signing controls provide posture evidence without strengthening the Ayra normative requirement.
 
-The published coordinated compatibility tuple is **TSPP v0.17.0 / CTS v1.10.0 / Assurance Hub v1.13.0**, released as **TRQP Stack 2026.3 — Banyan**. Stack 2026.2 — Ashoka remains an immutable historical baseline, not the current coordinated release.
+The historical profile-aware tuple was **TSPP v0.17.0 / CTS v1.10.0 / Assurance Hub v1.13.0**, published as **TRQP Stack 2026.3 — Banyan**. Banyan and Ashoka remain immutable historical baselines.
+
+## Current coordinated release and evidence limit
+
+[TRQP Stack 2026.4 — Lotus](https://github.com/sankarshanmukhopadhyay/trqp-assurance-hub/releases/tag/trqp-stack-2026.4) pins CTS v1.11.1, TSPP v0.18.1 and Hub v1.14.0. The Hub owns coordinated release declaration; TSPP retains independent posture/control authority.
+
+The SHA-256 digest establishes supplied snapshot identity, not independent proof of correspondence with the live deployment, continuing key authority, or unchanged operational conditions. Deployment provenance, evidence freshness and verification-material lifecycle remain separately established external propositions. Self-generated tests do not establish independent certification.
 
 ## Profile-aware posture producer boundary
 
